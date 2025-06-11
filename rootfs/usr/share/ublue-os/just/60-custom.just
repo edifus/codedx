@@ -11,20 +11,21 @@ custom-setup-nix:
     #!/usr/bin/env bash
     set -eoux pipefail
 
+    echo "Setting up Nix package manager..."
     NIX_DAEMON_SCRIPT="/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh"
     NIX_INSTALLER="https://install.determinate.systems/nix"
-
-    echo "Setting up Nix package manager..."
     curl --proto '=https' --tlsv1.2 -sSf -L "$NIX_INSTALLER" | sh -s -- install --no-confirm
     [ -f "$NIX_DAEMON_SCRIPT" ] && . "$NIX_DAEMON_SCRIPT"
-    cat >> /etc/nix/nix.custom.conf << EOF
+
+    echo '
     # Sane defaults
     download-buffer-size = 536870912
     experimental-features = nix-command flakes auto-allocate-uids cgroups fetch-closure recursive-nix configurable-impure-env ca-derivations impure-derivations
     trusted-public-keys = cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= numtide.cachix.org-1:2ps1kLBUWjxIneOy1Ik6cQjb41X0iXVXeHigGmycPPE=
     trusted-substituters = https://cache.garnix.io https://cache.nixos.org https://nix-community.cachix.org https://numtide.cachix.org
     trusted-users = root @wheel
-    EOF
+    ' | sudo tee /etc/nix/nix.custom.conf
+
     echo "Nix setup complete"
 
 # Install custom Flatpaks
