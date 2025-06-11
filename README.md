@@ -1,7 +1,7 @@
+# CodeDX
+
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/codedx)](https://artifacthub.io/packages/search?repo=codedx)
 [![Build CodeDX](https://github.com/edifus/codedx/actions/workflows/build.yml/badge.svg)](https://github.com/edifus/codedx/actions/workflows/build.yml)
-
-# CodeDX
 
 A custom Fedora Atomic image designed for gaming, development and daily use.
 
@@ -50,14 +50,14 @@ ujust custom-fix-bt
 > [!NOTE]
 > The rest of this document uses an `<image>` placeholder. The actual image name can be referenced in the chart below.
 
-| Image                       | Desktop Environment | Steam Gaming Mode | Hardware                                 | Edition       |
-| --------------------------- | ------------------- | ----------------- | ---------------------------------------- | ------------- |
-| `codedx`                   | KDE Plasma          | No                | AMD/Intel GPUs                           | Desktop       |
-| `codedx-nvidia`            | KDE Plasma          | No                | Nvidia GPUs                              | Desktop       |
-| `codedx-nvidia-open`            | KDE Plasma          | No                | Nvidia GPUs (Newer Nvidia GPUs)                             | Desktop       |
-| `codedx-gnome`             | GNOME               | No                | AMD/Intel GPUs                           | Desktop       |
-| `codedx-gnome-nvidia`      | GNOME               | No                | Nvidia GPUs                              | Desktop       |
-| `codedx-gnome-nvidia-open`      | GNOME               | No                | Nvidia GPUs (Newer Nvidia GPUs)                            | Desktop       |
+| Image                       | Desktop Environment | Hardware                                 |
+| --------------------------- | ------------------- | ---------------------------------------- |
+| `codedx`                   | KDE Plasma          | AMD/Intel GPUs                           |
+| `codedx-nvidia`            | KDE Plasma          | Nvidia GPUs                              |
+| `codedx-nvidia-open`            | KDE Plasma          | Nvidia GPUs (Newer Nvidia GPUs)          |
+| `codedx-gnome`             | GNOME               | AMD/Intel GPUs                           |
+| `codedx-gnome-nvidia`      | GNOME               | Nvidia GPUs                              |
+| `codedx-gnome-nvidia-open`      | GNOME               | Nvidia GPUs (Newer Nvidia GPUs)          |
 
 ## Install
 
@@ -77,7 +77,7 @@ sudo bootc switch --enforce-container-sigpolicy ghcr.io/edifus/<image>:latest
 
 Verify your image by entering this **commmand**:
 
-```
+```bash
 rpm-ostree status
 ```
 
