@@ -13,8 +13,8 @@ dnf5 install -y \
     android-tools \
     aria2 \
     bcc \
+    bchunk \
     bleachbit \
-    blueprint-compiler \
     bpftop \
     bpftrace \
     ccache \
@@ -22,10 +22,9 @@ dnf5 install -y \
     fuse-btfs \
     fuse-devel \
     fuse3-devel \
-    gettext \
+    fzf \
     gnome-disk-utility \
     gparted \
-    gtk4-devel \
     gwenview \
     isoimagewriter \
     kcalc \
@@ -40,14 +39,15 @@ dnf5 install -y \
     podman-tui \
     python3-ramalama \
     qemu-kvm \
+    thefuck \
     rclone \
     restic \
     sysprof \
     tiptop \
+    util-linux \
     virt-manager \
     virt-viewer \
     yt-dlp \
-    zig-0.13.0-8.fc42 \
     zsh
 
 # Install full virtualization group
@@ -66,7 +66,18 @@ dnf5 -y install --enable-repo="*fedora-multimedia*" \
 
 # terra
 dnf5 -y install --enable-repo="terra" \
-    coolercontrol
+    coolercontrol \
+    ghostty \
+    hack-nerd-fonts \
+    iosevka-nerd-fonts \
+    iosevkaterm-nerd-fonts \
+    jetbrainsmono-nerd-fonts \
+    monoid-nerd-fonts \
+    starship \
+    ubuntu-nerd-fonts \
+    ubuntumono-nerd-fonts \
+    ubuntusans-nerd-fonts \
+    zedmono-nerd-fonts \
 
 # ublue-os
 dnf5 install --enable-repo="copr:copr.fedorainfracloud.org:ublue-os:packages" -y \
@@ -106,15 +117,6 @@ dnf5 install -y --enable-repo="docker-ce-stable" "${docker_pkgs[@]}" || {
 mkdir -pv /etc/modules-load.d && cat >>/etc/modules-load.d/ip_tables.conf <<EOF
 iptable_nat
 EOF
-
-## Build ghostty terminal from source
-git clone https://github.com/ghostty-org/ghostty /ghostty
-cd /ghostty && git checkout v1.1.3
-# build
-zig build --verbose --prefix /usr -Doptimize=ReleaseFast -Dcpu=baseline
-# cleanup build
-cd / && rm -fr /ghostty /root/.cache/zig
-dnf5 -y remove blueprint-compiler gettext gtk4-devel zig-0.13.0-8.fc42
 
 ## Workaround to allow ostree installation of Nix daemon
 mkdir -pv /nix
