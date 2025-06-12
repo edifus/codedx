@@ -55,7 +55,7 @@ fix-bt:
     echo "Bluetooth fix complete"
 
 # Install all CodeDX curated apps
-install-custom-all: custom-install-brews custom-install-flatpaks custom-install-nix
+install-custom-all: install-custom-brews install-custom-flatpaks
 
 # Install custom Homebrews
 install-custom-brews:

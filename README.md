@@ -42,7 +42,7 @@ ujust configure-custom-app-defaults
 # Restart Bluetooth to fix issues
 ujust fix-bt
 
-# Install all CodeDX curated apps
+# Install all CodeDX curated apps (flatpaks, homebrews)
 ujust install-custom-all
 
 # Install Homebrews
