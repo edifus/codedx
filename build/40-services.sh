@@ -1,15 +1,18 @@
 #!/usr/bin/env bash
 set -eoux pipefail
 
-echo "::group::Executing services.sh"
+echo "::group:: ===$(basename "$0")==="
 trap 'echo "::endgroup::"' EXIT
 
 # enable systemd services
+systemctl --global enable codedx-user-vscode.service
+systemctl --global enable ublue-user-setup.service
+systemctl enable codedx-groups.service
 systemctl enable docker.service docker.socket
 systemctl enable libvirtd.service
 systemctl enable podman.service podman.socket
+systemctl enable swtpm-workaround.service
 systemctl enable ublue-system-setup.service
-systemctl --global enable ublue-user-setup.service
 
 # random plymouth theme
 readarray -t themes < <(find /ctx/rootfs/usr/share/plymouth/themes -maxdepth 1 -type d -printf '%P\n')

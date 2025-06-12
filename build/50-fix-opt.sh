@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -eoux pipefail
 
-echo "::group::Executing fix-opt.sh"
+echo "::group:: ===$(basename "$0")==="
 trap 'echo "::endgroup::"' EXIT
 
 # Move directories from /var/opt to /usr/lib/opt

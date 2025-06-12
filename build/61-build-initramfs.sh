@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -eoux pipefail
 
-echo "::group::Executing build-initramfs.sh"
+echo "::group:: ===$(basename "$0")==="
 trap 'echo "::endgroup::"' EXIT
 
 QUALIFIED_KERNEL="$(dnf5 repoquery --installed --queryformat='%{evr}.%{arch}' kernel)"

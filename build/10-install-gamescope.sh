@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -eoux pipefail
 
-echo "::group::Executing install-gamescope.sh"
+echo "::group:: ===$(basename "$0")==="
 trap 'echo "::endgroup::"' EXIT
 
 ## Extra apps (built-in repos)

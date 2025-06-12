@@ -33,23 +33,29 @@ A custom Fedora Atomic image designed for gaming, development and daily use.
 The following `ujust` commands are available:
 
 ```bash
+# Create boot-to-windows desktop shortcut
+ujust configure-boot-to-windows
+
 # Setup app defaults
-ujust custom-app-defaults
+ujust configure-custom-app-defaults
 
 # Restart Bluetooth to fix issues
-ujust custom-bt-fix
+ujust fix-bt
 
-# Setup user docker.socket access
-ujust custom-docker-access
+# Install all CodeDX curated apps
+ujust install-custom-all
 
 # Install Homebrews
-ujust custom-install-brews
+ujust install-custom-brews
 
 # Install Flatpaks
-ujust custom-install-flatpaks
+ujust install-custom-flatpaks
 
-# Install Nix package manager
-ujust custom-install-nix
+# Install and configure Incus
+ujust setup-incus
+
+# Install and configure Nix package manager
+ujust setup-nix
 ```
 
 ## CodeDX Image Chart

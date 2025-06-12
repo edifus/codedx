@@ -1,4 +1,6 @@
 background-opacity = "0.9"
+command = /usr/bin/zsh
+cursor-style = bar
 font-family = "JetBrains Mono Nerd Font"
 font-size = "13"
 theme = "OneHalfDark"

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -eoux pipefail
 
-echo "::group::Executing image-info.sh"
+echo "::group:: ===$(basename "$0")==="
 trap 'echo "::endgroup::"' EXIT
 
 IMAGE_PRETTY_NAME="CodeDX"

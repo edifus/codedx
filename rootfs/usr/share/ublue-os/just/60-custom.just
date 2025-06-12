@@ -1,37 +1,49 @@
+# vim: set ft=make :
+########################
+### 60-custom.just
+########################
+## Standardized verbs
+# configure- = configure something that is pre-installed on the image
+# install-   = install something, no uninstall or configuration provided
+# setup-     = install something and also provide configuration and/or uninstallation options
+# toggle-    = turn something on/off, logic can be automatic or manual selection
+# fix-       = apply fix/patch/workaround for something
+# foo        = no verb is used for shortcuts or something deemed important enough to use a super memorable name
+
+# Create boot to Windows desktop shortcut
+configure-boot-to-windows:
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    mkdir -p $HOME/.local/share/applications
+    cp -r /usr/share/applications/boot-to-windows.desktop $HOME/.local/share/applications
+    sed -i 's/Hidden=true/Hidden=false/' $HOME/.local/share/applications/boot-to-windows.desktop
+
 # Setup app defaults, Ghostty, shells, etc
-custom-app-defaults:
+configure-custom-app-defaults:
     #!/usr/bin/env bash
     set -euo pipefail
 
     # Setup Ghostty configuration
     echo "Setting up Ghostty configuration..."
-    config_dir="${HOME}/.config/ghostty"
-    mkdir -p "$config_dir"
-    cp -f "/etc/skel/.config/ghostty/config" "$config_dir/config"
+    # Setup Ghostty
+    if test ! -e "$HOME"/.config/ghostty; then
+        mkdir -p "$HOME"/.config/ghostty
+        cp -f /etc/skel/.config/ghostty/config "$HOME"/.config/ghostty/config
+    fi
     echo "Ghostty setup complete"
-
-    # Setup Zsh configuration
-    echo "Setting up Zsh configuration..."
-    cp -f "/etc/skel/.zshrc" "${HOME}/.zshrc"
-    cp -f "/etc/skel/.zprofile" "${HOME}/.zprofile"
-    echo "Zsh configuration complete"
-
-    # Setup Bash configuration
-    echo "Setting up Bash configuration..."
-    cp -f "/etc/skel/.bashrc" "${HOME}/.bashrc"
-    cp -f "/etc/skel/.bash_profile" "${HOME}/.bash_profile"
-    cp -f "/etc/skel/.bash_logout" "${HOME}/.bash_logout"
-    echo "Bash configuration complete"
 
     # Setup vscode configuration
     echo "Setting up vscode configuration..."
-    config_dir="${HOME}/.config/Code/User"
-    mkdir -p "$config_dir"
-    cp -f "/etc/skel/.config/Code/User/settings.json" "$config_dir/settings.json"
+    # Setup VSCode
+    if test ! -e "$HOME"/.config/Code/User/settings.json; then
+        mkdir -p "$HOME"/.config/Code/User
+        cp -f /etc/skel/.config/Code/User/settings.json "$HOME"/.config/Code/User/settings.json
+    fi
     echo "vscode setup complete"
 
 # Restart Bluetooth to fix issues
-custom-bt-fix:
+fix-bt:
     #!/usr/bin/env bash
     set -eou pipefail
     trap '[[ $BASH_COMMAND != echo* ]] && echo "+ $BASH_COMMAND"' DEBUG
@@ -42,20 +54,11 @@ custom-bt-fix:
     sudo modprobe btusb
     echo "Bluetooth fix complete"
 
-# Give user docker.socket access
-custom-docker-access:
-    #!/usr/bin/env bash
-    set -eou pipefail
-
-    sudo systemctl enable --now docker.service
-    sudo usermod -aG docker $USER
-    echo "Logout to complete group membership change"
-
 # Install all CodeDX curated apps
-custom-install-all: custom-install-brews custom-install-flatpaks custom-install-nix
+install-custom-all: custom-install-brews custom-install-flatpaks custom-install-nix
 
 # Install custom Homebrews
-custom-install-brews:
+install-custom-brews:
     #!/usr/bin/env bash
     set -euo pipefail
 
@@ -64,16 +67,26 @@ custom-install-brews:
     echo "Homebrews installation complete."
 
 # Install custom Flatpaks
-custom-install-flatpaks:
+install-custom-flatpaks:
     #!/usr/bin/env bash
     set -eou pipefail
+    IMAGE_INFO="/usr/share/ublue-os/image-info.json"
+    BASE_IMAGE_NAME=$(jq -r '."base-image-name"' < $IMAGE_INFO)
 
     echo "Installing Flatpaks..."
     xargs -a <(curl --retry 3 -sL https://raw.githubusercontent.com/edifus/codedx/main/flatpaks) flatpak --system -y install
+    [[ ${BASE_IMAGE_NAME} == 'silverblue' ]] && flatpak --system -y install runtime/com.jeffser.Alpaca.Plugins.AMD/x86_64/stable
     echo "Flatpaks installation complete"
 
-# Install Nix package manager
-custom-install-nix:
+# Install and configure Incus
+setup-incus:
+    #!/usr/bin/env bash
+
+    echo 'Installing and configuring Incus.'
+    /usr/libexec/codedx-incus
+
+# Install and configure Nix package manager
+setup-nix:
     #!/usr/bin/env bash
     set -eou pipefail
 

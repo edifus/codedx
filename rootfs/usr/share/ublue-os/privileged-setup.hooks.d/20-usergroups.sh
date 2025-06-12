@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 
+echo "::group:: ===$(basename "$0")==="
+trap 'echo "::endgroup::"' EXIT
+
 source /usr/lib/ublue/setup-services/libsetup.sh
 
-version-script dx-usergroups privileged 1 || exit 0
+version-script usergroups privileged 1 || exit 0
 
 # Function to append a group entry to /etc/group
 append_group() {
@@ -15,10 +18,6 @@ append_group() {
 
 # Setup Groups
 append_group docker
-
-# We dont have incus on the image yet
-# append_group incus-admin
-# usermod -aG incus-admin $user
 
 mapfile -t wheelarray < <(getent group wheel | cut -d ":" -f 4 | tr ',' '\n')
 for user in "${wheelarray[@]}"; do

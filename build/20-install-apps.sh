@@ -1,122 +1,160 @@
 #!/usr/bin/env bash
 set -eoux pipefail
 
-echo "::group::Executing install-apps.sh"
+echo "::group:: ===$(basename "$0")==="
 trap 'echo "::endgroup::"' EXIT
 
 # create directories
 mkdir -pv /var/{opt,roothome}
 
-## Extra apps (built-in repos)
-# fedora
+# setup repositories
+for copr in ganto/umoci gmaglione/podman-bootc karmab/kcli ublue-os/packages ublue-os/staging;
+do
+    echo "Enabling copr: $copr"
+    dnf5 -y copr enable $copr
+    dnf5 -y config-manager setopt copr:copr.fedorainfracloud.org:${copr////:}.priority=98
+done && unset -v copr
+
+dnf5 -y config-manager setopt "*fedora-multimedia*".enabled=true
+dnf5 -y config-manager setopt terra.enabled=true
+
+# install packages
+dnf5 -y group install --with-optional virtualization
+
 dnf5 install -y \
     android-tools \
     aria2 \
     bcc \
     bchunk \
     bleachbit \
+    bootc \
+    borgbackup \
     bpftop \
     bpftrace \
     ccache \
+    cloudflare-warp \
+    code \
+    containerd.io \
+    coolercontrol \
+    dbus-x11 \
+    docker-buildx-plugin \
+    docker-ce \
+    docker-ce-cli \
+    docker-compose-plugin \
+    edk2-ovmf \
+    fastfetch \
     flatpak-builder \
     fuse-btfs \
     fuse-devel \
     fuse3-devel \
     fzf \
+    genisoimage \
+    ghostty \
     gnome-disk-utility \
     gparted \
     gwenview \
+    hack-nerd-fonts \
+    HandBrake-cli \
+    HandBrake-gui \
+    incus \
+    incus-agent \
+    iosevka-nerd-fonts \
+    iosevkaterm-nerd-fonts \
     isoimagewriter \
-    kcalc \
+    jetbrainsmono-nerd-fonts \
+    kcli \
+    kdialog \
     kgpg \
     ksystemlog \
-    libadwaita-devel \
+    libvirt \
+    libvirt-nss \
+    lm_sensors \
+    lxc \
+    monoid-nerd-fonts \
+    mpv \
     nicstat \
     numactl \
     openrgb \
+    osbuild-selinux \
+    p7zip \
+    p7zip-plugins \
     plymouth-plugin-script \
+    podman-bootc \
+    podman-compose \
     podman-machine \
     podman-tui \
+    podmansh \
     python3-ramalama \
+    qemu \
+    qemu-char-spice \
+    qemu-device-display-virtio-gpu \
+    qemu-device-display-virtio-vga \
+    qemu-device-usb-redirect \
+    qemu-img \
     qemu-kvm \
-    thefuck \
+    qemu-system-x86-core \
+    qemu-user-binfmt \
+    qemu-user-static \
     rclone \
     restic \
-    sysprof \
-    tiptop \
-    util-linux \
-    virt-manager \
-    virt-viewer \
-    yt-dlp \
-    zsh
-
-# Install full virtualization group
-dnf5 -y group install --with-optional virtualization
-
-# fedora-multimedia
-dnf5 -y install --enable-repo="*fedora-multimedia*" \
-    HandBrake-cli \
-    HandBrake-gui \
-    mpv \
-    vlc \
-    vlc-plugin-ffmpeg \
-    vlc-plugin-kde \
-    vlc-plugin-pause-click \
-    vlc-plugin-samba
-
-# terra
-dnf5 -y install --enable-repo="terra" \
-    coolercontrol \
-    ghostty \
-    hack-nerd-fonts \
-    iosevka-nerd-fonts \
-    iosevkaterm-nerd-fonts \
-    jetbrainsmono-nerd-fonts \
-    monoid-nerd-fonts \
     starship \
+    sysprof \
+    thefuck \
+    tiptop \
+    ublue-fastfetch \
+    ublue-os-libvirt-workarounds \
+    ublue-setup-services \
     ubuntu-nerd-fonts \
     ubuntumono-nerd-fonts \
     ubuntusans-nerd-fonts \
+    udica \
+    umoci \
+    util-linux \
+    virt-manager \
+    virt-v2v \
+    virt-viewer \
+    vlc \
+    vlc-plugin-ffmpeg \
+    vlc-plugin-gnome \
+    vlc-plugin-kde \
+    vlc-plugin-pause-click \
+    vlc-plugin-samba \
+    wl-clipboard \
+    xprop \
+    yt-dlp \
     zedmono-nerd-fonts \
+    zsh \
+    zsh-autosuggestions
 
-# ublue-os
-dnf5 install --enable-repo="copr:copr.fedorainfracloud.org:ublue-os:packages" -y \
-    ublue-setup-services
+# disable repositories
+for copr in ganto/umoci gmaglione/podman-bootc karmab/kcli ublue-os/packages ublue-os/staging;
+do
+    echo "Disabling copr: $copr"
+    dnf5 -y copr disable $copr
+done && unset -v copr
 
-# Adding repositories should be a LAST RESORT. Contributing to Terra or `ublue-os/packages` is much preferred
-# over using random coprs. Please keep this in mind when adding external dependencies.
-# If adding any dependency, make sure to always have it disabled by default and _only_ enable it on `dnf install`
-
-# cloudflare warp
-dnf5 config-manager addrepo --from-repofile="https://pkg.cloudflareclient.com/cloudflare-warp-ascii.repo"
-dnf5 config-manager setopt cloudflare-warp-stable.enabled=0
-dnf5 -y install --enable-repo="cloudflare-warp-stable" \
-    cloudflare-warp
-
-# vscode
-dnf5 config-manager addrepo --set=baseurl="https://packages.microsoft.com/yumrepos/vscode" --id="vscode"
+dnf5 config-manager setopt "*fedora-multimedia*".enabled=0
+dnf5 config-manager setopt cloudflare-warp.enabled=0
+dnf5 config-manager setopt docker-ce.enabled=0
+dnf5 config-manager setopt terra.enabled=0
 dnf5 config-manager setopt vscode.enabled=0
-# FIXME: gpgcheck is broken for vscode due to it using `asc` for checking
-# seems to be broken on newer rpm security policies.
-dnf5 config-manager setopt vscode.gpgcheck=0
-dnf5 install --nogpgcheck --enable-repo="vscode" -y \
-    code
 
-# docker-ce
-docker_pkgs=( containerd.io docker-buildx-plugin docker-ce docker-ce-cli docker-compose-plugin )
-dnf5 config-manager addrepo --from-repofile="https://download.docker.com/linux/fedora/docker-ce.repo"
-dnf5 config-manager setopt docker-ce-stable.enabled=0
-dnf5 install -y --enable-repo="docker-ce-stable" "${docker_pkgs[@]}" || {
-    # Use test packages if docker pkgs is not available for f42
-    if (($(lsb_release -sr) == 42)); then
-        echo "::info::Missing docker packages in f42, falling back to test repos..."
-        dnf5 install -y --enable-repo="docker-ce-test" "${docker_pkgs[@]}"
-    fi
-}
 # Load iptable_nat module for docker-in-docker.
 mkdir -pv /etc/modules-load.d && cat >>/etc/modules-load.d/ip_tables.conf <<EOF
 iptable_nat
 EOF
+
+# ls-iommu helper tool for listing devices in iommu groups (PCI Passthrough)
+curl --retry 3 -Lo /tmp/kind "https://github.com/kubernetes-sigs/kind/releases/latest/download/kind-$(uname)-amd64"
+chmod +x /tmp/kind
+mv /tmp/kind /usr/bin/kind
+
+DOWNLOAD_URL=$(curl https://api.github.com/repos/HikariKnight/ls-iommu/releases/latest | jq -r '.assets[] | select(.name| test(".*x86_64.tar.gz$")).browser_download_url')
+curl --retry 3 -Lo /tmp/ls-iommu.tar.gz "$DOWNLOAD_URL"
+mkdir /tmp/ls-iommu
+tar --no-same-owner --no-same-permissions --no-overwrite-dir -xvzf /tmp/ls-iommu.tar.gz -C /tmp/ls-iommu
+mv /tmp/ls-iommu/ls-iommu /usr/bin/
+rm -rf /tmp/ls-iommu*
 
 ## Workaround to allow ostree installation of Nix daemon
 mkdir -pv /nix
