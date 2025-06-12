@@ -10,11 +10,13 @@ on:
       - develop
       - testing
     paths-ignore:
+      - "**/build_iso.yml"
       - "**/build.yml"
       - "**/flatpaks"
+      - "**/homebrews"
       - "**/README.md"
   schedule:
-    - cron: "05 08 * * 0" # 08:05am UTC Sunday
+    - cron: "09 08 * * *" # 08:09am UTC daily
   workflow_dispatch:
     inputs:
       # Run with this periodically to analyze the image again
@@ -42,7 +44,6 @@ env:
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref || github.run_id }}-${{ inputs.brand_name}}-${{ inputs.stream_name }}
   cancel-in-progress: true
-
 
 jobs:
   build_push:
