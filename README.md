@@ -14,12 +14,13 @@ A custom Fedora Atomic image designed for gaming, development and daily use.
 ## Features
 
 - [Bazzite features](https://github.com/ublue-os/bazzite#about--features)
+- Steam Deck mode with `gamescope-session-plus` and `gamescope-session-steam` from the [Nobara Project](https://wiki.nobaraproject.org/modifications/packages)
 - ADB, Fastboot and [Waydroid](https://docs.bazzite.gg/Installing_and_Managing_Software/Waydroid_Setup_Guide/)
 - Cloudflare WARP
-- Curated list of [Flatpaks](https://github.com/edifus/codedx/blob/main/flatpaks)
+- Curated list of [Flatpaks](https://github.com/edifus/codedx/blob/main/flatpaks) and [Homebrews](https://github.com/edifus/codedx/blob/main/homebrews)
 - Docker, Podman, Distrobox and Toolbx
 - Fixed Plasma integration with Google Drive
-- Ghostty terminal (built from source)
+- Ghostty terminal, Starship prompt, Zsh, fuck alias and Atuin history search (Ctrl+R)
 - Nix package manager
 - OpenRGB and CoolerControl
 - Switch to standalone SteamOS session from login screen
@@ -32,17 +33,23 @@ A custom Fedora Atomic image designed for gaming, development and daily use.
 The following `ujust` commands are available:
 
 ```bash
-# Give user access to docker.socket
-ujust custom-access-docker
+# Setup app defaults
+ujust custom-app-defaults
+
+# Restart Bluetooth to fix issues
+ujust custom-bt-fix
+
+# Setup user docker.socket access
+ujust custom-docker-access
+
+# Install Homebrews
+ujust custom-install-brews
 
 # Install Flatpaks
 ujust custom-install-flatpaks
 
-# Setup Nix package manager
-ujust custom-setup-nix
-
-# Restart Bluetooth to fix issues
-ujust custom-fix-bt
+# Install Nix package manager
+ujust custom-install-nix
 ```
 
 ## CodeDX Image Chart
