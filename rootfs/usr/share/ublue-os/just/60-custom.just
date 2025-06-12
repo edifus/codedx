@@ -51,6 +51,9 @@ custom-docker-access:
     sudo usermod -aG docker $USER
     echo "Logout to complete group membership change"
 
+# Install all CodeDX curated apps
+custom-install-all: custom-install-brews custom-install-flatpaks custom-install-nix
+
 # Install custom Homebrews
 custom-install-brews:
     #!/usr/bin/env bash
