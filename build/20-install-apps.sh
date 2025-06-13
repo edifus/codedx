@@ -8,10 +8,8 @@ trap 'echo "::endgroup::"' EXIT
 mkdir -pv /var/{opt,roothome}
 
 # setup repositories
-for copr in karmab/kcli ublue-os/packages ublue-os/staging;
-do
-    echo "Enabling copr: $copr"
-    dnf5 -y copr enable $copr
+for copr in karmab/kcli ublue-os/packages ublue-os/staging
+do dnf5 -y copr enable $copr
 done && unset -v copr
 
 dnf5 -y config-manager setopt "*fedora-multimedia*".enabled=true
@@ -97,10 +95,8 @@ dnf5 install -y \
     zsh-autosuggestions
 
 # disable repositories
-for copr in ganto/umoci gmaglione/podman-bootc karmab/kcli ublue-os/packages ublue-os/staging;
-do
-    echo "Disabling copr: $copr"
-    dnf5 -y copr disable $copr
+for copr in karmab/kcli ublue-os/packages ublue-os/staging
+do dnf5 -y copr disable $copr
 done && unset -v copr
 
 dnf5 config-manager setopt "*fedora-multimedia*".enabled=0
