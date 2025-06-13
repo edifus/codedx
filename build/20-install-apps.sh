@@ -28,7 +28,6 @@ dnf5 install -y \
     bcc \
     bchunk \
     bleachbit \
-    bootc \
     borgbackup \
     bpftop \
     bpftrace \
@@ -37,21 +36,16 @@ dnf5 install -y \
     code \
     containerd.io \
     coolercontrol \
-    dbus-x11 \
     docker-buildx-plugin \
     docker-ce \
     docker-ce-cli \
     docker-compose-plugin \
-    edk2-ovmf \
-    fastfetch \
     flatpak-builder \
     fuse-btfs \
     fuse-devel \
     fuse3-devel \
-    fzf \
     genisoimage \
     ghostty \
-    gnome-disk-utility \
     gparted \
     gwenview \
     hack-nerd-fonts \
@@ -64,36 +58,21 @@ dnf5 install -y \
     isoimagewriter \
     jetbrainsmono-nerd-fonts \
     kcli \
-    kdialog \
     kgpg \
     ksystemlog \
-    libvirt \
     libvirt-nss \
-    lm_sensors \
-    lxc \
     monoid-nerd-fonts \
     mpv \
     nicstat \
     numactl \
     openrgb \
     osbuild-selinux \
-    p7zip \
-    p7zip-plugins \
     plymouth-plugin-script \
     podman-bootc \
-    podman-compose \
     podman-machine \
     podman-tui \
     podmansh \
     python3-ramalama \
-    qemu \
-    qemu-char-spice \
-    qemu-device-display-virtio-gpu \
-    qemu-device-display-virtio-vga \
-    qemu-device-usb-redirect \
-    qemu-img \
-    qemu-kvm \
-    qemu-system-x86-core \
     qemu-user-binfmt \
     qemu-user-static \
     rclone \
@@ -111,17 +90,13 @@ dnf5 install -y \
     udica \
     umoci \
     util-linux \
-    virt-manager \
     virt-v2v \
-    virt-viewer \
     vlc \
     vlc-plugin-ffmpeg \
     vlc-plugin-gnome \
     vlc-plugin-kde \
     vlc-plugin-pause-click \
     vlc-plugin-samba \
-    wl-clipboard \
-    xprop \
     yt-dlp \
     zedmono-nerd-fonts \
     zsh \
