@@ -11,7 +11,6 @@ systemctl enable codedx-groups.service
 systemctl enable docker.service docker.socket
 systemctl enable libvirtd.service
 systemctl enable podman.service podman.socket
-systemctl enable swtpm-workaround.service
 systemctl enable ublue-system-setup.service
 
 # random plymouth theme

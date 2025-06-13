@@ -8,7 +8,7 @@ trap 'echo "::endgroup::"' EXIT
 mkdir -pv /var/{opt,roothome}
 
 # setup repositories
-for copr in ganto/umoci gmaglione/podman-bootc karmab/kcli ublue-os/packages ublue-os/staging;
+for copr in karmab/kcli ublue-os/packages ublue-os/staging;
 do
     echo "Enabling copr: $copr"
     dnf5 -y copr enable $copr
@@ -51,8 +51,6 @@ dnf5 install -y \
     hack-nerd-fonts \
     HandBrake-cli \
     HandBrake-gui \
-    incus \
-    incus-agent \
     iosevka-nerd-fonts \
     iosevkaterm-nerd-fonts \
     isoimagewriter \
@@ -66,7 +64,6 @@ dnf5 install -y \
     nicstat \
     numactl \
     openrgb \
-    osbuild-selinux \
     plymouth-plugin-script \
     podman-bootc \
     podman-machine \
@@ -87,9 +84,6 @@ dnf5 install -y \
     ubuntu-nerd-fonts \
     ubuntumono-nerd-fonts \
     ubuntusans-nerd-fonts \
-    udica \
-    umoci \
-    util-linux \
     virt-v2v \
     vlc \
     vlc-plugin-ffmpeg \

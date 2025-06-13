@@ -78,13 +78,6 @@ install-custom-flatpaks:
     [[ ${BASE_IMAGE_NAME} == 'silverblue' ]] && flatpak --system -y install runtime/com.jeffser.Alpaca.Plugins.AMD/x86_64/stable
     echo "Flatpaks installation complete"
 
-# Install and configure Incus
-setup-incus:
-    #!/usr/bin/env bash
-
-    echo 'Installing and configuring Incus.'
-    /usr/libexec/codedx-incus
-
 # Install and configure Nix package manager
 setup-nix:
     #!/usr/bin/env bash
