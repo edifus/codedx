@@ -20,13 +20,13 @@ autoload -Uz compinit
 _comp_path="${XDG_CACHE_HOME:-$HOME/.cache}/prezto/zcompdump"
 # #q expands globs in conditional expressions
 if [[ $_comp_path(#qNmh-20) ]]; then
-  # -C (skip function check) implies -i (skip security check).
-  compinit -C -d "$_comp_path"
+    # -C (skip function check) implies -i (skip security check).
+    compinit -C -d "$_comp_path"
 else
-  mkdir -p "$_comp_path:h"
-  compinit -i -d "$_comp_path"
-  # Keep $_comp_path younger than cache time even if it isn't regenerated.
-  touch "$_comp_path"
+    mkdir -p "$_comp_path:h"
+    compinit -i -d "$_comp_path"
+    # Keep $_comp_path younger than cache time even if it isn't regenerated.
+    touch "$_comp_path"
 fi
 unset _comp_path
 
@@ -43,20 +43,41 @@ fi
 # Options
 #
 
-setopt INC_APPEND_HISTORY # To save every command before it is executed
-setopt SHARE_HISTORY      # Share history between all sessions.
-setopt APPEND_HISTORY     # Append history to the history file.
-setopt COMPLETE_IN_WORD   # Complete from both ends of a word.
-setopt ALWAYS_TO_END      # Move cursor to the end of a completed word.
-setopt PATH_DIRS          # Perform path search even on command names with slashes.
-setopt AUTO_MENU          # Show completion menu on a successive tab press.
-setopt AUTO_LIST          # Automatically list choices on ambiguous completion.
-setopt AUTO_PARAM_SLASH   # If completed parameter is a directory, add a trailing slash.
-setopt EXTENDED_GLOB      # Needed for file modification glob modifiers with compinit.
-unsetopt MENU_COMPLETE    # Do not autoselect the first completion entry.
-unsetopt FLOW_CONTROL     # Disable start/stop characters in shell editor.
-setopt interactivecomments  # Allow inline comments
-setopt AUTO_CD              # Auto changes to a directory without typing cd.
+# navigation
+setopt AUTO_CD                # Auto changes to a directory without typing cd.
+setopt AUTO_PUSHD             # Push the old directory onto the stack on cd.
+setopt PUSHD_IGNORE_DUPS      # Do not store duplicates in the stack.
+setopt PUSHD_SILENT           # Do not print the directory stack after pushd or popd.
+
+setopt CORRECT                # Spelling correction
+setopt CDABLE_VARS            # Change directory to a path stored in a variable.
+setopt EXTENDED_GLOB          # Needed for file modification glob modifiers with compinit.
+
+setopt COMPLETE_IN_WORD       # Complete from both ends of a word.
+setopt ALWAYS_TO_END          # Move cursor to the end of a completed word.
+setopt PATH_DIRS              # Perform path search even on command names with slashes.
+setopt AUTO_MENU              # Show completion menu on a successive tab press.
+setopt AUTO_LIST              # Automatically list choices on ambiguous completion.
+setopt AUTO_PARAM_SLASH       # If completed parameter is a directory, add a trailing slash.
+
+# history
+setopt EXTENDED_HISTORY       # Write the history file in the ':start:elapsed;command' format.
+setopt SHARE_HISTORY          # Share history between all sessions.
+setopt HIST_EXPIRE_DUPS_FIRST # Expire a duplicate event first when trimming history.
+setopt HIST_IGNORE_DUPS       # Do not record an event that was just recorded again.
+setopt HIST_IGNORE_ALL_DUPS   # Delete an old recorded event if a new event is a duplicate.
+setopt HIST_FIND_NO_DUPS      # Do not display a previously found event.
+setopt HIST_IGNORE_SPACE      # Do not record an event starting with a space.
+setopt HIST_SAVE_NO_DUPS      # Do not write a duplicate event to the history file.
+setopt HIST_VERIFY            # Do not execute immediately upon history expansion.
+
+
+setopt INC_APPEND_HISTORY     # To save every command before it is executed
+setopt APPEND_HISTORY         # Append history to the history file.
+
+unsetopt MENU_COMPLETE        # Do not autoselect the first completion entry.
+unsetopt FLOW_CONTROL         # Disable start/stop characters in shell editor.
+setopt interactivecomments    # Allow inline comments
 
 #
 # Variables
@@ -83,11 +104,11 @@ zstyle ':completion::complete:*' cache-path "${XDG_CACHE_HOME:-$HOME/.cache}/pre
 
 # Case-insensitive (all), partial-word, and then substring completion.
 if zstyle -t ':prezto:module:completion:*' case-sensitive; then
-  zstyle ':completion:*' matcher-list 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
-  setopt CASE_GLOB
+    zstyle ':completion:*' matcher-list 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+    setopt CASE_GLOB
 else
-  zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
-  unsetopt CASE_GLOB
+    zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+    unsetopt CASE_GLOB
 fi
 
 # Group matches and describe.
@@ -138,20 +159,20 @@ zstyle ':completion::*:(-command-|export):*' fake-parameters ${${${_comps[(I)-va
 zstyle -a ':prezto:module:completion:*:hosts' etc-host-ignores '_etc_host_ignores'
 
 zstyle -e ':completion:*:hosts' hosts 'reply=(
-  ${=${=${=${${(f)"$(cat {/etc/ssh/ssh_,~/.ssh/}known_hosts(|2)(N) 2> /dev/null)"}%%[#| ]*}//\]:[0-9]*/ }//,/ }//\[/ }
-  ${=${(f)"$(cat /etc/hosts(|)(N) <<(ypcat hosts 2> /dev/null))"}%%(\#${_etc_host_ignores:+|${(j:|:)~_etc_host_ignores}})*}
-  ${=${${${${(@M)${(f)"$(cat ~/.ssh/config 2> /dev/null)"}:#Host *}#Host }:#*\**}:#*\?*}}
+    ${=${=${=${${(f)"$(cat {/etc/ssh/ssh_,~/.ssh/}known_hosts(|2)(N) 2> /dev/null)"}%%[#| ]*}//\]:[0-9]*/ }//,/ }//\[/ }
+    ${=${(f)"$(cat /etc/hosts(|)(N) <<(ypcat hosts 2> /dev/null))"}%%(\#${_etc_host_ignores:+|${(j:|:)~_etc_host_ignores}})*}
+    ${=${${${${(@M)${(f)"$(cat ~/.ssh/config 2> /dev/null)"}:#Host *}#Host }:#*\**}:#*\?*}}
 )'
 
 # Don't complete uninteresting users...
 zstyle ':completion:*:*:*:users' ignored-patterns \
-  adm amanda apache avahi beaglidx bin cacti canna clamav daemon \
-  dbus distcache dovecot fax ftp games gdm gkrellmd gopher \
-  hacluster haldaemon halt hsqldb ident junkbust ldap lp mail \
-  mailman mailnull mldonkey mysql nagios \
-  named netdump news nfsnobody nobody nscd ntp nut nx openvpn \
-  operator pcap postfix postgres privoxy pulse pvm quagga radvd \
-  rpc rpcuser rpm shutdown squid sshd sync uucp vcsa xfs '_*'
+    adm amanda apache avahi beaglidx bin cacti canna clamav daemon \
+    dbus distcache dovecot fax ftp games gdm gkrellmd gopher \
+    hacluster haldaemon halt hsqldb ident junkbust ldap lp mail \
+    mailman mailnull mldonkey mysql nagios \
+    named netdump news nfsnobody nobody nscd ntp nut nx openvpn \
+    operator pcap postfix postgres privoxy pulse pvm quagga radvd \
+    rpc rpcuser rpm shutdown squid sshd sync uucp vcsa xfs '_*'
 
 # Ignore multiple entries.
 zstyle ':completion:*:(rm|kill|diff):*' ignore-line other
@@ -176,8 +197,8 @@ zstyle ':completion:*:*:mocp:*' file-patterns '*.(wav|WAV|mp3|MP3|ogg|OGG|flac):
 
 # Mutt
 if [[ -s "$HOME/.mutt/aliases" ]]; then
-  zstyle ':completion:*:*:mutt:*' menu yes select
-  zstyle ':completion:*:mutt:*' users ${${${(f)"$(<"$HOME/.mutt/aliases")"}#alias[[:space:]]}%%[[:space:]]*}
+    zstyle ':completion:*:*:mutt:*' menu yes select
+    zstyle ':completion:*:mutt:*' users ${${${(f)"$(<"$HOME/.mutt/aliases")"}#alias[[:space:]]}%%[[:space:]]*}
 fi
 
 # SSH/SCP/RSYNC
@@ -195,33 +216,40 @@ colors
 # Sourcing
 #####################
 
+# zsh plugins
+source /usr/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
 # Brew
 if [[ -o interactive ]] && [[ -d /home/linuxbrew/.linuxbrew ]]; then
-  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-  if type brew &>/dev/null; then
-    if [[ -w /home/linuxbrew/.linuxbrew ]]; then
-      if [[ ! -L "$(brew --prefix)/share/zsh/site-functions/_brew" ]]; then
-        brew completions link
-      fi
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+    if type brew &>/dev/null; then
+        if [[ -w /home/linuxbrew/.linuxbrew ]]; then
+            if [[ ! -L "$(brew --prefix)/share/zsh/site-functions/_brew" ]]; then
+                brew completions link
+            fi
+        fi
     fi
-  fi
 fi
 
 # Starship
 if type "starship" > /dev/null; then
-  eval "$(starship init zsh)"
+    eval "$(starship init zsh)"
 fi
-
-# Zsh plugins
-source /usr/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
-source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-
 
 # thefuck
 if type "thefuck" > /dev/null; then
   eval "$(thefuck --alias)"
 fi
+
+# Atuin
+export ATUIN_NOBIND="true"
+eval "$(atuin init zsh)"
+bindkey '^r' atuin-search
+# depends on terminal mode
+bindkey '^[[A' _atuin_up_search_widget
+bindkey '^[OA' _atuin_up_search_widget
 
 #####################
 # User configuration
@@ -229,10 +257,9 @@ fi
 
 # Load user zsh scripts
 if [ -d $ZSHCONFIG ]; then
-  for f in $ZSHCONFIG/**/*.*sh
-  do
-      source "$f"
-  done
+    for f in $ZSHCONFIG/**/*.*sh; do
+        source "$f"
+    done
 fi
 
 ### bling.sh source start

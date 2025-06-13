@@ -19,14 +19,13 @@ configure-boot-to-windows:
     cp -r /usr/share/applications/boot-to-windows.desktop $HOME/.local/share/applications
     sed -i 's/Hidden=true/Hidden=false/' $HOME/.local/share/applications/boot-to-windows.desktop
 
-# Setup app defaults, Ghostty, shells, etc
+# Setup app defaults, Ghostty, VScode, Zsh
 configure-custom-app-defaults:
     #!/usr/bin/env bash
     set -euo pipefail
 
     # Setup Ghostty configuration
     echo "Setting up Ghostty configuration..."
-    # Setup Ghostty
     if test ! -e "$HOME"/.config/ghostty; then
         mkdir -p "$HOME"/.config/ghostty
         cp -f /etc/skel/.config/ghostty/config "$HOME"/.config/ghostty/config
@@ -35,12 +34,23 @@ configure-custom-app-defaults:
 
     # Setup vscode configuration
     echo "Setting up vscode configuration..."
-    # Setup VSCode
     if test ! -e "$HOME"/.config/Code/User/settings.json; then
         mkdir -p "$HOME"/.config/Code/User
         cp -f /etc/skel/.config/Code/User/settings.json "$HOME"/.config/Code/User/settings.json
     fi
     echo "vscode setup complete"
+
+    # Setup Zsh shell configuration
+    echo "Setting up Zsh configuration..."
+    if test ! -d "$HOME"/.config/zsh; then
+        mkdir -p "$HOME"/.config/zsh
+        cp -f /etc/skel/.config/zsh/.zlogin "$HOME"/.config/zsh/.zlogin
+        cp -f /etc/skel/.config/zsh/.zlogout "$HOME"/.config/zsh/.zlogout
+        cp -f /etc/skel/.config/zsh/.zprofile "$HOME"/.config/zsh/.zprofile
+        cp -f /etc/skel/.config/zsh/.zshrc "$HOME"/.config/zsh/.zshrc
+        cp -f /etc/skel/.zshenv "$HOME"/.zshenv
+    fi
+    echo "Zsh setup complete"
 
 # Restart Bluetooth to fix issues
 fix-bt:
@@ -97,5 +107,4 @@ setup-nix:
     trusted-substituters = https://cache.garnix.io https://cache.nixos.org https://nix-community.cachix.org https://numtide.cachix.org
     trusted-users = root @wheel
     ' | sudo tee /etc/nix/nix.custom.conf
-
     echo "Nix setup complete"

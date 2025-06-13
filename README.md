@@ -36,7 +36,7 @@ The following `ujust` commands are available:
 # Create boot-to-windows desktop shortcut
 ujust configure-boot-to-windows
 
-# Setup app defaults
+# Setup app defaults: Ghostty, VScode, Zsh
 ujust configure-custom-app-defaults
 
 # Restart Bluetooth to fix issues
@@ -50,9 +50,6 @@ ujust install-custom-brews
 
 # Install Flatpaks
 ujust install-custom-flatpaks
-
-# Install and configure Incus
-ujust setup-incus
 
 # Install and configure Nix package manager
 ujust setup-nix
