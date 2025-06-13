@@ -12,11 +12,12 @@ for copr in ganto/umoci gmaglione/podman-bootc karmab/kcli ublue-os/packages ubl
 do
     echo "Enabling copr: $copr"
     dnf5 -y copr enable $copr
-    dnf5 -y config-manager setopt copr:copr.fedorainfracloud.org:${copr////:}.priority=98
 done && unset -v copr
 
 dnf5 -y config-manager setopt "*fedora-multimedia*".enabled=true
 dnf5 -y config-manager setopt terra.enabled=true
+dnf5 config-manager addrepo --from-repofile="https://download.docker.com/linux/fedora/docker-ce.repo"
+dnf5 config-manager addrepo --from-repofile="https://pkg.cloudflareclient.com/cloudflare-warp-ascii.repo"
 
 # install packages
 dnf5 -y group install --with-optional virtualization
@@ -134,8 +135,8 @@ do
 done && unset -v copr
 
 dnf5 config-manager setopt "*fedora-multimedia*".enabled=0
-dnf5 config-manager setopt cloudflare-warp.enabled=0
-dnf5 config-manager setopt docker-ce.enabled=0
+dnf5 config-manager setopt cloudflare-warp-stable.enabled=0
+dnf5 config-manager setopt docker-ce-stable.enabled=0
 dnf5 config-manager setopt terra.enabled=0
 dnf5 config-manager setopt vscode.enabled=0
 
