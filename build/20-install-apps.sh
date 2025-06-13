@@ -92,7 +92,7 @@ dnf5 install -y \
     zsh \
     zsh-autocomplete \
     zsh-autosuggestions \
-    zsh-syntax-highlighting \
+    zsh-syntax-highlighting
 
 # disable repositories
 for copr in karmab/kcli ublue-os/packages ublue-os/staging
