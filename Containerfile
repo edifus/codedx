@@ -89,15 +89,6 @@ ARG VERSION_PRETTY="${VERSION_PRETTY}"
 
 COPY rootfs/ /
 
-# install gamescope-session-plus
-RUN \
-    --mount=type=cache,dst=/var/cache \
-    --mount=type=cache,dst=/var/log \
-    --mount=type=bind,from=ctx,source=/,target=/ctx \
-    --mount=type=tmpfs,dst=/tmp \
-    /ctx/build/10-install-gamescope.sh && \
-    /ctx/build/99-cleanup.sh
-
 # install extra apps
 RUN \
     --mount=type=cache,dst=/var/cache \

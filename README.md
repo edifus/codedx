@@ -14,7 +14,6 @@ A custom Fedora Atomic image designed for gaming, development and daily use.
 ## Features
 
 - [Bazzite features](https://github.com/ublue-os/bazzite#about--features)
-- Steam Deck mode with `gamescope-session-plus` and `gamescope-session-steam`
 - ADB, Fastboot and [Waydroid](https://docs.bazzite.gg/Installing_and_Managing_Software/Waydroid_Setup_Guide/)
 - Cloudflare WARP
 - Curated list of [Flatpaks](https://github.com/edifus/codedx/blob/main/flatpaks) and [Homebrews](https://github.com/edifus/codedx/blob/main/homebrews)
