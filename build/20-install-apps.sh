@@ -63,7 +63,6 @@ dnf5 install -y \
     numactl \
     openrgb \
     plymouth-plugin-script \
-    podman-bootc \
     podman-machine \
     podman-tui \
     podmansh \
@@ -75,7 +74,6 @@ dnf5 install -y \
     starship \
     sysprof \
     thefuck \
-    tiptop \
     ublue-fastfetch \
     ublue-os-libvirt-workarounds \
     ublue-setup-services \
@@ -92,7 +90,9 @@ dnf5 install -y \
     yt-dlp \
     zedmono-nerd-fonts \
     zsh \
-    zsh-autosuggestions
+    zsh-autocomplete \
+    zsh-autosuggestions \
+    zsh-syntax-highlighting \
 
 # disable repositories
 for copr in karmab/kcli ublue-os/packages ublue-os/staging

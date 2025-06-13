@@ -212,8 +212,11 @@ if type "starship" > /dev/null; then
   eval "$(starship init zsh)"
 fi
 
-# Zsh Autosuggestions
+# Zsh plugins
+source /usr/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+
 
 # thefuck
 if type "thefuck" > /dev/null; then
