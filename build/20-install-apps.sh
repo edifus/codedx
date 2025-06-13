@@ -8,7 +8,7 @@ trap 'echo "::endgroup::"' EXIT
 mkdir -pv /var/{opt,roothome}
 
 # setup repositories
-for copr in karmab/kcli ublue-os/packages ublue-os/staging
+for copr in ublue-os/packages ublue-os/staging
 do dnf5 -y copr enable $copr
 done && unset -v copr
 
@@ -53,7 +53,6 @@ dnf5 install -y \
     iosevkaterm-nerd-fonts \
     isoimagewriter \
     jetbrainsmono-nerd-fonts \
-    kcli \
     kgpg \
     ksystemlog \
     libvirt-nss \
@@ -95,7 +94,7 @@ dnf5 install -y \
     zsh-syntax-highlighting
 
 # disable repositories
-for copr in karmab/kcli ublue-os/packages ublue-os/staging
+for copr in ublue-os/packages ublue-os/staging
 do dnf5 -y copr disable $copr
 done && unset -v copr
 
