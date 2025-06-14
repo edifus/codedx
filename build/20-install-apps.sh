@@ -45,6 +45,7 @@ dnf5 install -y \
     genisoimage \
     ghostty \
     gparted \
+    grc \
     gwenview \
     hack-nerd-fonts \
     HandBrake-cli \
