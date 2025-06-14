@@ -1,0 +1,17 @@
+# use systemd timer instead
+auto_sync = false
+
+# up arrow search current session
+filter_mode_shell_up_key_binding = "session"
+
+# default to immediately execute a command
+enter_accept = true
+
+# appearance
+invert = false
+style = "full"
+inline_height = 16
+
+[theme]
+name = "nord"
+debug = true
