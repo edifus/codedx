@@ -45,6 +45,7 @@ dnf5 install -y \
     bpftop \
     bpftrace \
     ccache \
+    ckb-next \
     cloudflare-warp \
     code \
     containerd.io \
