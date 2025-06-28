@@ -4,9 +4,6 @@ set -eoux pipefail
 echo "::group:: ===$(basename "$0")==="
 trap 'echo "::endgroup::"' EXIT
 
-IMAGE_INFO="/usr/share/ublue-os/image-info.json"
-BASE_IMAGE_NAME=$(jq -r '."base-image-name"' < $IMAGE_INFO)
-
 # enable systemd services
 systemctl --global enable codedx-user-vscode.service
 systemctl --global enable ublue-user-setup.service
@@ -21,10 +18,12 @@ readarray -t themes < <(find /ctx/rootfs/usr/share/plymouth/themes -maxdepth 1 -
 theme=${themes[ $RANDOM % ${#themes[@]} ]}
 plymouth-set-default-theme $theme
 
+# kde ksysguard caps
+if [[ ${BASE_IMAGE_NAME} == 'kinoite' ]]
+then
+    setcap 'cap_net_raw+ep' /usr/libexec/ksysguard/ksgrd_network_helper
+fi
+
 # starship shell prompt
 # shellcheck disable=SC2016
 echo 'eval "$(starship init bash)"' >> /etc/bashrc
-
-# kde ksysguard caps
-[[ ${BASE_IMAGE_NAME} == 'kinoite' ]] && \
-    setcap 'cap_net_raw+ep' /usr/libexec/ksysguard/ksgrd_network_helper
