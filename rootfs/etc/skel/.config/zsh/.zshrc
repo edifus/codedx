@@ -144,6 +144,25 @@ if [[ -n ${commands[zoxide]} && $TERM != "dumb" ]]; then
     eval "$(zoxide init zsh)"
 fi
 
+# +-----+
+# | NIX |
+# +-----+
+
+# | home-manager session |
+if test -r "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"; then
+    source "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
+fi
+
+# | home profile |
+if test -r $HOME/.nix-profile/etc/profile.d/nix.sh; then
+    source $HOME/.nix-profile/etc/profile.d/nix.sh
+fi
+
+# | system profile |
+if test -r /etc/profile.d/nix.sh; then
+    source /etc/profile.d/nix.sh
+fi
+
 # +------------+
 # | ALIASES    |
 # | BINDINGS   |

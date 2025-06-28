@@ -27,6 +27,7 @@ dnf5 -y config-manager setopt "*fedora-multimedia*".enabled=true
 dnf5 -y config-manager setopt terra.enabled=true
 dnf5 config-manager addrepo --from-repofile="https://download.docker.com/linux/fedora/docker-ce.repo"
 dnf5 config-manager addrepo --from-repofile="https://pkg.cloudflareclient.com/cloudflare-warp-ascii.repo"
+dnf5 config-manager addrepo --from-repofile="https://openrazer.github.io/hardware:razer.repo"
 
 # install packages
 dnf5 -y group install --with-optional virtualization
@@ -48,6 +49,7 @@ dnf5 install -y \
     ckb-next \
     cloudflare-warp \
     code \
+    coolercontrol \
     containerd.io \
     direnv \
     docker-buildx-plugin \
@@ -80,11 +82,15 @@ dnf5 install -y \
     kgpg \
     ksystemlog \
     libvirt-nss \
+    liquidctl \
     monoid-nerd-fonts \
     mpv \
+    neovim \
     nerdfontssymbolsonly-nerd-fonts \
     nicstat \
     numactl \
+    openrazer-daemon \
+    openrgb \
     plymouth-plugin-script \
     podman-machine \
     podman-tui \
@@ -134,6 +140,7 @@ done && unset -v copr
 dnf5 config-manager setopt "*fedora-multimedia*".enabled=0
 dnf5 config-manager setopt cloudflare-warp-stable.enabled=0
 dnf5 config-manager setopt docker-ce-stable.enabled=0
+dnf5 config-manager setopt hardware_razer.enabled=0
 dnf5 config-manager setopt terra.enabled=0
 dnf5 config-manager setopt vscode.enabled=0
 
