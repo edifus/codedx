@@ -24,6 +24,10 @@ then
     setcap 'cap_net_raw+ep' /usr/libexec/ksysguard/ksgrd_network_helper
 fi
 
-# starship shell prompt
+# starship shell prompt | thefuck alias | zoxide alias
 # shellcheck disable=SC2016
-echo 'eval "$(starship init bash)"' >> /etc/bashrc
+echo '
+eval "$(starship init bash)"
+eval "$(thefuck --alias)"
+eval "$(zoxide init bash)"
+' >> /etc/bashrc

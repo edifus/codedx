@@ -34,7 +34,10 @@ dnf5 -y group install --with-optional virtualization
 dnf5 install -y \
     android-tools \
     aria2 \
+    atuin \
+    aurora-backgrounds \
     bash-color-prompt \
+    bat \
     bcc \
     bchunk \
     bleachbit \
@@ -45,17 +48,21 @@ dnf5 install -y \
     cloudflare-warp \
     code \
     containerd.io \
-    coolercontrol \
+    direnv \
     docker-buildx-plugin \
     docker-ce \
     docker-ce-cli \
     docker-compose-plugin \
+    eza \
+    fd-find \
     flatpak-builder \
     fuse-btfs \
     fuse-devel \
     fuse3-devel \
     genisoimage \
+    gh \
     ghostty \
+    glab \
     gparted \
     grc \
     gwenview \
@@ -77,7 +84,6 @@ dnf5 install -y \
     nerdfontssymbolsonly-nerd-fonts \
     nicstat \
     numactl \
-    openrgb \
     plymouth-plugin-script \
     podman-machine \
     podman-tui \
@@ -96,13 +102,16 @@ dnf5 install -y \
     restic \
     starship \
     sysprof \
+    tealdeer \
     thefuck \
+    trash-cli \
     ublue-fastfetch \
     ublue-os-libvirt-workarounds \
     ublue-setup-services \
     ubuntu-nerd-fonts \
     ubuntumono-nerd-fonts \
     ubuntusans-nerd-fonts \
+    ugrep \
     virt-v2v \
     vlc \
     vlc-plugin-ffmpeg \
@@ -110,8 +119,10 @@ dnf5 install -y \
     vlc-plugin-kde \
     vlc-plugin-pause-click \
     vlc-plugin-samba \
+    yq \
     yt-dlp \
     zedmono-nerd-fonts \
+    zoxide \
     zsh
 
 # disable repositories

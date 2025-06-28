@@ -64,18 +64,6 @@ fix-bt:
     sudo modprobe btusb
     echo "Bluetooth fix complete"
 
-# Install all CodeDX curated apps
-install-custom-all: install-custom-brews install-custom-flatpaks
-
-# Install custom Homebrews
-install-custom-brews:
-    #!/usr/bin/env bash
-    set -euo pipefail
-
-    echo "Installing Homebrews..."
-    xargs -a <(curl --retry 3 -sL https://raw.githubusercontent.com/edifus/codedx/main/homebrews) brew install
-    echo "Homebrews installation complete."
-
 # Install custom Flatpaks
 install-custom-flatpaks:
     #!/usr/bin/env bash
@@ -85,7 +73,6 @@ install-custom-flatpaks:
 
     echo "Installing Flatpaks..."
     xargs -a <(curl --retry 3 -sL https://raw.githubusercontent.com/edifus/codedx/main/flatpaks) flatpak --system -y install
-    [[ ${BASE_IMAGE_NAME} == 'silverblue' ]] && flatpak --system -y install runtime/com.jeffser.Alpaca.Plugins.AMD/x86_64/stable
     echo "Flatpaks installation complete"
 
 # Install and configure Nix package manager

@@ -32,7 +32,7 @@ A custom Fedora Atomic image designed for gaming, development and daily use.
 The following `ujust` commands are available:
 
 ```bash
-# Create boot-to-windows desktop shortcut
+# Create boot-to-windows application
 ujust configure-boot-to-windows
 
 # Setup app defaults: Ghostty, VScode, Zsh
@@ -40,12 +40,6 @@ ujust configure-custom-app-defaults
 
 # Restart Bluetooth to fix issues
 ujust fix-bt
-
-# Install all CodeDX curated apps (flatpaks, homebrews)
-ujust install-custom-all
-
-# Install Homebrews
-ujust install-custom-brews
 
 # Install Flatpaks
 ujust install-custom-flatpaks
