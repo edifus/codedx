@@ -14,7 +14,6 @@
 # +---------+
 
 if [[ -n ${commands[fzf]} ]]; then
-    source $ZDOTDIR/plugins/fzf-tab/fzf-tab.zsh
     if [ -n "$TMUX" ]; then
         zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
     fi
@@ -23,8 +22,6 @@ if [[ -n ${commands[fzf]} ]]; then
     # set descriptions format to enable group support
     # NOTE: don't use escape sequences here, fzf-tab will ignore them
     zstyle ':completion:*:descriptions' format '[%d]'
-    # force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
-    #zstyle ':completion:*' menu no
     # preview directory's content with lsd when completing cd
     if [[ -n ${commands[eza]} ]]; then
         zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'

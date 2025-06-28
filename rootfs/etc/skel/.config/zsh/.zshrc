@@ -98,6 +98,63 @@ for f in $ZDOTDIR/conf/*.*sh; do
     source "$f"
 done && unset f
 
+# +--------+
+# | PROMPT |
+# +--------+
+
+# | atuin |
+if [[ -n "${commands[atuin]}" ]]; then
+    export ATUIN_NOBIND="true"
+    eval "$(atuin init zsh)"
+    bindkey '^r' atuin-search
+    bindkey '^[[A' _atuin_up_search_widget
+    bindkey '^[OA' _atuin_up_search_widget
+fi
+
+# | direnv |
+if [[ -n "${commands[direnv]}" ]]; then eval "$(direnv hook zsh)"; fi
+
+# | fzf |
+if [[ -n "${commands[fzf-share]}" ]]; then
+    fpath+=($USR/share/fzf)
+    source $USR/share/fzf/completion.zsh
+    source $USR/share/fzf/key-bindings.zsh
+fi
+
+# | grc colorizer |
+if [[ -n ${commands[grc]} ]]; then
+    source /etc/grc.zsh 2> /dev/null || \
+    source $USR/etc/grc.zsh 2> /dev/null || \
+    true
+fi
+
+# | linuxbrew |
+if [[ -o interactive ]] && [[ -d /home/linuxbrew/.linuxbrew ]]; then
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+    if type brew &>/dev/null; then
+        if [[ -w /home/linuxbrew/.linuxbrew ]]; then
+            if [[ ! -L "$(brew --prefix)/share/zsh/site-functions/_brew" ]]; then
+                brew completions link
+            fi
+        fi
+    fi
+fi
+
+# | starship prompt |
+if [[ -n ${commands[starship]} && $TERM != "dumb" ]]; then
+    eval "$(starship init zsh)"
+fi
+
+# | thefuck alias |
+if [[ -n ${commands[thefuck]} && $TERM != "dumb" ]]; then
+    eval "$(thefuck --alias)"
+fi
+
+# | zoxide alias |
+if [[ -n ${commands[zoxide]} && $TERM != "dumb" ]]; then
+    eval "$(zoxide init zsh)"
+fi
+
 # +--------------+
 # | User scripts |
 # +--------------+
