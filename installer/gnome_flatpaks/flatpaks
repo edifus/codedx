@@ -8,10 +8,12 @@ app/de.leopoldluley.Clapgrep/x86_64/stable
 app/io.github.fastrizwaan.WineZGUI/x86_64/stable
 app/io.github.flattool.Ignition/x86_64/stable
 app/io.github.flattool.Warehouse/x86_64/stable
+app/io.github.getnf.embellish/x86_64/stable
 app/io.github.nokse22.Exhibit/x86_64/stable
 app/io.github.radiolamp.mangojuice/x86_64/stable
 app/io.missioncenter.MissionCenter/x86_64/stable
 app/it.mijorus.gearlever/x86_64/stable
+app/me.iepure.devtoolbox/x86_64/stable
 app/org.gnome.baobab/x86_64/stable
 app/org.gnome.Calculator/x86_64/stable
 app/org.gnome.Calendar/x86_64/stable
@@ -26,6 +28,7 @@ app/org.gnome.Papers/x86_64/stable
 app/org.gnome.TextEditor/x86_64/stable
 app/org.gnome.Weather/x86_64/stable
 app/org.mozilla.firefox/x86_64/stable
+app/sh.loft.devpod/x86_64/stable
 runtime/com.obsproject.Studio.Plugin.Gstreamer/x86_64/stable
 runtime/com.obsproject.Studio.Plugin.GStreamerVaapi/x86_64/stable
 runtime/com.obsproject.Studio.Plugin.OBSVkCapture/x86_64/stable

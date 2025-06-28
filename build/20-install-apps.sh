@@ -4,6 +4,17 @@ set -eoux pipefail
 echo "::group:: ===$(basename "$0")==="
 trap 'echo "::endgroup::"' EXIT
 
+# Apply IP Forwarding before installing Docker to prevent messing with LXC networking
+sysctl -p
+
+# Load iptable_nat module for docker-in-docker.
+# See:
+#   - https://github.com/ublue-os/bluefin/issues/2365
+#   - https://github.com/devcontainers/features/issues/1235
+mkdir -p /etc/modules-load.d && cat >>/etc/modules-load.d/ip_tables.conf <<EOF
+iptable_nat
+EOF
+
 # create directories
 mkdir -pv /var/{opt,roothome}
 
@@ -23,6 +34,7 @@ dnf5 -y group install --with-optional virtualization
 dnf5 install -y \
     android-tools \
     aria2 \
+    bash-color-prompt \
     bcc \
     bchunk \
     bleachbit \
@@ -48,6 +60,9 @@ dnf5 install -y \
     grc \
     gwenview \
     hack-nerd-fonts \
+    firacode-nerd-fonts \
+    fw-fanctrl \
+    google-noto-fonts-all \
     HandBrake-cli \
     HandBrake-gui \
     iosevka-nerd-fonts \
@@ -59,6 +74,7 @@ dnf5 install -y \
     libvirt-nss \
     monoid-nerd-fonts \
     mpv \
+    nerdfontssymbolsonly-nerd-fonts \
     nicstat \
     numactl \
     openrgb \
@@ -67,6 +83,13 @@ dnf5 install -y \
     podman-tui \
     podmansh \
     python3-ramalama \
+    qemu \
+    qemu-char-spice \
+    qemu-device-display-virtio-gpu \
+    qemu-device-display-virtio-vga \
+    qemu-device-usb-redirect \
+    qemu-img \
+    qemu-system-x86-core \
     qemu-user-binfmt \
     qemu-user-static \
     rclone \
@@ -89,10 +112,7 @@ dnf5 install -y \
     vlc-plugin-samba \
     yt-dlp \
     zedmono-nerd-fonts \
-    zsh \
-    zsh-autocomplete \
-    zsh-autosuggestions \
-    zsh-syntax-highlighting
+    zsh
 
 # disable repositories
 for copr in ublue-os/packages ublue-os/staging
@@ -104,11 +124,6 @@ dnf5 config-manager setopt cloudflare-warp-stable.enabled=0
 dnf5 config-manager setopt docker-ce-stable.enabled=0
 dnf5 config-manager setopt terra.enabled=0
 dnf5 config-manager setopt vscode.enabled=0
-
-# Load iptable_nat module for docker-in-docker.
-mkdir -pv /etc/modules-load.d && cat >>/etc/modules-load.d/ip_tables.conf <<EOF
-iptable_nat
-EOF
 
 # ls-iommu helper tool for listing devices in iommu groups (PCI Passthrough)
 curl --retry 3 -Lo /tmp/kind "https://github.com/kubernetes-sigs/kind/releases/latest/download/kind-$(uname)-amd64"

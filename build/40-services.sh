@@ -17,3 +17,10 @@ systemctl enable ublue-system-setup.service
 readarray -t themes < <(find /ctx/rootfs/usr/share/plymouth/themes -maxdepth 1 -type d -printf '%P\n')
 theme=${themes[ $RANDOM % ${#themes[@]} ]}
 plymouth-set-default-theme $theme
+
+# starship shell prompt
+# shellcheck disable=SC2016
+echo 'eval "$(starship init bash)"' >> /etc/bashrc
+
+# caps
+setcap 'cap_net_raw+ep' /usr/libexec/ksysguard/ksgrd_network_helper
