@@ -78,25 +78,6 @@ xalias unbz2='tar -xvjf'
 xalias ungz='tar -xvzf'
 xalias untar='tar -xvf'
 
-# +-----------------------+
-# | dust - du alternative |
-# +-----------------------+
-
-if [[ -n ${commands[dust]} ]]; then
-    du() {
-        args=()
-        for i in "$@"; do
-            case "$i" in
-                -h|-s|-sh) continue;;
-            esac
-            args+=("$i")
-        done
-        dust "${args[@]}"
-    }
-else
-    xalias du='du -hc'
-fi
-
 # +---------+
 # | eza, ls |
 # +---------+
