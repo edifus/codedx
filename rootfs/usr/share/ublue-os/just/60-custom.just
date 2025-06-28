@@ -45,7 +45,7 @@ configure-custom-app-defaults:
     if test -d "$HOME"/.config/zsh; then
         rm -rf "$HOME"/.config/zsh
     fi
-    cp -afr /etc/skel/.config/zsh "$HOME"/.config/zsh"
+    cp -afr /etc/skel/.config/zsh "$HOME"/.config/zsh
     cp -f /etc/skel/.zshenv "$HOME"/.zshenv
     echo "Zsh setup complete"
 

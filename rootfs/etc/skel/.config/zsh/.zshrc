@@ -87,17 +87,6 @@ setopt HIST_VERIFY             # Do not execute immediately upon history expansi
 setopt INC_APPEND_HISTORY      # APPEND_HISTORY lines are added incrementally instead of at exit
 setopt SHARE_HISTORY           # Share history between all sessions
 
-# +------------+
-# | ALIASES    |
-# | BINDINGS   |
-# | COMPLETION |
-# | SCRIPTS    |
-# +------------+
-
-for f in $ZDOTDIR/conf/*.*sh; do
-    source "$f"
-done && unset f
-
 # +--------+
 # | PROMPT |
 # +--------+
@@ -154,6 +143,17 @@ fi
 if [[ -n ${commands[zoxide]} && $TERM != "dumb" ]]; then
     eval "$(zoxide init zsh)"
 fi
+
+# +------------+
+# | ALIASES    |
+# | BINDINGS   |
+# | COMPLETION |
+# | SCRIPTS    |
+# +------------+
+
+for f in $ZDOTDIR/conf/*.*sh; do
+    source "$f"
+done && unset f
 
 # +--------------+
 # | User scripts |
