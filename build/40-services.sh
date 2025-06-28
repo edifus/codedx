@@ -21,6 +21,3 @@ plymouth-set-default-theme $theme
 # starship shell prompt
 # shellcheck disable=SC2016
 echo 'eval "$(starship init bash)"' >> /etc/bashrc
-
-# caps
-setcap 'cap_net_raw+ep' /usr/libexec/ksysguard/ksgrd_network_helper
