@@ -47,6 +47,8 @@ configure-custom-app-defaults:
     fi
     cp -afr /etc/skel/.config/zsh "$HOME"/.config/zsh
     cp -f /etc/skel/.zshenv "$HOME"/.zshenv
+    rm -f "$HOME"/.zshrc
+    rm -f "$HOME"/.zprofile
     echo "Zsh setup complete"
 
 # Restart Bluetooth to fix issues
