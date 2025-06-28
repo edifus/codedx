@@ -62,6 +62,7 @@ dnf5 install -y \
     fuse-btfs \
     fuse-devel \
     fuse3-devel \
+    fzf \
     genisoimage \
     gh \
     ghostty \
