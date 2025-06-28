@@ -44,12 +44,13 @@ configure-custom-app-defaults:
     echo "Setting up Zsh configuration..."
     if test ! -d "$HOME"/.config/zsh; then
         mkdir -p "$HOME"/.config/zsh
-        cp -f /etc/skel/.config/zsh/.zlogin "$HOME"/.config/zsh/.zlogin
-        cp -f /etc/skel/.config/zsh/.zlogout "$HOME"/.config/zsh/.zlogout
-        cp -f /etc/skel/.config/zsh/.zprofile "$HOME"/.config/zsh/.zprofile
-        cp -f /etc/skel/.config/zsh/.zshrc "$HOME"/.config/zsh/.zshrc
-        cp -f /etc/skel/.zshenv "$HOME"/.zshenv
     fi
+    cp -afr /etc/skel/.config/zsh/conf "$HOME"/.config/zsh/conf"
+    cp -f /etc/skel/.config/zsh/.zlogin "$HOME"/.config/zsh/.zlogin
+    cp -f /etc/skel/.config/zsh/.zlogout "$HOME"/.config/zsh/.zlogout
+    cp -f /etc/skel/.config/zsh/.zprofile "$HOME"/.config/zsh/.zprofile
+    cp -f /etc/skel/.config/zsh/.zshrc "$HOME"/.config/zsh/.zshrc
+    cp -f /etc/skel/.zshenv "$HOME"/.zshenv
     echo "Zsh setup complete"
 
 # Restart Bluetooth to fix issues
