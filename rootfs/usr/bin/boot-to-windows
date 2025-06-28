@@ -1,6 +1,8 @@
 #!/usr/bin/bash
 
 # Look up the boot number for Windows in the EFI records
+# shellcheck disable=SC2046
+# shellcheck disable=SC2005
 boot_number=$(echo $(efibootmgr) | grep -Po "(?<=Boot)\S{4}(?=( |\* )Windows)")
 
 # Check that Windows EFI entry was found
