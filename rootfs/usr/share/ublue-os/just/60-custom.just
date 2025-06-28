@@ -28,28 +28,24 @@ configure-custom-app-defaults:
     echo "Setting up Ghostty configuration..."
     if test ! -e "$HOME"/.config/ghostty; then
         mkdir -p "$HOME"/.config/ghostty
-        cp -f /etc/skel/.config/ghostty/config "$HOME"/.config/ghostty/config
     fi
+    cp -f /etc/skel/.config/ghostty/config "$HOME"/.config/ghostty/config
     echo "Ghostty setup complete"
 
     # Setup vscode configuration
     echo "Setting up vscode configuration..."
     if test ! -e "$HOME"/.config/Code/User/settings.json; then
         mkdir -p "$HOME"/.config/Code/User
-        cp -f /etc/skel/.config/Code/User/settings.json "$HOME"/.config/Code/User/settings.json
     fi
+    cp -f /etc/skel/.config/Code/User/settings.json "$HOME"/.config/Code/User/settings.json
     echo "vscode setup complete"
 
     # Setup Zsh shell configuration
     echo "Setting up Zsh configuration..."
-    if test ! -d "$HOME"/.config/zsh; then
-        mkdir -p "$HOME"/.config/zsh
+    if test -d "$HOME"/.config/zsh; then
+        rm -rf "$HOME"/.config/zsh
     fi
-    cp -afr /etc/skel/.config/zsh/conf "$HOME"/.config/zsh/conf"
-    cp -f /etc/skel/.config/zsh/.zlogin "$HOME"/.config/zsh/.zlogin
-    cp -f /etc/skel/.config/zsh/.zlogout "$HOME"/.config/zsh/.zlogout
-    cp -f /etc/skel/.config/zsh/.zprofile "$HOME"/.config/zsh/.zprofile
-    cp -f /etc/skel/.config/zsh/.zshrc "$HOME"/.config/zsh/.zshrc
+    cp -afr /etc/skel/.config/zsh "$HOME"/.config/zsh"
     cp -f /etc/skel/.zshenv "$HOME"/.zshenv
     echo "Zsh setup complete"
 
