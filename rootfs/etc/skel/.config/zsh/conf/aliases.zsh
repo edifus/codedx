@@ -47,22 +47,18 @@ xalias() {
     return 0
 }
 
-xalias cal='cal -m'
 xalias cp='cp --reflink=auto -iv'
 xalias ctl='sudo systemctl'
 xalias dd='dd status=progress'
 xalias df='df -Thx tmpfs -x devtmpfs'
 xalias diff='diff -Naur --strip-trailing-cr'
-xalias dig='q'
 xalias free='free -g'
 xalias fuser='fuser -v'
 xalias grep='grep --binary-files=without-match --directories=skip --color=auto'
-xalias lg='lazygit'
 xalias mkbz2='tar -cvjf'
 xalias mkgz='tar -cvzf'
 xalias mktar='tar -cvf'
 xalias mv='mv -iv'
-xalias pgrep='pgrep -a'
 xalias reboot='sudo reboot'
 xalias restart='sudo reboot'
 xalias rm='trash -v'
@@ -113,33 +109,6 @@ if [[ -n ${commands[nix]} ]]; then
     alias nixos-rebuild='noglob sudo nixos-rebuild'
     alias nixos-remote='noglob nixos-remote'
     alias nom='noglob nom'
-fi
-
-# +------------------------+
-# | procs - ps alternative |
-# +------------------------+
-
-if [[ -n ${commands[procs]} ]]; then
-    xalias ps='procs'
-else
-    xalias ps='ps afux'
-fi
-
-# +--------+
-# | rg, ag |
-# +--------+
-
-if [[ -n ${commands[rg]} ]]; then
-    rg() {
-        command rg -C1 --sort path --pretty --smart-case --fixed-strings "$@" | less -R
-    }
-    ag() {
-        echo 'use rg instead'
-        sleep 1
-        rg "$@"
-    }
-elif [[ -n ${commands[ag]} ]]; then
-    alias ag='ag --color --smart-case --literal --pager=$PAGER'
 fi
 
 # +-----+

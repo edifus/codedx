@@ -197,21 +197,3 @@ wttr() {
     [ "$COLUMNS" -lt 125 ] && request+='?n'
     curl -H "Accept-Language: ${LANG%_*}" --compressed "$request"
 }
-
-# +----------+
-# | plymouth |
-# +----------+
-
-preview-boot-splash() {
-    # default 10s
-    local duration="$1"
-    if [ $# -ne 1 ]; then duration=10; fi
-    sudo plymouthd
-    sudo plymouth --show-splash
-    for ((i=0; i<$duration; i++))
-    do
-        sudo plymouth --update=test$i
-        sleep 1
-    done
-    sudo plymouth quit
-}

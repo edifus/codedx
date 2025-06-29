@@ -42,6 +42,7 @@ dnf5 install -y \
     docker-ce \
     docker-ce-cli \
     docker-compose-plugin \
+    eza \
     flatpak-builder \
     fuse-btfs \
     fuse-devel \

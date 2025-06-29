@@ -163,6 +163,18 @@ if test -r /etc/profile.d/nix.sh; then
     source /etc/profile.d/nix.sh
 fi
 
+# +------------+
+# | ALIASES    |
+# | BINDINGS   |
+# | COMPLETION |
+# | SCRIPTS    |
+# +------------+
+
+source $ZDOTDIR/conf/aliases.zsh
+source $ZDOTDIR/conf/bindings.zsh
+source $ZDOTDIR/conf/completion.zsh
+source $ZDOTDIR/conf/scripts.zsh
+
 # +-------------+
 # | ZSH PLUGINS |
 # +-------------+
@@ -173,7 +185,7 @@ else
     git pull -C $ZDOTDIR/plugins/zsh-autocomplete
 fi
 
-if ! test -d $ZDOTDIR/plugins/zsh-autocomplete; then
+if ! test -d $ZDOTDIR/plugins/zsh-autopair; then
     git clone --depth 1 -- https://github.com/hlissner/zsh-autopair $ZDOTDIR/plugins/zsh-autopair
 else
     git pull -C $ZDOTDIR/plugins/zsh-autopair
@@ -192,21 +204,9 @@ else
 fi
 
 source $ZDOTDIR/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh
-source $ZDOTDIR/plugins/zsh-autopair/autopair.zsh
+source $ZDOTDIR/plugins/zsh-autopair/autopair.zsh && autopair-init
 source $ZDOTDIR/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $ZDOTDIR/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
-
-# +------------+
-# | ALIASES    |
-# | BINDINGS   |
-# | COMPLETION |
-# | SCRIPTS    |
-# +------------+
-
-source $ZDOTDIR/conf/aliases.zsh
-source $ZDOTDIR/conf/bindings.zsh
-source $ZDOTDIR/conf/completion.zsh
-source $ZDOTDIR/conf/scripts.zsh
 
 # +--------------+
 # | User scripts |
