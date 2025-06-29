@@ -30,13 +30,16 @@ dnf5 config-manager addrepo --from-repofile="https://openrazer.github.io/hardwar
 dnf5 install -y \
     android-tools \
     aria2 \
+    atuin \
     aurora-backgrounds \
+    bat \
     bleachbit \
     borgbackup \
     ckb-next \
     code \
     coolercontrol \
     containerd.io \
+    direnv \
     docker-buildx-plugin \
     docker-ce \
     docker-ce-cli \
@@ -49,6 +52,7 @@ dnf5 install -y \
     genisoimage \
     ghostty \
     gparted \
+    grc \
     jetbrainsmono-nerd-fonts \
     liquidctl \
     mpv \
@@ -62,6 +66,7 @@ dnf5 install -y \
     restic \
     starship \
     tealdeer \
+    trash-cli \
     ublue-fastfetch \
     ublue-setup-services \
     vlc \
@@ -69,7 +74,11 @@ dnf5 install -y \
     vlc-plugin-kde \
     vlc-plugin-pause-click \
     vlc-plugin-samba \
-    zsh
+    yt-dlp \
+    yt-dlp-zsh-completion \
+    zsh \
+    zsh-autosuggestions \
+    zsh-syntax-highlighting
 
 # disable repositories
 for copr in ublue-os/packages ublue-os/staging

@@ -198,6 +198,9 @@ export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 export SDL_AUDIODRIVER=pipewire
 export ALSOFT_DRIVERS=pipewire
 
+# Allow git to access repositories across filesystems
+export GIT_DISCOVERY_ACROSS_FILESYSTEM=1
+
 # If the execution of a command takes longer than
 # specified (seconds), time statistics are printed
 export REPORTTIME=4

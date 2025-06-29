@@ -14,7 +14,6 @@
 
 alias -g G='| grep -'
 alias -g L='| less'
-alias -g C='| xclip'
 alias -g H='| head'
 alias -g N='&>/dev/null'
 alias -g SL='| sort | less'

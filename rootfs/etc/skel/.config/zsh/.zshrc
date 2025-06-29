@@ -38,40 +38,6 @@ fi
 unset _comp_path
 _comp_options+=(globdots) # With hidden files
 
-# +---------+
-# | STARTUP |
-# +---------+
-
-if ! test -d $ZDOTDIR/plugins/zsh-autocomplete; then
-    git clone -- https://github.com/marlonrichert/zsh-autocomplete.git $ZDOTDIR/plugins/zsh-autocomplete
-else
-    GIT_DISCOVERY_ACROSS_FILESYSTEM=1 git -C $ZDOTDIR/plugins/zsh-autocomplete pull > /dev/null
-fi
-
-if ! test -d $ZDOTDIR/plugins/zsh-autopair; then
-    git clone -- https://github.com/hlissner/zsh-autopair $ZDOTDIR/plugins/zsh-autopair
-else
-    GIT_DISCOVERY_ACROSS_FILESYSTEM=1 git -C $ZDOTDIR/plugins/zsh-autopair pull > /dev/null
-fi
-
-if ! test -d $ZDOTDIR/plugins/zsh-autosuggestions; then
-    git clone -- https://github.com/zsh-users/zsh-autosuggestions $ZDOTDIR/plugins/zsh-autosuggestions
-else
-    GIT_DISCOVERY_ACROSS_FILESYSTEM=1 git -C $ZDOTDIR/plugins/zsh-autosuggestions pull > /dev/null
-fi
-
-if ! test -d $ZDOTDIR/plugins/fast-syntax-highlighting; then
-    git clone -- https://github.com/zdharma-continuum/fast-syntax-highlighting $ZDOTDIR/plugins/fast-syntax-highlighting
-else
-    GIT_DISCOVERY_ACROSS_FILESYSTEM=1 git -C $ZDOTDIR/plugins/fast-syntax-highlighting pull > /dev/null
-fi
-
-if ! test -d $ZDOTDIR/plugins/fzf-tab; then
-    git clone -- https://github.com/Aloxaf/fzf-tab $ZDOTDIR/plugins/fzf-tab
-else
-    GIT_DISCOVERY_ACROSS_FILESYSTEM=1 git -C $ZDOTDIR/plugins/fzf-tab pull > /dev/null
-fi
-
 # +-------------+
 # | ZSH OPTIONS |
 # +-------------+
@@ -145,6 +111,21 @@ _src_etc_profile_d()
 _src_etc_profile_d && unset -f _src_etc_profile_d
 
 # +-------------+
+# | ZSH PLUGINS |
+# +-------------+
+
+if ! test -d $ZDOTDIR/plugins/fzf-tab; then
+    git clone -- https://github.com/Aloxaf/fzf-tab $ZDOTDIR/plugins/fzf-tab
+else
+    GIT_DISCOVERY_ACROSS_FILESYSTEM=1 git -C $ZDOTDIR/plugins/fzf-tab pull > /dev/null
+fi
+
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=60
+source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $ZDOTDIR/plugins/fzf-tab/fzf-tab.zsh
+
+# +-------------+
 # | ALIASES     |
 # | BINDINGS    |
 # | COLORS      |
@@ -195,22 +176,6 @@ if test -r /etc/profile.d/nix.sh; then
     source /etc/profile.d/nix.sh
 fi
 
-# +-------------+
-# | ZSH PLUGINS |
-# +-------------+
-
-fpath+=(
-    $ZDOTDIR/plugins/zsh-autocomplete
-    $ZDOTDIR/plugins/zsh-autopair
-    $ZDOTDIR/plugins/zsh-autosuggestions
-    $ZDOTDIR/plugins/fast-syntax-highlighting
-)
-export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=60
-source $ZDOTDIR/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
-source $ZDOTDIR/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh
-source $ZDOTDIR/plugins/zsh-autopair/autopair.zsh && autopair-init
-source $ZDOTDIR/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-
 # +--------+
 # | PROMPT |
 # +--------+
@@ -255,16 +220,6 @@ fi
 # | starship prompt |
 if [[ -o interactive ]] && [[ -n ${commands[starship]} ]]; then
     eval "$(starship init zsh)"
-fi
-
-# | thefuck alias |
-if [[ -o interactive ]] && [[ -n ${commands[thefuck]} ]]; then
-    eval "$(thefuck --alias)"
-fi
-
-# | zoxide alias |
-if [[ -o interactive ]] && [[ -n ${commands[zoxide]} ]]; then
-    eval "$(zoxide init zsh)"
 fi
 
 # +--------------+
