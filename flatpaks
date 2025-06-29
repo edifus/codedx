@@ -28,6 +28,7 @@ app/org.kde.kweather/x86_64/stable
 app/org.kde.okular/x86_64/stable
 app/org.mozilla.firefox/x86_64/stable
 app/org.mozilla.Thunderbird/x86_64/stable
+app/org.virt_manager.virt-manager/x86_64/stable
 app/sh.loft.devpod/x86_64/stable
 runtime/com.obsproject.Studio.Plugin.OBSVkCapture/x86_64/stable
 runtime/org.freedesktop.Platform.VulkanLayer.gamescope/x86_64/23.08

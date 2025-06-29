@@ -170,16 +170,17 @@ fi
 # | SCRIPTS    |
 # +------------+
 
-for f in $ZDOTDIR/conf/*.*sh; do
-    source "$f"
-done && unset f
+source $ZDOTDIR/conf/aliases.zsh
+source $ZDOTDIR/conf/bindings.zsh
+source $ZDOTDIR/conf/completion.zsh
+source $ZDOTDIR/conf/scripts.zsh
 
 # +--------------+
 # | User scripts |
 # +--------------+
 
 if [ -d "$ZDOTDIR/user" ]; then
-    for f in $ZDOTDIR/user/*.*sh; do
+    for f in $ZDOTDIR/user/*.zsh; do
         source "$f"
     done && unset f
 fi

@@ -51,6 +51,18 @@ configure-custom-app-defaults:
     rm -f "$HOME"/.zprofile
     echo "Zsh setup complete"
 
+configure-qemu-home-access:
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    source /usr/lib/ujust/ujust.sh
+    if [[ $(id -u) -eq 0 ]]; then
+      echo "Please do not run this command as root"
+      exit 1
+    fi
+    sudo setfacl -m u:qemu:rx $HOME && \
+    echo "qemu can now read ISO files from $HOME"
+
 # Restart Bluetooth to fix issues
 fix-bt:
     #!/usr/bin/env bash

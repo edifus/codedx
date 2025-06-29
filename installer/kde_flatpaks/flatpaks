@@ -16,9 +16,10 @@ app/org.kde.gwenview/x86_64/stable
 app/org.kde.haruna/x86_64/stable
 app/org.kde.kcalc/x86_64/stable
 app/org.kde.okular/x86_64/stable
-app/org.mozilla.firefox/x86_64/stable
-app/sh.loft.devpod/x86_64/stable
 app/org.kde.skanpage/x86_64/stable
+app/org.mozilla.firefox/x86_64/stable
+app/org.virt_manager.virt-manager/x86_64/stable
+app/sh.loft.devpod/x86_64/stable
 runtime/com.obsproject.Studio.Plugin.Gstreamer/x86_64/stable
 runtime/com.obsproject.Studio.Plugin.GStreamerVaapi/x86_64/stable
 runtime/com.obsproject.Studio.Plugin.OBSVkCapture/x86_64/stable

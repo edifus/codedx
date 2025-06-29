@@ -30,13 +30,12 @@ dnf5 config-manager addrepo --from-repofile="https://pkg.cloudflareclient.com/cl
 dnf5 config-manager addrepo --from-repofile="https://openrazer.github.io/hardware:razer.repo"
 
 # install packages
-dnf5 -y group install --with-optional virtualization
-
 dnf5 install -y \
     android-tools \
     aria2 \
     atuin \
     aurora-backgrounds \
+    aurora-plymouth \
     bash-color-prompt \
     bat \
     bcc \
@@ -47,7 +46,6 @@ dnf5 install -y \
     bpftrace \
     ccache \
     ckb-next \
-    cloudflare-warp \
     code \
     coolercontrol \
     containerd.io \
@@ -62,7 +60,6 @@ dnf5 install -y \
     fuse-btfs \
     fuse-devel \
     fuse3-devel \
-    fzf \
     genisoimage \
     gh \
     ghostty \
@@ -74,8 +71,6 @@ dnf5 install -y \
     firacode-nerd-fonts \
     fw-fanctrl \
     google-noto-fonts-all \
-    HandBrake-cli \
-    HandBrake-gui \
     iosevka-nerd-fonts \
     iosevkaterm-nerd-fonts \
     isoimagewriter \
@@ -97,15 +92,6 @@ dnf5 install -y \
     podman-tui \
     podmansh \
     python3-ramalama \
-    qemu \
-    qemu-char-spice \
-    qemu-device-display-virtio-gpu \
-    qemu-device-display-virtio-vga \
-    qemu-device-usb-redirect \
-    qemu-img \
-    qemu-system-x86-core \
-    qemu-user-binfmt \
-    qemu-user-static \
     rclone \
     restic \
     starship \
@@ -114,13 +100,11 @@ dnf5 install -y \
     thefuck \
     trash-cli \
     ublue-fastfetch \
-    ublue-os-libvirt-workarounds \
     ublue-setup-services \
     ubuntu-nerd-fonts \
     ubuntumono-nerd-fonts \
     ubuntusans-nerd-fonts \
     ugrep \
-    virt-v2v \
     vlc \
     vlc-plugin-ffmpeg \
     vlc-plugin-gnome \
@@ -139,23 +123,31 @@ do dnf5 -y copr disable $copr
 done && unset -v copr
 
 dnf5 config-manager setopt "*fedora-multimedia*".enabled=0
-dnf5 config-manager setopt cloudflare-warp-stable.enabled=0
 dnf5 config-manager setopt docker-ce-stable.enabled=0
 dnf5 config-manager setopt hardware_razer.enabled=0
 dnf5 config-manager setopt terra.enabled=0
 dnf5 config-manager setopt vscode.enabled=0
 
-# ls-iommu helper tool for listing devices in iommu groups (PCI Passthrough)
-curl --retry 3 -Lo /tmp/kind "https://github.com/kubernetes-sigs/kind/releases/latest/download/kind-$(uname)-amd64"
-chmod +x /tmp/kind
-mv /tmp/kind /usr/bin/kind
-
-DOWNLOAD_URL=$(curl https://api.github.com/repos/HikariKnight/ls-iommu/releases/latest | jq -r '.assets[] | select(.name| test(".*x86_64.tar.gz$")).browser_download_url')
-curl --retry 3 -Lo /tmp/ls-iommu.tar.gz "$DOWNLOAD_URL"
-mkdir /tmp/ls-iommu
-tar --no-same-owner --no-same-permissions --no-overwrite-dir -xvzf /tmp/ls-iommu.tar.gz -C /tmp/ls-iommu
-mv /tmp/ls-iommu/ls-iommu /usr/bin/
-rm -rf /tmp/ls-iommu*
+# enable virtualization
+rpm-ostree kargs \
+    --append-if-missing="kvm.ignore_msrs=1" \
+    --append-if-missing="kvm.report_ignored_msrs=0"
+echo "Making sure swtpm will work"
+if [ ! -d "/var/lib/swtpm-localca" ]; then
+    sudo mkdir /var/lib/swtpm-localca
+fi
+chown tss /var/lib/swtpm-localca
+restorecon -rv /var/lib/libvirt
+restorecon -rv /var/log/libvirt
+if test ! -f "/etc/libvirt/hooks/qemu"; then
+    echo "Adding libvirt qemu hooks"
+    wget 'https://raw.githubusercontent.com/PassthroughPOST/VFIO-Tools/master/libvirt_hooks/qemu' -O /etc/libvirt/hooks/qemu
+    chmod +x /etc/libvirt/hooks/qemu
+    grep -A1 -B1 "# Add" /etc/libvirt/hooks/qemu | sed 's/^# //g'
+    if test ! -d "/etc/libvirt/hooks/qemu.d"; then
+        mkdir /etc/libvirt/hooks/qemu.d
+    fi
+fi
 
 ## Workaround to allow ostree installation of Nix daemon
 mkdir -pv /nix
