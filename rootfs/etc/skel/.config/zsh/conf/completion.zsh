@@ -13,33 +13,33 @@
 # | zstyles |
 # +---------+
 
-if [[ -n ${commands[fzf]} ]]; then
-    source $ZDOTDIR/plugins/fzf-tab/fzf-tab.plugin.zsh
-    if [ -n "$TMUX" ]; then
-        zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
-    fi
-    # disable sort when completing `git checkout`
-    zstyle ':completion:*:git-checkout:*' sort false
-    # set descriptions format to enable group support
-    # NOTE: don't use escape sequences here, fzf-tab will ignore them
-    zstyle ':completion:*:descriptions' format '[%d]'
-    # force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
-    zstyle ':completion:*' menu no
-    # preview directory's content with lsd when completing cd
-    if [[ -n ${commands[eza]} ]]; then
-        zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
-    elif [[ -n ${commands[lsd]} ]]; then
-        zstyle ':fzf-tab:complete:cd:*' fzf-preview 'lsd -1 --color=always $realpath'
-    fi
-    # custom fzf flags
-    # NOTE: fzf-tab does not follow FZF_DEFAULT_OPTS by default
-    zstyle ':fzf-tab:*' fzf-flags --color=fg:1,fg+:2 --bind=tab:accept
-    # To make fzf-tab follow FZF_DEFAULT_OPTS.
-    # NOTE: This may lead to unexpected behavior since some flags break this plugin. See Aloxaf/fzf-tab#455.
-    zstyle ':fzf-tab:*' use-fzf-default-opts yes
-    # switch group using `<` and `>`
-    zstyle ':fzf-tab:*' switch-group '<' '>'
+# fzf-tab
+source $ZDOTDIR/plugins/fzf-tab/fzf-tab.plugin.zsh
+if [ -n "$TMUX" ]; then
+    zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 fi
+# disable sort when completing `git checkout`
+zstyle ':completion:*:git-checkout:*' sort false
+# set descriptions format to enable group support
+# NOTE: don't use escape sequences here, fzf-tab will ignore them
+zstyle ':completion:*:descriptions' format '[%d]'
+# force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
+zstyle ':completion:*' menu no
+# preview directory's content with lsd when completing cd
+if [[ -n ${commands[eza]} ]]; then
+    zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
+elif [[ -n ${commands[lsd]} ]]; then
+    zstyle ':fzf-tab:complete:cd:*' fzf-preview 'lsd -1 --color=always $realpath'
+fi
+# custom fzf flags
+# NOTE: fzf-tab does not follow FZF_DEFAULT_OPTS by default
+zstyle ':fzf-tab:*' fzf-flags --color=fg:1,fg+:2 --bind=tab:accept
+# To make fzf-tab follow FZF_DEFAULT_OPTS.
+# NOTE: This may lead to unexpected behavior since some flags break this plugin. See Aloxaf/fzf-tab#455.
+zstyle ':fzf-tab:*' use-fzf-default-opts yes
+# switch group using `<` and `>`
+zstyle ':fzf-tab:*' switch-group '<' '>'
+
 
 # Defaults.
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
@@ -47,7 +47,7 @@ zstyle ':completion:*' list-prompt '%S%M matches%s'
 
 # Use caching to make completion for commands such as dpkg and apt usable.
 zstyle ':completion::complete:*' use-cache on
-zstyle ':completion::complete:*' cache-path "${XDG_CACHE_HOME:-$HOME/.cache}/prezto/zcompcache"
+zstyle ':completion::complete:*' cache-path "$XDG_CACHE_HOME/prezto/zcompcache"
 
 # Case-insensitive (all), partial-word, and then substring completion.
 if zstyle -t ':prezto:module:completion:*' case-sensitive; then
