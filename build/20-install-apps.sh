@@ -128,9 +128,6 @@ dnf5 config-manager setopt terra.enabled=0
 dnf5 config-manager setopt vscode.enabled=0
 
 # enable virtualization
-rpm-ostree kargs \
-    --append-if-missing="kvm.ignore_msrs=1" \
-    --append-if-missing="kvm.report_ignored_msrs=0"
 echo "Making sure swtpm will work"
 if [ ! -d "/var/lib/swtpm-localca" ]; then
     sudo mkdir /var/lib/swtpm-localca
