@@ -60,7 +60,6 @@ dnf5 install -y \
     isoimagewriter \
     jetbrainsmono-nerd-fonts \
     kgpg \
-    ksystemlog \
     liquidctl \
     mpv \
     neovim \
