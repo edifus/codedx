@@ -123,7 +123,6 @@ fi
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=60
 source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source $ZDOTDIR/plugins/fzf-tab/fzf-tab.zsh
 
 # +-------------+
 # | ALIASES     |
