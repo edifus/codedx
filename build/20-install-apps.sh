@@ -130,7 +130,7 @@ dnf5 config-manager setopt vscode.enabled=0
 # enable virtualization
 echo "Making sure swtpm will work"
 if [ ! -d "/var/lib/swtpm-localca" ]; then
-    sudo mkdir /var/lib/swtpm-localca
+    mkdir /var/lib/swtpm-localca
 fi
 chown tss /var/lib/swtpm-localca
 restorecon -rv /var/lib/libvirt
