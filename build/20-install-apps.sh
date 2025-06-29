@@ -65,28 +65,19 @@ dnf5 install -y \
     glab \
     gparted \
     grc \
-    gwenview \
-    hack-nerd-fonts \
-    firacode-nerd-fonts \
     fw-fanctrl \
-    google-noto-fonts-all \
-    iosevka-nerd-fonts \
-    iosevkaterm-nerd-fonts \
     isoimagewriter \
     jetbrainsmono-nerd-fonts \
     kgpg \
     ksystemlog \
     libvirt-nss \
     liquidctl \
-    monoid-nerd-fonts \
     mpv \
     neovim \
-    nerdfontssymbolsonly-nerd-fonts \
     nicstat \
     numactl \
     openrazer-daemon \
     openrgb \
-    plymouth-plugin-script \
     podman-machine \
     podman-tui \
     podmansh \
@@ -100,9 +91,6 @@ dnf5 install -y \
     trash-cli \
     ublue-fastfetch \
     ublue-setup-services \
-    ubuntu-nerd-fonts \
-    ubuntumono-nerd-fonts \
-    ubuntusans-nerd-fonts \
     ugrep \
     vlc \
     vlc-plugin-ffmpeg \
@@ -112,7 +100,6 @@ dnf5 install -y \
     vlc-plugin-samba \
     yq \
     yt-dlp \
-    zedmono-nerd-fonts \
     zoxide \
     zsh
 
