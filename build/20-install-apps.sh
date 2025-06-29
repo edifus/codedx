@@ -4,13 +4,10 @@ set -eoux pipefail
 echo "::group:: ===$(basename "$0")==="
 trap 'echo "::endgroup::"' EXIT
 
-# Apply IP Forwarding before installing Docker to prevent messing with LXC networking
+# apply ip forwarding before installing docker to prevent messing with lxc networking
 sysctl -p
 
-# Load iptable_nat module for docker-in-docker.
-# See:
-#   - https://github.com/ublue-os/bluefin/issues/2365
-#   - https://github.com/devcontainers/features/issues/1235
+# load iptable_nat module for docker-in-docker.
 mkdir -p /etc/modules-load.d && cat >>/etc/modules-load.d/ip_tables.conf <<EOF
 iptable_nat
 EOF
