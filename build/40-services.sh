@@ -19,10 +19,8 @@ systemctl enable ublue-system-setup.service
 #plymouth-set-default-theme $theme
 
 # kde ksysguard caps
-if [[ ${BASE_IMAGE_NAME} == 'kinoite' ]]
-then
-    setcap 'cap_net_raw+ep' /usr/libexec/ksysguard/ksgrd_network_helper
-fi
+[[ ${BASE_IMAGE_NAME} == 'kinoite' ]] && \
+    setcap 'cap_net_raw+ep' /usr/libexec/ksysguard/ksgrd_network_helper || true
 
 # starship shell prompt | thefuck alias | zoxide alias
 # shellcheck disable=SC2016
