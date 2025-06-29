@@ -37,18 +37,12 @@ dnf5 install -y \
     aurora-backgrounds \
     bash-color-prompt \
     bat \
-    bcc \
-    bchunk \
     bleachbit \
     borgbackup \
-    bpftop \
-    bpftrace \
-    ccache \
     ckb-next \
     code \
     coolercontrol \
     containerd.io \
-    direnv \
     docker-buildx-plugin \
     docker-ce \
     docker-ce-cli \
@@ -70,12 +64,9 @@ dnf5 install -y \
     jetbrainsmono-nerd-fonts \
     kgpg \
     ksystemlog \
-    libvirt-nss \
     liquidctl \
     mpv \
     neovim \
-    nicstat \
-    numactl \
     openrazer-daemon \
     openrgb \
     podman-machine \
