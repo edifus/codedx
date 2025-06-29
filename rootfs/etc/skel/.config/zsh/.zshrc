@@ -25,7 +25,7 @@ zmodload zsh/complist
 # cache time of 20 hours, so it should almost always regenerate the first time a
 # shell is opened each day.
 autoload -Uz compinit
-_comp_path="${XDG_CACHE_HOME:-$HOME/.cache}/prezto/zcompdump"
+_comp_path="${XDG_CACHE_HOME}/prezto/zcompdump"
 
 #q expands globs in conditional expressions
 if [[ $_comp_path(#qNmh-20) ]]; then
@@ -37,6 +37,40 @@ else
 fi
 unset _comp_path
 _comp_options+=(globdots) # With hidden files
+
+# +---------+
+# | STARTUP |
+# +---------+
+
+if ! test -d $ZDOTDIR/plugins/zsh-autocomplete; then
+    git clone -- https://github.com/marlonrichert/zsh-autocomplete.git $ZDOTDIR/plugins/zsh-autocomplete
+else
+    GIT_DISCOVERY_ACROSS_FILESYSTEM=1 git -C $ZDOTDIR/plugins/zsh-autocomplete pull > /dev/null
+fi
+
+if ! test -d $ZDOTDIR/plugins/zsh-autopair; then
+    git clone -- https://github.com/hlissner/zsh-autopair $ZDOTDIR/plugins/zsh-autopair
+else
+    GIT_DISCOVERY_ACROSS_FILESYSTEM=1 git -C $ZDOTDIR/plugins/zsh-autopair pull > /dev/null
+fi
+
+if ! test -d $ZDOTDIR/plugins/zsh-autosuggestions; then
+    git clone -- https://github.com/zsh-users/zsh-autosuggestions $ZDOTDIR/plugins/zsh-autosuggestions
+else
+    GIT_DISCOVERY_ACROSS_FILESYSTEM=1 git -C $ZDOTDIR/plugins/zsh-autosuggestions pull > /dev/null
+fi
+
+if ! test -d $ZDOTDIR/plugins/fast-syntax-highlighting; then
+    git clone -- https://github.com/zdharma-continuum/fast-syntax-highlighting $ZDOTDIR/plugins/fast-syntax-highlighting
+else
+    GIT_DISCOVERY_ACROSS_FILESYSTEM=1 git -C $ZDOTDIR/plugins/fast-syntax-highlighting pull > /dev/null
+fi
+
+if ! test -d $ZDOTDIR/plugins/fzf-tab; then
+    git clone -- https://github.com/Aloxaf/fzf-tab $ZDOTDIR/plugins/fzf-tab
+else
+    GIT_DISCOVERY_ACROSS_FILESYSTEM=1 git -C $ZDOTDIR/plugins/fzf-tab pull > /dev/null
+fi
 
 # +-------------+
 # | ZSH OPTIONS |
@@ -87,134 +121,6 @@ setopt HIST_VERIFY             # Do not execute immediately upon history expansi
 setopt INC_APPEND_HISTORY      # APPEND_HISTORY lines are added incrementally instead of at exit
 setopt SHARE_HISTORY           # Share history between all sessions
 
-# +--------+
-# | PROMPT |
-# +--------+
-
-# | atuin |
-if [[ -n "${commands[atuin]}" ]]; then
-    export ATUIN_NOBIND="true"
-    eval "$(atuin init zsh)"
-    bindkey '^r' atuin-search
-    bindkey '^[[A' _atuin_up_search_widget
-    bindkey '^[OA' _atuin_up_search_widget
-fi
-
-# | direnv |
-if [[ -n "${commands[direnv]}" ]]; then eval "$(direnv hook zsh)"; fi
-
-# | fzf |
-if [[ -n "${commands[fzf-share]}" ]]; then
-    source /usr/share/fzf/completion.zsh
-    source /usr/share/fzf/key-bindings.zsh
-fi
-
-# | grc colorizer |
-if [[ -n ${commands[grc]} ]]; then
-    source /usr/etc/grc.zsh 2> /dev/null
-fi
-
-# | linuxbrew |
-if [[ -o interactive ]] && [[ -d /home/linuxbrew/.linuxbrew ]]; then
-    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-    if type brew &>/dev/null; then
-        if [[ -w /home/linuxbrew/.linuxbrew ]]; then
-            if [[ ! -L "$(brew --prefix)/share/zsh/site-functions/_brew" ]]; then
-                brew completions link
-            fi
-        fi
-    fi
-fi
-
-# | starship prompt |
-if [[ -n ${commands[starship]} && $TERM != "dumb" ]]; then
-    eval "$(starship init zsh)"
-fi
-
-# | thefuck alias |
-if [[ -n ${commands[thefuck]} && $TERM != "dumb" ]]; then
-    eval "$(thefuck --alias)"
-fi
-
-# | zoxide alias |
-if [[ -n ${commands[zoxide]} && $TERM != "dumb" ]]; then
-    eval "$(zoxide init zsh)"
-fi
-
-# +-----+
-# | NIX |
-# +-----+
-
-# | home-manager session |
-if test -r "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"; then
-    source "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
-fi
-
-# | home profile |
-if test -r $HOME/.nix-profile/etc/profile.d/nix.sh; then
-    source $HOME/.nix-profile/etc/profile.d/nix.sh
-fi
-
-# | system profile |
-if test -r /etc/profile.d/nix.sh; then
-    source /etc/profile.d/nix.sh
-fi
-
-# +------------+
-# | ALIASES    |
-# | BINDINGS   |
-# | COMPLETION |
-# | SCRIPTS    |
-# +------------+
-
-source $ZDOTDIR/conf/aliases.zsh
-source $ZDOTDIR/conf/bindings.zsh
-source $ZDOTDIR/conf/completion.zsh
-source $ZDOTDIR/conf/scripts.zsh
-
-# +-------------+
-# | ZSH PLUGINS |
-# +-------------+
-
-if ! test -d $ZDOTDIR/plugins/zsh-autocomplete; then
-    git clone -- https://github.com/marlonrichert/zsh-autocomplete.git $ZDOTDIR/plugins/zsh-autocomplete
-else
-    GIT_DISCOVERY_ACROSS_FILESYSTEM=1 git -C $ZDOTDIR/plugins/zsh-autocomplete pull > /dev/null
-fi
-
-if ! test -d $ZDOTDIR/plugins/zsh-autopair; then
-    git clone -- https://github.com/hlissner/zsh-autopair $ZDOTDIR/plugins/zsh-autopair
-else
-    GIT_DISCOVERY_ACROSS_FILESYSTEM=1 git -C $ZDOTDIR/plugins/zsh-autopair pull > /dev/null
-fi
-
-if ! test -d $ZDOTDIR/plugins/zsh-autosuggestions; then
-    git clone -- https://github.com/zsh-users/zsh-autosuggestions $ZDOTDIR/plugins/zsh-autosuggestions
-else
-    GIT_DISCOVERY_ACROSS_FILESYSTEM=1 git -C $ZDOTDIR/plugins/zsh-autosuggestions pull > /dev/null
-fi
-
-if ! test -d $ZDOTDIR/plugins/fast-syntax-highlighting; then
-    git clone -- https://github.com/zdharma-continuum/fast-syntax-highlighting $ZDOTDIR/plugins/fast-syntax-highlighting
-else
-    GIT_DISCOVERY_ACROSS_FILESYSTEM=1 git -C $ZDOTDIR/plugins/fast-syntax-highlighting pull > /dev/null
-fi
-
-source $ZDOTDIR/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
-source $ZDOTDIR/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh
-source $ZDOTDIR/plugins/zsh-autopair/autopair.zsh && autopair-init
-source $ZDOTDIR/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-
-# +--------------+
-# | User scripts |
-# +--------------+
-
-if [ -d "$ZDOTDIR/user" ]; then
-    for f in $ZDOTDIR/user/*.zsh; do
-        source "$f"
-    done && unset f
-fi
-
 # +---------+
 # | BAZZITE |
 # +---------+
@@ -237,6 +143,139 @@ _src_etc_profile_d()
     fi
 }
 _src_etc_profile_d && unset -f _src_etc_profile_d
+
+# +-------------+
+# | ALIASES     |
+# | BINDINGS    |
+# | COLORS      |
+# | COMPLETIONS |
+# | SCRIPTS     |
+# +-------------+
+
+eval "$(dircolors -b $ZDOTDIR/conf/dircolors)"
+source $ZDOTDIR/conf/aliases.zsh
+source $ZDOTDIR/conf/bd.zsh
+source $ZDOTDIR/conf/bindings.zsh
+source $ZDOTDIR/conf/completion.zsh
+source $ZDOTDIR/conf/scripts_fzf.zsh
+source $ZDOTDIR/conf/scripts.zsh
+
+# +----------------+
+# | FUNCTION PATHS |
+# +----------------+
+
+fignore=(.DS_Store $fignore)
+
+if [[ -d $HOME/.nix-profile/share/zsh/site-functions ]]; then
+    fpath+=($HOME/.nix-profile/share/zsh/site-functions)
+fi
+
+if [[ -d /run/current-system/sw/share/zsh/site-functions ]]; then
+    fpath+=(/run/current-system/sw/share/zsh/site-functions)
+elif [[ -d /usr/share/zsh/site-functions ]]; then
+    fpath+=(/usr/share/zsh/site-functions)
+fi
+
+# +-----+
+# | NIX |
+# +-----+
+
+# | home-manager session |
+if test -r "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"; then
+    source "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
+fi
+
+# | home profile |
+if test -r $HOME/.nix-profile/etc/profile.d/nix.sh; then
+    source $HOME/.nix-profile/etc/profile.d/nix.sh
+fi
+
+# | system profile |
+if test -r /etc/profile.d/nix.sh; then
+    source /etc/profile.d/nix.sh
+fi
+
+# +-------------+
+# | ZSH PLUGINS |
+# +-------------+
+
+fpath+=(
+    $ZDOTDIR/plugins/zsh-autocomplete
+    $ZDOTDIR/plugins/zsh-autopair
+    $ZDOTDIR/plugins/zsh-autosuggestions
+    $ZDOTDIR/plugins/fast-syntax-highlighting
+)
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=60
+source $ZDOTDIR/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+source $ZDOTDIR/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+source $ZDOTDIR/plugins/zsh-autopair/autopair.zsh && autopair-init
+source $ZDOTDIR/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# +--------+
+# | PROMPT |
+# +--------+
+
+# | atuin |
+if [[ -o interactive ]] && [[ -n "${commands[atuin]}" ]]; then
+    export ATUIN_NOBIND="true"
+    eval "$(atuin init zsh)"
+    bindkey '^r' atuin-search
+    bindkey '^[[A' _atuin_up_search_widget
+    bindkey '^[OA' _atuin_up_search_widget
+fi
+
+# | direnv |
+if [[ -o interactive ]] && [[ -n "${commands[direnv]}" ]]; then
+    eval "$(direnv hook zsh)"
+fi
+
+# | fzf |
+if [[ -o interactive ]] && [[ -n "${commands[fzf-share]}" ]]; then
+    fpath+=(/usr/share/fzf/shell)
+    source /usr/share/fzf/shell/key-bindings.zsh
+fi
+
+# | grc colorizer |
+if [[ -o interactive ]] && [[ -n ${commands[grc]} ]]; then
+    source /usr/etc/grc.zsh 2> /dev/null
+fi
+
+# | linuxbrew |
+if [[ -o interactive ]] && [[ -d /home/linuxbrew/.linuxbrew ]]; then
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+    if type brew &>/dev/null; then
+        if [[ -w /home/linuxbrew/.linuxbrew ]]; then
+            if [[ ! -L "$(brew --prefix)/share/zsh/site-functions/_brew" ]]; then
+                brew completions link
+            fi
+        fi
+    fi
+fi
+
+# | starship prompt |
+if [[ -o interactive ]] && [[ -n ${commands[starship]} ]]; then
+    eval "$(starship init zsh)"
+fi
+
+# | thefuck alias |
+if [[ -o interactive ]] && [[ -n ${commands[thefuck]} ]]; then
+    eval "$(thefuck --alias)"
+fi
+
+# | zoxide alias |
+if [[ -o interactive ]] && [[ -n ${commands[zoxide]} ]]; then
+    eval "$(zoxide init zsh)"
+fi
+
+# +--------------+
+# | User scripts |
+# +--------------+
+
+if [ -d "$ZDOTDIR/user" ]; then
+    for f in $ZDOTDIR/user/*.zsh; do
+        source "$f"
+    done && unset f
+fi
 
 # +----------+
 # | TERMINAL |

@@ -1,0 +1,274 @@
+c#  _   _  ___  ____  ____    _____ _   _ _____ __  __ _____
+# | \ | |/ _ \|  _ \|  _ \  |_   _| | | | ____|  \/  | ____|
+# |  \| | | | | |_) | | | |   | | | |_| |  _| | |\/| |  _|
+# | |\  | |_| |  _ <| |_| |   | | |  _  | |___| |  | | |___
+# |_| \_|\___/|_| \_\____/    |_| |_| |_|_____|_|  |_|_____|
+
+# COLOR needs one of these arguments: 'tty' colorizes output to ttys, but not
+# pipes. 'all' adds color characters to all output. 'none' shuts colorization
+# off.
+COLOR tty
+
+# There should be one TERM entry for each termtype that is colorizable
+TERM ansi
+TERM color_xterm
+TERM color-xterm
+TERM con132x25
+TERM con132x30
+TERM con132x43
+TERM con132x60
+TERM con80x25
+TERM con80x28
+TERM con80x30
+TERM con80x43
+TERM con80x50
+TERM con80x60
+TERM cons25
+TERM console
+TERM cygwin
+TERM dtterm
+TERM Eterm
+TERM eterm-color
+TERM gnome
+TERM gnome-256color
+TERM jfbterm
+TERM konsole
+TERM kterm
+TERM linux
+TERM linux-c
+TERM mach-color
+TERM mlterm
+TERM nxterm
+TERM putty
+TERM rxvt
+TERM rxvt-256color
+TERM rxvt-cygwin
+TERM rxvt-cygwin-native
+TERM rxvt-unicode
+TERM rxvt-unicode256
+TERM rxvt-unicode-256color
+TERM screen
+TERM screen-256color
+TERM screen-256color-bce
+TERM screen-bce
+TERM screen.linux
+TERM screen-w
+TERM vt100
+TERM xterm
+TERM xterm-16color
+TERM xterm-256color
+TERM xterm-88color
+TERM xterm-color
+TERM xterm-debian
+
+# EIGHTBIT, followed by '1' for on, '0' for off. (8-bit output)
+EIGHTBIT 1
+
+#+-----------------+
+#+ Global Defaults +
+#+-----------------+
+
+RESET 0
+
+DIR 01;34
+LINK 00;36
+MULTIHARDLINK 04;36
+
+FIFO 01;04;37
+SOCK 01;37
+DOOR 01;04;37
+BLK 01;33
+CHR 01;04;33
+
+ORPHAN 01;37;41
+MISSING 01;37;41
+
+EXEC 01;36
+
+SETUID 01;04;37
+SETGID 01;04;37
+CAPABILITY 01;37
+
+STICKY_OTHER_WRITABLE 04;37;44
+OTHER_WRITABLE 01;04;34
+STICKY 04;37;44
+
+
+#+-------------------+
+#+ Extension Pattern +
+#+-------------------+
+#+--- Archives ---+
+*.7z    00;33
+*.ace   00;33
+*.alz   00;33
+*.apk   00;33
+*.arc   00;33
+*.arj   00;33
+*.bz    00;33
+*.bz2   00;33
+*.cab   00;33
+*.cpio  00;33
+*.crate 00;33
+*.deb   00;33
+*.drpm  00;33
+*.dwm   00;33
+*.dz    00;33
+*.ear   00;33
+*.egg   00;33
+*.esd   00;33
+*.gz    00;33
+*.jar   00;33
+*.lha   00;33
+*.lrz   00;33
+*.lz    00;33
+*.lz4   00;33
+*.lzh   00;33
+*.lzma  00;33
+*.lzo   00;33
+*.pyz   00;33
+*.rar   00;33
+*.rpm   00;33
+*.rz    00;33
+*.sar   00;33
+*.swm   00;33
+*.t7z   00;33
+*.tar   00;33
+*.taz   00;33
+*.tbz   00;33
+*.tbz2  00;33
+*.tgz   00;33
+*.tlz   00;33
+*.txz   00;33
+*.tz    00;33
+*.tzo   00;33
+*.tzst  00;33
+*.udeb  00;33
+*.war   00;33
+*.whl   00;33
+*.wim   00;33
+*.xz    00;33
+*.z     00;33
+*.zip   00;33
+*.zoo   00;33
+*.zst   00;33
+
+#+--- Audio ---+
+*.aac  00;32
+*.au   00;32
+*.flac 00;32
+*.m4a  00;32
+*.mid  00;32
+*.midi 00;32
+*.mka  00;32
+*.mp3  00;32
+*.mpa  00;32
+*.mpc  00;32
+*.oga  00;32
+*.ogg  00;32
+*.opus 00;32
+*.ra   00;32
+*.spx  00;32
+*.wav  00;32
+*.xspf 00;32
+
+#+--- Images ---+
+*.bmp   00;35
+*.cgm   00;35
+*.dl    00;35
+*.dvi   00;35
+*.emf   00;35
+*.eps   00;35
+*.gif   00;35
+*.jpeg  00;35
+*.jpg   00;35
+*.mjpeg 00;35
+*.mjpg  00;35
+*.mng   00;35
+*.pbm   00;35
+*.pcx   00;35
+*.pgm   00;35
+*.png   00;35
+*.ppm   00;35
+*.pps   00;35
+*.ppsx  00;35
+*.ps    00;35
+*.svg   00;35
+*.svgz  00;35
+*.tga   00;35
+*.tif   00;35
+*.tiff  00;35
+*.webp  00;35
+*.xbm   00;35
+*.xcf   00;35
+*.xpm   00;35
+*.xwd   00;35
+*.yuv   00;35
+
+#+--- Video ---+
+*.anx  01;35
+*.asf  01;35
+*.avi  01;35
+*.avif 01;35
+*.axv  01;35
+*.flc  01;35
+*.fli  01;35
+*.flv  01;35
+*.gl   01;35
+*.m2v  01;35
+*.m4v  01;35
+*.mkv  01;35
+*.mov  01;35
+*.mp4  01;35
+*.mp4v 01;35
+*.mpeg 01;35
+*.mpg  01;35
+*.nuv  01;35
+*.ogm  01;35
+*.ogv  01;35
+*.ogx  01;35
+*.qt   01;35
+*.rm   01;35
+*.rmvb 01;35
+*.swf  01;35
+*.vob  01;35
+*.webm 01;35
+*.wmv  01;35
+
+#+--- Executables ---+
+*.app 01;46
+*.bat 01;46
+*.btm 01;46
+*.cmd 01;46
+*.com 01;46
+*.exe 01;46
+*.reg 01;46
+*.sh  01;46
+*.zsh 01;46
+
+#+--- System ---+
+*passwd  01;31
+*shadow  01;31
+*sudoers 01;31
+
+#+--- Ignores ---+
+*~           00;90
+*#           00;90
+*.bak        00;90
+*.crdownload 00;90
+*.dpkg-dist  00;90
+*.dpkg-new   00;90
+*.dpkg-old   00;90
+*.dpkg-tmp   00;90
+*.old        00;90
+*.orig       00;90
+*.part       00;90
+*.rej        00;90
+*.rpmnew     00;90
+*.rpmorig    00;90
+*.rpmsave    00;90
+*.swo        00;90
+*.swp        00;90
+*.tmp        00;90
+*.ucf-dist   00;90
+*.ucf-new    00;90
+*.ucf-old    00;90

@@ -53,6 +53,135 @@ if [[ ("$SHLVL" -eq 1 && ! -o LOGIN) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; the
     source ${ZDOTDIR:-$HOME}/.zprofile
 fi
 
+# +--------+
+# | EDITOR |
+# +--------+
+
+if [[ -n ${commands[nvim]} ]]; then
+    export EDITOR=nvim
+else
+    export EDITOR=vim
+fi
+
+export ALTERNATE_EDITOR="$EDITOR"
+export VISUAL="$EDITOR"
+
+# +--------------+
+# | FZF, RIPGREP |
+# +--------------+
+
+FZF_COLORS="bg+:-1,\
+fg:gray,\
+fg+:white,\
+border:black,\
+spinner:0,\
+hl:yellow,\
+header:blue,\
+info:green,\
+pointer:red,\
+marker:blue,\
+prompt:gray,\
+hl+:red"
+
+if [[ -n "${commands[fzf-share]}" ]]; then
+    FZF_CTRL_R_OPTS=--reverse
+    if [[ -n "${commands[fd]}" ]]; then
+        export FZF_DEFAULT_COMMAND='fd --type f'
+    else
+        export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
+    fi
+fi
+
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_DEFAULT_OPTS="--height 60% \
+    --border sharp \
+    --layout reverse \
+    --color '$FZF_COLORS' \
+    --prompt '∷ ' \
+    --pointer ▶ \
+    --marker ⇒"
+export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -n 10'"
+export FZF_COMPLETION_DIR_COMMANDS="cd pushd rmdir tree ls"
+# export FZF_TMUX_OPTS="-p"
+
+# +------------+
+# | GCC COLORS |
+# +------------+
+
+# 0 = black  1 = red   2 = green
+# 3 = yellow 4 = blue  5 = magenta
+# 6 = cyan   7 = white 8 = not used
+# 9 = reset (default)
+
+# gcc colors
+GCC_COLORS=''
+GCC_COLORS+='error=01;31'
+GCC_COLORS+=':warning=01;35'
+GCC_COLORS+=':note=01;36'
+GCC_COLORS+=':caret=01;32'
+GCC_COLORS+=':locus=01'
+GCC_COLORS+=':quote=01'
+export GCC_COLORS
+
+# +------------------+
+# | LESS, MAN, PAGER |
+# +------------------+
+
+if [[ -n ${commands[moar]} ]]; then
+    export PAGER="moar"
+else
+    export PAGER="less"
+fi
+
+export LESS="-FXisRM"
+export MANWIDTH=80
+export MANPAGER="$PAGER"
+export READNULLCMD="$PAGER"
+
+#-------------------------------------
+# cap |  info   |  effect            |
+#-----|---------|--------------------|
+# md  |  bold   |  bold start        |
+# us  |  smul   |  underline start   |
+# ue  |  rmul   |  underline end     |
+# mb  |  blink  |  blink start       |
+# so  |  smso   |  standout start    |
+# se  |  rmso   |  standout end      |
+# me  |  sgr0   |  reset all         |
+#     |  invis  |  invisible start   |
+#     |  rev    |  reverse           |
+#     |  setaf  |  foreground color  |
+#     |  setab  |  background color  |
+
+export LESS_TERMCAP_mb=$'\E[01;31m'     # begin blinking
+export LESS_TERMCAP_md=$'\E[01;32m'     # begin bold
+export LESS_TERMCAP_me=$'\E[0m'         # end mode
+export LESS_TERMCAP_se=$'\E[0m'         # end standout-mode
+export LESS_TERMCAP_so=$'\E[01;30;44m'  # begin standout-mode - info box
+export LESS_TERMCAP_ue=$'\E[0m'         # end underline
+export LESS_TERMCAP_us=$'\E[04;33m'     # begin underline
+export GROFF_NO_SGR=1
+
+# +-----+
+# | NIX |
+# +-----+
+
+if [[ -d ${HOME}/.nix-defexpr/channels ]]; then
+    export NIX_PATH="$NIX_PATH:$HOME/.nix-defexpr/channels"
+fi
+
+if [[ -S /nix/var/nix/daemon-socket/socket ]]; then
+    export NIX_REMOTE=daemon
+fi
+
+export NIX_USER_PROFILE_DIR="${NIX_USER_PROFILE_DIR:-/nix/var/nix/profiles/per-user/${USER}}"
+export NIX_PROFILES="${NIX_PROFILES:-$HOME/.nix-profile}"
+
+if [[ -z "$TERMINFO_DIRS" ]] || [[ -d $HOME/.nix-profile/share/terminfo ]]; then
+    export TERMINFO_DIRS=$HOME/.nix-profile/share/terminfo
+fi
+
+
 # +----------------+
 # | OTHER SOFTWARE |
 # +----------------+

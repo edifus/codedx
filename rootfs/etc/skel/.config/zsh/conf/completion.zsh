@@ -14,6 +14,7 @@
 # +---------+
 
 if [[ -n ${commands[fzf]} ]]; then
+    source $ZDOTDIR/plugins/fzf-tab/fzf-tab.plugin.zsh
     if [ -n "$TMUX" ]; then
         zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
     fi
@@ -22,12 +23,20 @@ if [[ -n ${commands[fzf]} ]]; then
     # set descriptions format to enable group support
     # NOTE: don't use escape sequences here, fzf-tab will ignore them
     zstyle ':completion:*:descriptions' format '[%d]'
+    # force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
+    zstyle ':completion:*' menu no
     # preview directory's content with lsd when completing cd
     if [[ -n ${commands[eza]} ]]; then
         zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
     elif [[ -n ${commands[lsd]} ]]; then
         zstyle ':fzf-tab:complete:cd:*' fzf-preview 'lsd -1 --color=always $realpath'
     fi
+    # custom fzf flags
+    # NOTE: fzf-tab does not follow FZF_DEFAULT_OPTS by default
+    zstyle ':fzf-tab:*' fzf-flags --color=fg:1,fg+:2 --bind=tab:accept
+    # To make fzf-tab follow FZF_DEFAULT_OPTS.
+    # NOTE: This may lead to unexpected behavior since some flags break this plugin. See Aloxaf/fzf-tab#455.
+    zstyle ':fzf-tab:*' use-fzf-default-opts yes
     # switch group using `<` and `>`
     zstyle ':fzf-tab:*' switch-group '<' '>'
 fi
@@ -50,7 +59,7 @@ else
 fi
 
 # Group matches and describe.
-zstyle ':completion:*:*:*:*:*' menu select
+#zstyle ':completion:*:*:*:*:*' menu select
 zstyle ':completion:*:matches' group 'yes'
 zstyle ':completion:*:options' description 'yes'
 zstyle ':completion:*:options' auto-description '%d'
