@@ -105,16 +105,13 @@ if [[ -n "${commands[direnv]}" ]]; then eval "$(direnv hook zsh)"; fi
 
 # | fzf |
 if [[ -n "${commands[fzf-share]}" ]]; then
-    fpath+=($USR/share/fzf)
-    source $USR/share/fzf/completion.zsh
-    source $USR/share/fzf/key-bindings.zsh
+    source /usr/share/fzf/completion.zsh
+    source /usr/share/fzf/key-bindings.zsh
 fi
 
 # | grc colorizer |
 if [[ -n ${commands[grc]} ]]; then
-    source /etc/grc.zsh 2> /dev/null || \
-    source $USR/etc/grc.zsh 2> /dev/null || \
-    true
+    source /usr/etc/grc.zsh 2> /dev/null
 fi
 
 # | linuxbrew |
@@ -180,33 +177,33 @@ source $ZDOTDIR/conf/scripts.zsh
 # +-------------+
 
 if ! test -d $ZDOTDIR/plugins/zsh-autocomplete; then
-    git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git $ZDOTDIR/plugins/zsh-autocomplete
+    git clone -- https://github.com/marlonrichert/zsh-autocomplete.git $ZDOTDIR/plugins/zsh-autocomplete
 else
-    git pull -C $ZDOTDIR/plugins/zsh-autocomplete
+    GIT_DISCOVERY_ACROSS_FILESYSTEM=1 git -C $ZDOTDIR/plugins/zsh-autocomplete pull > /dev/null
 fi
 
 if ! test -d $ZDOTDIR/plugins/zsh-autopair; then
-    git clone --depth 1 -- https://github.com/hlissner/zsh-autopair $ZDOTDIR/plugins/zsh-autopair
+    git clone -- https://github.com/hlissner/zsh-autopair $ZDOTDIR/plugins/zsh-autopair
 else
-    git pull -C $ZDOTDIR/plugins/zsh-autopair
+    GIT_DISCOVERY_ACROSS_FILESYSTEM=1 git -C $ZDOTDIR/plugins/zsh-autopair pull > /dev/null
 fi
 
 if ! test -d $ZDOTDIR/plugins/zsh-autosuggestions; then
-    git clone --depth 1 -- https://github.com/zsh-users/zsh-autosuggestions $ZDOTDIR/plugins/zsh-autosuggestions
+    git clone -- https://github.com/zsh-users/zsh-autosuggestions $ZDOTDIR/plugins/zsh-autosuggestions
 else
-    git pull -C $ZDOTDIR/plugins/zsh-autosuggestions
+    GIT_DISCOVERY_ACROSS_FILESYSTEM=1 git -C $ZDOTDIR/plugins/zsh-autosuggestions pull > /dev/null
 fi
 
 if ! test -d $ZDOTDIR/plugins/fast-syntax-highlighting; then
-    git clone --depth 1 -- https://github.com/zdharma-continuum/fast-syntax-highlighting $ZDOTDIR/plugins/fast-syntax-highlighting
+    git clone -- https://github.com/zdharma-continuum/fast-syntax-highlighting $ZDOTDIR/plugins/fast-syntax-highlighting
 else
-    git pull -C $ZDOTDIR/plugins/fast-syntax-highlighting
+    GIT_DISCOVERY_ACROSS_FILESYSTEM=1 git -C $ZDOTDIR/plugins/fast-syntax-highlighting pull > /dev/null
 fi
 
+source $ZDOTDIR/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 source $ZDOTDIR/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 source $ZDOTDIR/plugins/zsh-autopair/autopair.zsh && autopair-init
 source $ZDOTDIR/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source $ZDOTDIR/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 
 # +--------------+
 # | User scripts |
@@ -218,9 +215,28 @@ if [ -d "$ZDOTDIR/user" ]; then
     done && unset f
 fi
 
-### bling.sh source start
-test -f /usr/share/bazzite-cli/bling.sh && source /usr/share/bazzite-cli/bling.sh
-### bling.sh source end
+# +---------+
+# | BAZZITE |
+# +---------+
+
+_src_etc_profile_d()
+{
+    #  Make the *.sh things happier, and have possible ~/.zshenv options like
+    # NOMATCH ignored.
+    emulate -L ksh
+
+
+    # from bashrc, with zsh fixes
+    if [[ ! -o login ]]; then # We're not a login shell
+        for i in /etc/profile.d/*.sh; do
+            if [ -r "$i" ]; then
+                . $i
+            fi
+        done
+        unset i
+    fi
+}
+_src_etc_profile_d && unset -f _src_etc_profile_d
 
 # +----------+
 # | TERMINAL |
