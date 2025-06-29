@@ -24,6 +24,10 @@ configure-custom-app-defaults:
     #!/usr/bin/env bash
     set -euo pipefail
 
+    # Setup Starship prompt
+    echo "Setting up Starship prompt..."
+    cp -f /etc/skel/.config/starship.toml "$HOME"/.config/starship.toml
+
     # Setup Ghostty configuration
     echo "Setting up Ghostty configuration..."
     if test ! -e "$HOME"/.config/ghostty; then
