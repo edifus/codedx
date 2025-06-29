@@ -4,12 +4,12 @@ format = """
 $os\
 $username\
 $hostname\
-[](bg:color_nord1 fg:color_nord0)\
+[](bg:color1 fg:color0)\
 $directory\
-[](bg:color_nord2 fg:color_nord1)\
+[](bg:color2 fg:color1)\
 $git_branch\
 $git_status\
-[](bg:color_nord8 fg:color_nord2)\
+[](bg:color8 fg:color2)\
 $c\
 $rust\
 $golang\
@@ -19,12 +19,12 @@ $java\
 $kotlin\
 $haskell\
 $python\
-[](bg:color_nord9 fg:color_nord8)\
+[](bg:color9 fg:color8)\
 $docker_context\
 $conda\
-[](bg:color_nord10 fg:color_nord9)\
+[](bg:color10 fg:color9)\
 $time\
-[](fg:color_nord10)\
+[](fg:color10)\
 $line_break$character"""
 
 command_timeout = 5000
@@ -33,26 +33,25 @@ palette = 'nord'
 
 [palettes.nord]
 # polar night
-#color_nord0 = '#2e3440'
-color_nord0 = '#282c34' # onehalf dark background
-color_nord1 = '#3b4252'
-color_nord2 = '#434c5e'
-color_nord3 = '#4c566a'
+color0 = '#212121' # nord-wave background
+color1 = '#3b4252'
+color2 = '#434c5e'
+color3 = '#4c566a'
 # snow storm
-color_nord4 = '#d8dee9'
-color_nord5 = 'e5e9f0'
-color_nord6 = '#eceff4'
+color4 = '#d8dee9'
+color5 = 'e5e9f0'
+color6 = '#eceff4'
 # frost
-color_nord7 = '#8fbcbb'
-color_nord8 = '#88c0d0'
-color_nord9 = '#81a1c1'
-color_nord10 = '#5e81ac'
+color7 = '#8fbcbb'
+color8 = '#88c0d0'
+color9 = '#81a1c1'
+color10 = '#5e81ac'
 # aurora
-color_nord11 = '#bf616a'
-color_nord12 = '#d08770'
-color_nord13 = '#ebcb8b'
-color_nord14 = '#a3be8c'
-color_nord15 = '#b48ead'
+color11 = '#bf616a'
+color12 = '#d08770'
+color13 = '#ebcb8b'
+color14 = '#a3be8c'
+color15 = '#b48ead'
 
 [aws]
 symbol = ''
@@ -62,22 +61,22 @@ symbol = ''
 
 [c]
 symbol = ''
-style = 'bg:color_nord8'
-format = '[[ $symbol( $version) ](bg:color_nord8 fg:color_nord6)]($style)'
+style = 'bg:color8'
+format = '[[ $symbol( $version) ](bg:color8 fg:color6)]($style)'
 
 [character]
 disabled = false
-success_symbol = '[ ❱](bold fg:color_nord14)'
-error_symbol = '[ ❱](bold fg:color_nord11)'
-vimcmd_symbol = '[ ❰](bold fg:color_nord14)'
-vimcmd_replace_one_symbol = '[ ❰](bold fg:color_nord15)'
-vimcmd_replace_symbol = '[ ❰](bold fg:color_nord15)'
-vimcmd_visual_symbol = '[ ❰](bold fg:color_nord13)'
+success_symbol = '[ ❱](bold fg:color14)'
+error_symbol = '[ ❱](bold fg:color11)'
+vimcmd_symbol = '[ ❰](bold fg:color14)'
+vimcmd_replace_one_symbol = '[ ❰](bold fg:color15)'
+vimcmd_replace_symbol = '[ ❰](bold fg:color15)'
+vimcmd_visual_symbol = '[ ❰](bold fg:color13)'
 
 [conda]
 symbol = ''
-style = 'bg:color_nord9'
-format = '[[ $symbol( $environment) ](bg:color_nord9 fg:color_nord6)]($style)'
+style = 'bg:color9'
+format = '[[ $symbol( $environment) ](bg:color9 fg:color6)]($style)'
 
 [crystal]
 symbol = ''
@@ -86,7 +85,7 @@ symbol = ''
 symbol = ''
 
 [directory]
-style = 'bold bg:color_nord1 fg:color_nord9'
+style = 'bold bg:color1 fg:color9'
 format = '[ $path ]($style)'
 truncation_length = 10
 truncate_to_repo = false
@@ -102,17 +101,17 @@ read_only = ' 󰌾'
 
 [docker_context]
 symbol = ''
-style = 'bg:color_nord9'
-format = '[[ $symbol( $context) ](bg:color_nord9 fg:color_nord6)]($style)'
+style = 'bg:color9'
+format = '[[ $symbol( $context) ](bg:color9 fg:color6)]($style)'
 
 [elixir]
 symbol = ''
-style = 'bg:color_nord8'
+style = 'bg:color8'
 format = '[ $symbol ($version) ]($style)'
 
 [elm]
 symbol = ''
-style = 'bg:color_nord8'
+style = 'bg:color8'
 format = '[ $symbol ($version) ]($style)'
 
 [fennel]
@@ -123,36 +122,36 @@ symbol = ''
 
 [git_branch]
 symbol = ''
-style = 'bg:color_nord2'
-format = '[[ $symbol $branch ](bg:color_nord2 fg:color_nord6)]($style)'
+style = 'bg:color2'
+format = '[[ $symbol $branch ](bg:color2 fg:color6)]($style)'
 
 [git_status]
-style = 'bg:color_nord2'
-up_to_date = '[✔](bold bg:color_nord2 fg:color_nord14)'
-modified = '[! ](bold bg:color_nord2 fg:color_nord11)'
-conflicted = '[=${count} ](bold bg:color_nord2 fg:color_nord11)'
-ahead = '[⇡${count} ](bold bg:color_nord2 fg:color_nord13)'
-behind = '[⇣${count} ](bold bg:color_nord2 fg:color_nord13)'
-diverged = '[⇕ ⇡${ahead_count} ⇣${behind_count} ](bold bg:color_nord2 fg:color_nord12)'
-untracked = '[?${count} ](bold bg:color_nord2 fg:color_nord12)'
-stashed = '[$${count} ](bg:color_nord2 fg:color_nord6)'
-renamed = '[»${count} ](bold bg:color_nord2 fg:color_nord12)'
-deleted = '[✘${count} ](bold bg:color_nord2 fg:color_nord11)'
-staged = '[+${count} ](bold bg:color_nord2 fg:color_nord13)'
-format = '[($all_status$ahead_behind) ](bg:color_nord2 fg:color_nord6)($style)'
+style = 'bg:color2'
+up_to_date = '[✔](bold bg:color2 fg:color14)'
+modified = '[! ](bold bg:color2 fg:color11)'
+conflicted = '[=${count} ](bold bg:color2 fg:color11)'
+ahead = '[⇡${count} ](bold bg:color2 fg:color13)'
+behind = '[⇣${count} ](bold bg:color2 fg:color13)'
+diverged = '[⇕ ⇡${ahead_count} ⇣${behind_count} ](bold bg:color2 fg:color12)'
+untracked = '[?${count} ](bold bg:color2 fg:color12)'
+stashed = '[$${count} ](bg:color2 fg:color6)'
+renamed = '[»${count} ](bold bg:color2 fg:color12)'
+deleted = '[✘${count} ](bold bg:color2 fg:color11)'
+staged = '[+${count} ](bold bg:color2 fg:color13)'
+format = '[($all_status$ahead_behind) ](bg:color2 fg:color6)($style)'
 
 [golang]
 symbol = ''
-style = 'bg:color_nord8'
-format = '[[ $symbol( $version) ](bg:color_nord8 fg:color_nord6)]($style)'
+style = 'bg:color8'
+format = '[[ $symbol( $version) ](bg:color8 fg:color6)]($style)'
 
 [guix_shell]
 symbol = ''
 
 [haskell]
 symbol = ''
-style = 'bg:color_nord8'
-format = '[[ $symbol( $version) ](bg:color_nord8 fg:color_nord6)]($style)'
+style = 'bg:color8'
+format = '[[ $symbol( $version) ](bg:color8 fg:color6)]($style)'
 
 [haxe]
 symbol = ''
@@ -163,24 +162,24 @@ symbol = ''
 [hostname]
 ssh_symbol = ''
 ssh_only = true
-style = 'bg:color_nord0'
-format = '[@ [$hostname](bg:color_nord0 fg:color_nord14) ]($style)'
+style = 'bg:color0'
+format = '[@ [$hostname](bg:color0 fg:color14) ]($style)'
 trim_at = '.'
 
 [java]
 symbol = ''
-style = 'bg:color_nord8'
-format = '[[ $symbol( $version) ](bg:color_nord8 fg:color_nord6)]($style)'
+style = 'bg:color8'
+format = '[[ $symbol( $version) ](bg:color8 fg:color6)]($style)'
 
 [julia]
 symbol = ''
-style = 'bg:color_nord8'
+style = 'bg:color8'
 format = '[ $symbol ($version) ]($style)'
 
 [kotlin]
 symbol = ''
-style = 'bg:color_nord8'
-format = '[[ $symbol( $version) ](bg:color_nord8 fg:color_nord6)]($style)'
+style = 'bg:color8'
+format = '[[ $symbol( $version) ](bg:color8 fg:color6)]($style)'
 
 [line_break]
 disabled = false
@@ -196,7 +195,7 @@ symbol = '󰔷'
 
 [nim]
 symbol = '󰆥'
-style = 'bg:color_nord8'
+style = 'bg:color8'
 format = '[ $symbol ($version) ]($style)'
 
 [nix_shell]
@@ -204,16 +203,16 @@ symbol = ''
 
 [nodejs]
 symbol = ''
-style = 'bg:color_nord8'
-format = '[[ $symbol( $version) ](bg:color_nord8 fg:color_nord6)]($style)'
+style = 'bg:color8'
+format = '[[ $symbol( $version) ](bg:color8 fg:color6)]($style)'
 
 [ocaml]
 symbol = ''
 
 [os]
 disabled = false
-style = 'bg:color_nord0 fg:color_nord6'
-format = '[ $symbol]($style)'
+style = 'bg:color0 fg:color6'
+format = '[ $symbol ]($style)'
 
 [os.symbols]
 Alpaquita = ''
@@ -268,16 +267,16 @@ symbol = ''
 
 [php]
 symbol = ''
-style = 'bg:color_nord8'
-format = '[[ $symbol( $version) ](bg:color_nord8 fg:color_nord6)]($style)'
+style = 'bg:color8'
+format = '[[ $symbol( $version) ](bg:color8 fg:color6)]($style)'
 
 [pijul_channel]
 symbol = ''
 
 [python]
 symbol = ''
-style = 'bg:color_nord8'
-format = '[[ $symbol( $version) ](bg:color_nord8 fg:color_nord6)]($style)'
+style = 'bg:color8'
+format = '[[ $symbol( $version) ](bg:color8 fg:color6)]($style)'
 
 [rlang]
 symbol = '󰟔'
@@ -287,8 +286,8 @@ symbol = ''
 
 [rust]
 symbol = ''
-style = 'bg:color_nord8'
-format = '[[ $symbol( $version) ](bg:color_nord8 fg:color_nord6)]($style)'
+style = 'bg:color8'
+format = '[[ $symbol( $version) ](bg:color8 fg:color6)]($style)'
 
 [scala]
 symbol = ''
@@ -299,13 +298,13 @@ symbol = ''
 [time]
 disabled = false
 time_format = '%R'
-style = 'bg:color_nord10'
-format = '[[  $time ](bg:color_nord10 fg:color_nord6)]($style)'
+style = 'bg:color10'
+format = '[[  $time ](bg:color10 fg:color6)]($style)'
 
 [username]
 show_always = true
-style_user = 'bg:color_nord0 fg:color_nord13'
-style_root = 'bg:color_nord0 fg:color_nord13'
+style_user = 'bg:color0 fg:color13'
+style_root = 'bg:color0 fg:color13'
 format = '[ $user ]($style)'
 
 [zig]
