@@ -35,7 +35,6 @@ dnf5 install -y \
     aria2 \
     atuin \
     aurora-backgrounds \
-    aurora-plymouth \
     bash-color-prompt \
     bat \
     bcc \
