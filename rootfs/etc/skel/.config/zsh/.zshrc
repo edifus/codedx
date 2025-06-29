@@ -115,7 +115,7 @@ _src_etc_profile_d && unset -f _src_etc_profile_d
 # +-------------+
 
 if ! test -d $ZDOTDIR/plugins/fzf-tab; then
-    git clone -- https://github.com/Aloxaf/fzf-tab $ZDOTDIR/plugins/fzf-tab
+    git clone --depth 1 -- https://github.com/Aloxaf/fzf-tab $ZDOTDIR/plugins/fzf-tab
 else
     GIT_DISCOVERY_ACROSS_FILESYSTEM=1 git -C $ZDOTDIR/plugins/fzf-tab pull > /dev/null
 fi
