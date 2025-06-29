@@ -31,7 +31,6 @@ dnf5 install -y \
     android-tools \
     aria2 \
     aurora-backgrounds \
-    bash-color-prompt \
     bleachbit \
     borgbackup \
     ckb-next \
@@ -50,7 +49,6 @@ dnf5 install -y \
     genisoimage \
     ghostty \
     gparted \
-    fw-fanctrl \
     jetbrainsmono-nerd-fonts \
     liquidctl \
     mpv \
@@ -67,7 +65,6 @@ dnf5 install -y \
     ublue-fastfetch \
     ublue-setup-services \
     vlc \
-    vlc-plugin-ffmpeg \
     vlc-plugin-gnome \
     vlc-plugin-kde \
     vlc-plugin-pause-click \
