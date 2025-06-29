@@ -25,7 +25,7 @@ zmodload zsh/complist
 # cache time of 20 hours, so it should almost always regenerate the first time a
 # shell is opened each day.
 autoload -Uz compinit
-_comp_path="${XDG_CACHE_HOME}/prezto/zcompdump"
+_comp_path="$XDG_CACHE_HOME/prezto/zcompdump"
 
 #q expands globs in conditional expressions
 if [[ $_comp_path(#qNmh-20) ]]; then
