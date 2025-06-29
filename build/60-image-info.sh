@@ -66,8 +66,9 @@ sed -i "s|^VERSION_CODENAME=.*|VERSION_CODENAME=\"$CODE_NAME\"|" /usr/lib/os-rel
 # Fix issues caused by ID no longer being fedora
 sed -i "s/^EFIDIR=.*/EFIDIR=\"fedora\"/" /usr/sbin/grub2-switch-to-blscfg
 
-# remove last entry for ours
-head -n -3 /usr/lib/os-release
+# remove last entries for ours
+head -n -3 /usr/lib/os-release > /tmp/os-release
+mv /tmp/os-release /usr/lib/os-release
 
 # shellcheck disable=SC2129
 echo "BUILD_ID=\"$VERSION_PRETTY\"" >> /usr/lib/os-release

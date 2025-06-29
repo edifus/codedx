@@ -30,10 +30,8 @@ dnf5 config-manager addrepo --from-repofile="https://openrazer.github.io/hardwar
 dnf5 install -y \
     android-tools \
     aria2 \
-    atuin \
     aurora-backgrounds \
     bash-color-prompt \
-    bat \
     bleachbit \
     borgbackup \
     ckb-next \
@@ -44,25 +42,17 @@ dnf5 install -y \
     docker-ce \
     docker-ce-cli \
     docker-compose-plugin \
-    eza \
-    fd-find \
     flatpak-builder \
     fuse-btfs \
     fuse-devel \
     fuse3-devel \
     genisoimage \
-    gh \
     ghostty \
-    glab \
     gparted \
-    grc \
     fw-fanctrl \
-    isoimagewriter \
     jetbrainsmono-nerd-fonts \
-    kgpg \
     liquidctl \
     mpv \
-    neovim \
     openrazer-daemon \
     openrgb \
     podman-machine \
@@ -72,22 +62,15 @@ dnf5 install -y \
     rclone \
     restic \
     starship \
-    sysprof \
     tealdeer \
-    thefuck \
-    trash-cli \
     ublue-fastfetch \
     ublue-setup-services \
-    ugrep \
     vlc \
     vlc-plugin-ffmpeg \
     vlc-plugin-gnome \
     vlc-plugin-kde \
     vlc-plugin-pause-click \
     vlc-plugin-samba \
-    yq \
-    yt-dlp \
-    zoxide \
     zsh
 
 # disable repositories

@@ -20,11 +20,7 @@
     zrecompile -pq $ZDOTDIR/.zshrc
 
     # recompile all zsh or sh
-    _ZSHFILES=(
-        $ZSHCONFIG/*.*sh
-        $ZSHCONFIG/conf/*.*sh
-    )
-    for f in $_ZSHFILES; do
+    for f in $ZSHCONFIG/conf/*.*sh; do
         zrecompile -pq $f
     done
 ) &!

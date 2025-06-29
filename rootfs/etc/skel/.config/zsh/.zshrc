@@ -163,6 +163,39 @@ if test -r /etc/profile.d/nix.sh; then
     source /etc/profile.d/nix.sh
 fi
 
+# +-------------+
+# | ZSH PLUGINS |
+# +-------------+
+
+if ! test -d $ZDOTDIR/plugins/zsh-autocomplete; then
+    git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git $ZDOTDIR/plugins/zsh-autocomplete
+else
+    git pull -C $ZDOTDIR/plugins/zsh-autocomplete
+fi
+
+if ! test -d $ZDOTDIR/plugins/zsh-autocomplete; then
+    git clone --depth 1 -- https://github.com/hlissner/zsh-autopair $ZDOTDIR/plugins/zsh-autopair
+else
+    git pull -C $ZDOTDIR/plugins/zsh-autopair
+fi
+
+if ! test -d $ZDOTDIR/plugins/zsh-autosuggestions; then
+    git clone --depth 1 -- https://github.com/zsh-users/zsh-autosuggestions $ZDOTDIR/plugins/zsh-autosuggestions
+else
+    git pull -C $ZDOTDIR/plugins/zsh-autosuggestions
+fi
+
+if ! test -d $ZDOTDIR/plugins/fast-syntax-highlighting; then
+    git clone --depth 1 -- https://github.com/zdharma-continuum/fast-syntax-highlighting $ZDOTDIR/plugins/fast-syntax-highlighting
+else
+    git pull -C $ZDOTDIR/plugins/fast-syntax-highlighting
+fi
+
+source $ZDOTDIR/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+source $ZDOTDIR/plugins/zsh-autopair/autopair.zsh
+source $ZDOTDIR/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $ZDOTDIR/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+
 # +------------+
 # | ALIASES    |
 # | BINDINGS   |

@@ -22,10 +22,6 @@ systemctl enable ublue-system-setup.service
 [[ ${BASE_IMAGE_NAME} == 'kinoite' ]] && \
     setcap 'cap_net_raw+ep' /usr/libexec/ksysguard/ksgrd_network_helper || true
 
-# starship shell prompt | thefuck alias | zoxide alias
+# starship shell prompt
 # shellcheck disable=SC2016
-echo '
-eval "$(starship init bash)"
-eval "$(thefuck --alias)"
-eval "$(zoxide init bash)"
-' >> /etc/bashrc
+echo 'eval "$(starship init bash)"' >> /etc/bashrc

@@ -83,7 +83,6 @@ export REPORTTIME=4
 
 path=(
     $HOME/.bin
-    $HOME/.cargo/bin
     $HOME/.local/bin
     $HOME/bin
     $GOPATH/bin
