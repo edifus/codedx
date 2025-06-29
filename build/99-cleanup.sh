@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -eoux pipefail
 
-echo "::group::Executing cleanup.sh"
+echo "::group:: ===$(basename "$0")==="
 trap 'echo "::endgroup::"' EXIT
 
 dnf5 clean all
