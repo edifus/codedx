@@ -67,7 +67,6 @@ dnf5 install -y \
     starship \
     tealdeer \
     trash-cli \
-    ublue-fastfetch \
     ublue-setup-services \
     vlc \
     vlc-plugin-gnome \
