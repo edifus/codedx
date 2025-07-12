@@ -4,7 +4,6 @@ desktop-notifications = false
 quit-after-last-window-closed = true
 
 # font
-font-family = "JetBrains Mono Nerd Font"
 font-feature = -calt
 font-feature = -dlig
 font-feature = -liga
@@ -15,7 +14,7 @@ command = /usr/bin/zsh
 shell-integration = zsh
 
 #appearance
-background-opacity = "0.9"
+background-opacity = "0.95"
 cursor-style = bar
 link-url = true
 selection-invert-fg-bg = true
