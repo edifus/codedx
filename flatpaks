@@ -1,3 +1,4 @@
+app/app.polychromatic.controller/x86_64/stable
 app/com.bitwarden.desktop/x86_64/stable
 app/com.borgbase.Vorta/x86_64/stable
 app/com.discordapp.Discord/x86_64/stable
@@ -13,8 +14,10 @@ app/io.github.getnf.embellish/x86_64/stable
 app/io.github.giantpinkrobots.varia/x86_64/stable
 app/io.github.ilya_zlobintsev.LACT/x86_64/stable
 app/io.missioncenter.MissionCenter/x86_64/stable
+app/io.mpv.Mpv/x86_64/stable
 app/io.podman_desktop.PodmanDesktop/x86_64/stable
 app/me.iepure.devtoolbox/x86_64/stable
+app/org.bleachbit.BleachBit/x86_64/stable
 app/org.fedoraproject.MediaWriter/x86_64/stable
 app/org.filezillaproject.Filezilla/x86_64/stable
 app/org.fkoehler.KTailctl/x86_64/stable
@@ -28,6 +31,7 @@ app/org.kde.kweather/x86_64/stable
 app/org.kde.okular/x86_64/stable
 app/org.mozilla.firefox/x86_64/stable
 app/org.mozilla.Thunderbird/x86_64/stable
+app/org.videolan.VLC/x86_64/stable
 app/org.virt_manager.virt-manager/x86_64/stable
 app/sh.loft.devpod/x86_64/stable
 runtime/com.obsproject.Studio.Plugin.OBSVkCapture/x86_64/stable

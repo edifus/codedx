@@ -18,9 +18,10 @@ append_group() {
 }
 
 # Setup Groups
-append_group docker
+append_group docker plugdev
 
 mapfile -t wheelarray < <(getent group wheel | cut -d ":" -f 4 | tr ',' '\n')
 for user in "${wheelarray[@]}"; do
     usermod -aG docker "$user"
+    usermod -aG plugdev "$user"
 done

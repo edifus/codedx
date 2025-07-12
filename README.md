@@ -9,22 +9,20 @@ A custom Fedora Atomic image designed for gaming, development and daily use.
 
 - Built on Fedora 42
 - Uses [Bazzite](https://bazzite.gg/) as the base image
-- KDE Plasma 6.3 with Valve's themes from SteamOS
+- KDE Plasma 6.4 with Valve's themes from SteamOS
 
 ## Features
 
 - [Bazzite features](https://github.com/ublue-os/bazzite#about--features)
 - ADB, Fastboot and [Waydroid](https://docs.bazzite.gg/Installing_and_Managing_Software/Waydroid_Setup_Guide/)
-- Cloudflare WARP
 - Curated list of [Flatpaks](https://github.com/edifus/codedx/blob/main/flatpaks) and [Homebrews](https://github.com/edifus/codedx/blob/main/homebrews)
 - Docker, Podman, Distrobox and Toolbx
 - Fixed Plasma integration with Google Drive
-- Ghostty terminal, Starship prompt, Zsh, fuck alias and Atuin history search (Ctrl+R)
-- Nix package manager
-- OpenRGB and CoolerControl
-- Switch to standalone SteamOS session from login screen
+- Ghostty terminal, Starship prompt, Zsh, and Atuin history search (Ctrl+R)
+- Nix package manager support
+- CoolerControl, Liquidctl, and OpenRGB
+- OpenRazer
 - Virtual Machine Manager, libvirt and QEMU
-- VLC, mpv, and HandBrake
 - VSCode
 
 ## Custom commands

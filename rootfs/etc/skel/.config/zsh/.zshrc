@@ -132,6 +132,9 @@ source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # | SCRIPTS     |
 # +-------------+
 
+fignore=(.DS_Store $fignore)
+fpath+=(/usr/share/zsh/site-functions)
+
 eval "$(dircolors -b $ZDOTDIR/conf/dircolors)"
 source $ZDOTDIR/conf/aliases.zsh
 source $ZDOTDIR/conf/bd.zsh
@@ -140,25 +143,16 @@ source $ZDOTDIR/conf/completion.zsh
 source $ZDOTDIR/conf/scripts_fzf.zsh
 source $ZDOTDIR/conf/scripts.zsh
 
-# +----------------+
-# | FUNCTION PATHS |
-# +----------------+
-
-fignore=(.DS_Store $fignore)
-
-if [[ -d $HOME/.nix-profile/share/zsh/site-functions ]]; then
-    fpath+=($HOME/.nix-profile/share/zsh/site-functions)
-fi
-
-if [[ -d /run/current-system/sw/share/zsh/site-functions ]]; then
-    fpath+=(/run/current-system/sw/share/zsh/site-functions)
-elif [[ -d /usr/share/zsh/site-functions ]]; then
-    fpath+=(/usr/share/zsh/site-functions)
-fi
-
 # +-----+
 # | NIX |
 # +-----+
+
+# | nix function paths |
+[[ -d $HOME/.nix-profile/share/zsh/site-functions ]] && \
+    fpath+=($HOME/.nix-profile/share/zsh/site-functions)
+[[ -d /run/current-system/sw/share/zsh/site-functions ]] && \
+    fpath+=(/run/current-system/sw/share/zsh/site-functions)
+
 
 # | home-manager session |
 if test -r "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"; then
@@ -179,33 +173,20 @@ fi
 # | PROMPT |
 # +--------+
 
-# | atuin |
-if [[ -o interactive ]] && [[ -n "${commands[atuin]}" ]]; then
+if [[ -o interactive ]]; then
+    # | atuin |
     export ATUIN_NOBIND="true"
     eval "$(atuin init zsh)"
     bindkey '^r' atuin-search
     bindkey '^[[A' _atuin_up_search_widget
     bindkey '^[OA' _atuin_up_search_widget
-fi
-
-# | direnv |
-if [[ -o interactive ]] && [[ -n "${commands[direnv]}" ]]; then
+    # | direnv |
     eval "$(direnv hook zsh)"
-fi
-
-# | fzf |
-if [[ -o interactive ]] && [[ -n "${commands[fzf-share]}" ]]; then
-    fpath+=(/usr/share/fzf/shell)
+    # | fzf |
     source /usr/share/fzf/shell/key-bindings.zsh
-fi
-
-# | grc colorizer |
-if [[ -o interactive ]] && [[ -n ${commands[grc]} ]]; then
+    # | grc colorizer |
     source /usr/etc/grc.zsh 2> /dev/null
-fi
-
-# | linuxbrew |
-if [[ -o interactive ]] && [[ -d /home/linuxbrew/.linuxbrew ]]; then
+    # | linuxbrew |
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
     if type brew &>/dev/null; then
         if [[ -w /home/linuxbrew/.linuxbrew ]]; then
@@ -214,11 +195,10 @@ if [[ -o interactive ]] && [[ -d /home/linuxbrew/.linuxbrew ]]; then
             fi
         fi
     fi
-fi
-
-# | starship prompt |
-if [[ -o interactive ]] && [[ -n ${commands[starship]} ]]; then
+    # | starship prompt |
     eval "$(starship init zsh)"
+    # | zoxide |
+    eval "$(zoxide init zsh)"
 fi
 
 # +--------------+

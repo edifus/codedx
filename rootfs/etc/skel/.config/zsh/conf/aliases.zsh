@@ -53,7 +53,6 @@ xalias df='df -Thx tmpfs -x devtmpfs'
 xalias diff='diff -Naur --strip-trailing-cr'
 xalias free='free -g'
 xalias fuser='fuser -v'
-xalias grep='grep --binary-files=without-match --directories=skip --color=auto'
 xalias mkbz2='tar -cvjf'
 xalias mkgz='tar -cvzf'
 xalias mktar='tar -cvf'
@@ -72,6 +71,13 @@ xalias top='htop'
 xalias unbz2='tar -xvjf'
 xalias ungz='tar -xvzf'
 xalias untar='tar -xvf'
+#ugrep
+xalias grep='ug'
+xalias egrep='ug -E'
+xalias fgrep='ug -F'
+xalias xzgrep='ug -z'
+xalias xzegrep='ug -zE'
+xalias xzfgrep='ug -zF'
 
 # +---------+
 # | eza, ls |
@@ -84,6 +90,8 @@ if [[ -n ${commands[eza]} ]]; then
     alias llm='eza --all --header --long --sort=modified ${=_ezaparams}'
     alias lt='eza --tree ${=_ezaparams}'
     alias l='eza --git-ignore ${=_ezaparams}'
+    alias l1='eza -1 ${=_ezaparams}'
+    alias l.='eza -d .* ${=_ezaparams}'
     alias tree='eza --all --git-ignore --tree ${=_ezaparams}'
 else
     xalias ls='ls --color=auto --classify --human-readable'
