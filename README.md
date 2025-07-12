@@ -2,6 +2,7 @@
 
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/codedx)](https://artifacthub.io/packages/search?repo=codedx)
 [![Build CodeDX](https://github.com/edifus/codedx/actions/workflows/build.yml/badge.svg)](https://github.com/edifus/codedx/actions/workflows/build.yml)
+[![Build ISOs](https://github.com/edifus/codedx/actions/workflows/build_iso.yml/badge.svg)](https://github.com/edifus/codedx/actions/workflows/build_iso.yml)
 
 A custom Fedora Atomic image designed for gaming, development and daily use.
 
@@ -34,13 +35,13 @@ The following `ujust` commands are available:
 ujust configure-boot-to-windows
 
 # Setup app defaults: Ghostty, VScode, Zsh
-ujust configure-custom-app-defaults
+ujust configure-codedx-app-defaults
 
 # Restart Bluetooth to fix issues
 ujust fix-bt
 
 # Install Flatpaks
-ujust install-custom-flatpaks
+ujust install-codedx-flatpaks
 
 # Install and configure Nix package manager
 ujust setup-nix
@@ -62,10 +63,9 @@ ujust setup-nix
 
 ## Install
 
-If you want to install the image on a new system, download and install Bazzite ISO first:
-<https://download.bazzite.gg>
+If you want to install the image on a new system, download ISO under Artifacts from latest [Build ISO](https://github.com/edifus/codedx/actions/workflows/build_iso.yml) workflow run.
 
-From an existing Fedora Atomic/Universal Blue installation, switch to a CodeDX image:
+From an existing Bazzite/Fedora Atomic/Universal Blue installation, switch to a CodeDX image:
 
 ```bash
 sudo bootc switch --enforce-container-sigpolicy ghcr.io/edifus/<image>:latest

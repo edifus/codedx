@@ -20,7 +20,7 @@ configure-boot-to-windows:
     sed -i 's/Hidden=true/Hidden=false/' $HOME/.local/share/applications/boot-to-windows.desktop
 
 # Setup app defaults, Ghostty, VScode, Zsh
-configure-custom-app-defaults:
+configure-codedx-app-defaults:
     #!/usr/bin/env bash
     set -euo pipefail
 
@@ -80,7 +80,7 @@ fix-bt:
     echo "Bluetooth fix complete"
 
 # Install custom Flatpaks
-install-custom-flatpaks:
+install-codedx-flatpaks:
     #!/usr/bin/env bash
     set -eou pipefail
     IMAGE_INFO="/usr/share/ublue-os/image-info.json"
