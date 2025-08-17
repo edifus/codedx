@@ -22,6 +22,7 @@ done && unset -v copr
 
 dnf5 -y config-manager setopt "*fedora-multimedia*".enabled=true
 dnf5 -y config-manager setopt terra.enabled=true
+dnf5 config-manager addrepo --from-repofile="https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo"
 dnf5 config-manager addrepo --from-repofile="https://download.docker.com/linux/fedora/docker-ce.repo"
 dnf5 config-manager addrepo --from-repofile="https://openrazer.github.io/hardware:razer.repo"
 
@@ -33,7 +34,7 @@ dnf5 install -y \
     aurora-backgrounds \
     bat \
     borgbackup \
-    ckb-next \
+    brave-browser \
     code \
     coolercontrol \
     containerd.io \
@@ -87,6 +88,7 @@ do dnf5 -y copr disable $copr
 done && unset -v copr
 
 dnf5 config-manager setopt "*fedora-multimedia*".enabled=0
+dnf5 config-manager setopt brave-browser.enable=0
 dnf5 config-manager setopt docker-ce-stable.enabled=0
 dnf5 config-manager setopt hardware_razer.enabled=0
 dnf5 config-manager setopt terra.enabled=0
