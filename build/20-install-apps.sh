@@ -88,7 +88,7 @@ do dnf5 -y copr disable $copr
 done && unset -v copr
 
 dnf5 config-manager setopt "*fedora-multimedia*".enabled=0
-dnf5 config-manager setopt brave-browser.enable=0
+dnf5 config-manager setopt brave-browser.enabled=0
 dnf5 config-manager setopt docker-ce-stable.enabled=0
 dnf5 config-manager setopt hardware_razer.enabled=0
 dnf5 config-manager setopt terra.enabled=0
