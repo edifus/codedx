@@ -39,6 +39,7 @@ dnf5 install -y \
     coolercontrol \
     containerd.io \
     direnv \
+    discord \
     docker-buildx-plugin \
     docker-ce \
     docker-ce-cli \
