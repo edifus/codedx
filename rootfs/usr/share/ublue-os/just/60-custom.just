@@ -148,7 +148,6 @@ install-codedx-appimages:
     done < <(curl --retry 3 -sL https://raw.githubusercontent.com/edifus/codedx/main/appimages)
     echo "AppImages installation complete."
 
-
 # Install custom Flatpaks
 install-codedx-flatpaks:
     #!/usr/bin/env bash
