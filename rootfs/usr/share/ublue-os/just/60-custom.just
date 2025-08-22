@@ -19,41 +19,29 @@ configure-boot-to-windows:
     cp -r /usr/share/applications/boot-to-windows.desktop $HOME/.local/share/applications
     sed -i 's/Hidden=true/Hidden=false/' $HOME/.local/share/applications/boot-to-windows.desktop
 
-# Setup app defaults, Ghostty, VScode, Zsh
-configure-codedx-app-defaults:
+# Setup code editors default configuration
+configure-editors:
     #!/usr/bin/env bash
-    set -euo pipefail
+    set -eou pipefail
 
-    # Setup Starship prompt
-    echo "Setting up Starship prompt..."
-    cp -f /etc/skel/.config/starship.toml "$HOME"/.config/starship.toml
+    for editor in "Cursor" "Code"; do
+      echo "Setting up $editor configuration..."
+      config_dir="${HOME}/.config/${editor}/User"
+      mkdir -p "$config_dir"
+      cp -f "/etc/skel/.config/${editor}/User/settings.json" "$config_dir/settings.json"
+      echo "$editor setup complete."
+    done
 
-    # Setup Ghostty configuration
+# Setup Ghostty terminal configuration
+configure-ghostty:
+    #!/usr/bin/env bash
+    set -eou pipefail
+
     echo "Setting up Ghostty configuration..."
-    if test ! -e "$HOME"/.config/ghostty; then
-        mkdir -p "$HOME"/.config/ghostty
-    fi
-    cp -f /etc/skel/.config/ghostty/config "$HOME"/.config/ghostty/config
-    echo "Ghostty setup complete"
-
-    # Setup vscode configuration
-    echo "Setting up vscode configuration..."
-    if test ! -e "$HOME"/.config/Code/User/settings.json; then
-        mkdir -p "$HOME"/.config/Code/User
-    fi
-    cp -f /etc/skel/.config/Code/User/settings.json "$HOME"/.config/Code/User/settings.json
-    echo "vscode setup complete"
-
-    # Setup Zsh shell configuration
-    echo "Setting up Zsh configuration..."
-    if test -d "$HOME"/.config/zsh; then
-        rm -rf "$HOME"/.config/zsh
-    fi
-    cp -afr /etc/skel/.config/zsh "$HOME"/.config/zsh
-    cp -f /etc/skel/.zshenv "$HOME"/.zshenv
-    rm -f "$HOME"/.zshrc
-    rm -f "$HOME"/.zprofile
-    echo "Zsh setup complete"
+    config_dir="${HOME}/.config/ghostty"
+    mkdir -p "$config_dir"
+    cp -f "/etc/skel/.config/ghostty/config" "$config_dir/config"
+    echo "Ghostty setup complete."
 
 configure-qemu-home-access:
     #!/usr/bin/env bash
@@ -67,10 +55,30 @@ configure-qemu-home-access:
     sudo setfacl -m u:qemu:rx $HOME && \
     echo "qemu can now read ISO files from $HOME"
 
+# Setup zsh shell configuration
+configure-zsh-shell:
+    #!/usr/bin/env bash
+    set -eou pipefail
+
+    # Setup Starship prompt
+    echo "Setting up Starship prompt..."
+    cp -f /etc/skel/.config/starship.toml "$HOME"/.config/starship.toml
+
+    # Setup Zsh shell configuration
+    echo "Setting up Zsh configuration..."
+    config_dir="${HOME}/.config/zsh"
+    rm -rfv "$config_dir"
+    cp -afr /etc/skel/.config/zsh "$config_dir"
+    cp -f /etc/skel/.zshenv "$HOME"/.zshenv
+    rm -f "$HOME"/.zshrc
+    rm -f "$HOME"/.zprofile
+    echo "Zsh setup complete"
+
 # Restart Bluetooth to fix issues
 fix-bt:
     #!/usr/bin/env bash
     set -eou pipefail
+
     trap '[[ $BASH_COMMAND != echo* ]] && echo "+ $BASH_COMMAND"' DEBUG
 
     echo "Fixing Bluetooth..."
@@ -79,12 +87,72 @@ fix-bt:
     sudo modprobe btusb
     echo "Bluetooth fix complete"
 
+# Install custom AppImage apps
+install-codedx-appimages:
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    DOWNLOAD_DIR="${XDG_DOWNLOAD_DIR:-${HOME}/Downloads}"
+    [ ! -d "$DOWNLOAD_DIR" ] && DOWNLOAD_DIR="$HOME"
+
+    # Install Gear Lever if not installed
+    flatpak list | grep -q "it.mijorus.gearlever" || flatpak --system -y install it.mijorus.gearlever
+
+    while IFS=, read -r name url; do
+      [ -z "$name" -o -z "$url" ] && continue
+      echo "Processing $name..."
+
+      # Skip if installed
+      if flatpak run it.mijorus.gearlever --list-installed | grep -qi "${name}.appimage"; then
+        echo "$name already installed"
+        continue
+      fi
+
+      # Handle GitHub wildcards
+      if [[ "$url" =~ github.com/([^/]+/[^/]+)/releases/download/[^/]*/([^/]*) ]] && [[ "$url" == *"*"* ]]; then
+        pattern="$(echo "${BASH_REMATCH[2]}" | sed 's/\./\\./g' | sed 's/\*/.*/g')"
+        # Try each release until we find one with an AppImage
+        url=""
+        while read -r release_url; do
+          if [[ "$release_url" =~ $pattern ]]; then
+            url="$release_url"
+            break
+          fi
+        done < <(curl --retry 3 -sL "https://api.github.com/repos/${BASH_REMATCH[1]}/releases" | jq -r ".[].assets[].browser_download_url")
+        [ -z "$url" ] && {
+          echo "No release found for $name"
+          continue
+        }
+      fi
+
+      # Handle JSON API responses (like cursor.com API)
+      if [[ "$url" != http*github.com* ]]; then
+        response=$(curl --retry 3 -sL "$url")
+        if echo "$response" | jq -e '.downloadUrl' >/dev/null 2>&1; then
+          url=$(echo "$response" | jq -r '.downloadUrl')
+          echo "  Found download URL in JSON: $url"
+        elif echo "$response" | jq -e '.download_url' >/dev/null 2>&1; then
+          url=$(echo "$response" | jq -r '.download_url')
+          echo "  Found download URL in JSON: $url"
+        fi
+      fi
+
+      # Download and install
+      appimage="$DOWNLOAD_DIR/${name}.appimage"
+      if aria2c --dir="$(dirname "$appimage")" --out="$(basename "$appimage")" --max-tries=3 --connect-timeout=30 "$url" && chmod +x "$appimage" && flatpak run it.mijorus.gearlever --integrate "$appimage" -y; then
+        echo "$name installed successfully"
+      else
+        echo "Failed to install $name"
+      fi
+      rm -f "$appimage"
+    done < <(curl --retry 3 -sL https://raw.githubusercontent.com/edifus/codedx/main/appimages)
+    echo "AppImages installation complete."
+
+
 # Install custom Flatpaks
 install-codedx-flatpaks:
     #!/usr/bin/env bash
     set -eou pipefail
-    IMAGE_INFO="/usr/share/ublue-os/image-info.json"
-    BASE_IMAGE_NAME=$(jq -r '."base-image-name"' < $IMAGE_INFO)
 
     echo "Installing Flatpaks..."
     xargs -a <(curl --retry 3 -sL https://raw.githubusercontent.com/edifus/codedx/main/flatpaks) flatpak --system -y install
@@ -96,11 +164,7 @@ setup-nix:
     set -eou pipefail
 
     echo "Setting up Nix package manager..."
-    NIX_DAEMON_SCRIPT="/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh"
-    NIX_INSTALLER="https://install.determinate.systems/nix"
-    curl --proto '=https' --tlsv1.2 -sSf -L "$NIX_INSTALLER" | sh -s -- install --no-confirm
-    [ -f "$NIX_DAEMON_SCRIPT" ] && . "$NIX_DAEMON_SCRIPT"
-
+    sudo mkdir /etc/nix
     echo '
     # Sane defaults
     download-buffer-size = 536870912
@@ -109,4 +173,9 @@ setup-nix:
     trusted-substituters = https://cache.garnix.io https://cache.nixos.org https://nix-community.cachix.org https://numtide.cachix.org
     trusted-users = root @wheel
     ' | sudo tee /etc/nix/nix.custom.conf
+
+    NIX_DAEMON_SCRIPT="/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh"
+    NIX_INSTALLER="https://install.determinate.systems/nix"
+    curl --proto '=https' --tlsv1.2 -sSf -L "$NIX_INSTALLER" | sh -s -- install --no-confirm
+    [ -f "$NIX_DAEMON_SCRIPT" ] && . "$NIX_DAEMON_SCRIPT"
     echo "Nix setup complete"
