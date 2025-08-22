@@ -119,7 +119,7 @@ echo "Installing Cursor CLI..."
 CLI_DIR="/tmp/cursor-cli"
 mkdir -p "$CLI_DIR"
 aria2c --dir="$CLI_DIR" --out="cursor-cli.tar.gz" --max-tries=3 --connect-timeout=30 "https://api2.cursor.sh/updates/download-latest?os=cli-alpine-x64"
-tar -xzf "$CLI_DIR/cursor-cli.tar.gz" -C "$CLI_DIR"
+tar xzvf "$CLI_DIR/cursor-cli.tar.gz" -C "$CLI_DIR"
 install -m 0755 "$CLI_DIR/cursor" /usr/bin/cursor-cli
 rm -fr "$CLI_DIR"
 
@@ -131,7 +131,7 @@ CUR_DIR=$(pwd) ; TMP_DIR="/tmp/horizon"
 
 mkdir -p "$TMP_DIR"
 aria2c --dir="$TMP_DIR" --out="Omnissa-Horizon-Client-Linux-${HORIZON_VERSION}.tar.gz" --max-tries=3 --connect-timeout=30 "$HORIZON_URL"
-tar xzvf "Omnissa-Horizon-Client-Linux-${HORIZON_VERSION}.tar.gz" -C "$TMP_DIR"
+tar xzvf "$TMP_DIR/Omnissa-Horizon-Client-Linux-${HORIZON_VERSION}.tar.gz" -C "$TMP_DIR"
 cd "${TMP_DIR}/Omnissa-Horizon-Client-Linux-${HORIZON_VERSION}/x64"
 
 for component in "Client" "fileAssociation" "html5mmr" "integratedPrinting" "PCoIP" "scannerClient" "serialportClient" "USB"; do
