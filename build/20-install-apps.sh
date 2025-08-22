@@ -134,7 +134,7 @@ tar xzvf "$TMP_DIR/Omnissa-Horizon-Client-Linux-$HORIZON_VERSION.tar.gz" -C "$TM
 for component in "Client" "fileAssociation" "html5mmr" "integratedPrinting" "PCoIP" "scannerClient" "serialportClient" "USB"; do
   echo "Setting up Horizon component: $component ..."
   tar xzvf "$EXT_DIR/Omnissa-Horizon-$component-$HORIZON_VERSION.x64.tar.gz" -C "$TMP_DIR"
-  cp -avR "$TMP_DIR/Omnissa-Horizon-$component-$HORIZON_VERSION.x64/*" /
+  cp -avR "$TMP_DIR/Omnissa-Horizon-$component-$HORIZON_VERSION.x64"/* /
   echo "Component '$component' setup complete."
 done
 rm -fr "$TMP_DIR"
