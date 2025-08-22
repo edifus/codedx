@@ -123,7 +123,7 @@ tar -xzf "$CLI_DIR/cursor-cli.tar.gz" -C "$CLI_DIR"
 install -m 0755 "$CLI_DIR/cursor" /usr/bin/cursor-cli
 
 # hide incompatible Bazzite just recipes
-for recipe in "install-coolercontrol" "install-openrazer"; do
+for recipe in "install-coolercontrol" "install-openrazer" "install-openrgb"; do
   if ! grep -l "^$recipe:" /usr/share/ublue-os/just/*.just | grep -q .; then
     echo "Error: Recipe $recipe not found in any just file"
     exit 1
