@@ -92,7 +92,7 @@ install-codedx-flatpaks:
 
 # Install OpenRGB Experimental (https://openrgb.org/)
 install-openrgb-experimental:
-#!/usr/bin/env bash
+    #!/usr/bin/env bash
     set -eou pipefail
     IMAGE_INFO="/usr/share/ublue-os/image-info.json"
     BASE_IMAGE_NAME=$(jq -r '."base-image-name"' < $IMAGE_INFO)
