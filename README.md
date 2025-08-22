@@ -16,15 +16,17 @@ A custom Fedora Atomic image designed for gaming, development and daily use.
 
 - [Bazzite features](https://github.com/ublue-os/bazzite#about--features)
 - ADB, Fastboot and [Waydroid](https://docs.bazzite.gg/Installing_and_Managing_Software/Waydroid_Setup_Guide/)
+- Brave Browser
+- CoolerControl, Liquidctl, OpenRazer, OpenRGB
 - Curated list of [Flatpaks](https://github.com/edifus/codedx/blob/main/flatpaks) and [Homebrews](https://github.com/edifus/codedx/blob/main/homebrews)
+- Cursor and VSCode editors
+- Discord
 - Docker, Podman, Distrobox and Toolbx
 - Fixed Plasma integration with Google Drive
 - Ghostty terminal, Starship prompt, Zsh, and Atuin history search (Ctrl+R)
 - Nix package manager support
-- CoolerControl, Liquidctl, and OpenRGB
-- OpenRazer
-- Virtual Machine Manager, libvirt and QEMU
-- VSCode
+- Omnissa Horizon Client
+- Virtual Machine Manager, libvirt, and QEMU/KVM
 
 ## Custom commands
 
@@ -34,14 +36,29 @@ The following `ujust` commands are available:
 # Create boot-to-windows application
 ujust configure-boot-to-windows
 
-# Setup app defaults: Ghostty, VScode, Zsh
-ujust configure-codedx-app-defaults
+# Configure code editors (Cursor, VScode)
+ujust configure-editors
+
+# Configure Ghostty terminal
+ujust configure-ghostty
+
+# Configure QEMU ISO home access
+ujust configure-qemu-home-access
+
+# Configure Zsh shell
+ujust configure-zsh-shell
 
 # Restart Bluetooth to fix issues
 ujust fix-bt
 
+# Install AppImages
+ujust install-codedx-appimages
+
 # Install Flatpaks
 ujust install-codedx-flatpaks
+
+# Install Homebrews
+ujust install-codedx-homebrews
 
 # Install and configure Nix package manager
 ujust setup-nix

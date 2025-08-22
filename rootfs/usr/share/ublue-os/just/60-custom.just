@@ -164,7 +164,7 @@ install-codedx-homebrews:
 
     echo "Installing Homebrew 🍻🍻🍻 apps..."
     brew bundle --file /usr/share/ublue-os/homebrew/codedx.Brewfile
-    echo "Homebrews installation complete"
+    echo "Homebrew 🍻🍻🍻 installation complete"
 
 # Install and configure Nix package manager
 setup-nix:
