@@ -131,7 +131,7 @@ TMP_DIR="/tmp/horizon" ; mkdir -p "$TMP_DIR"
 EXT_DIR="$TMP_DIR/Omnissa-Horizon-Client-Linux-$HORIZON_VERSION/x64"
 aria2c --dir="$TMP_DIR" --out="Omnissa-Horizon-Client-Linux-$HORIZON_VERSION.tar.gz" --max-tries=3 --connect-timeout=30 "$HORIZON_URL"
 tar xzf "$TMP_DIR/Omnissa-Horizon-Client-Linux-$HORIZON_VERSION.tar.gz" -C "$TMP_DIR"
-for component in "Client" "fileAssociation" "html5mmr" "integratedPrinting" "PCoIP" "scannerClient" "serialportClient" "USB"; do
+for component in "Client" "fileAssociation" "html5mmr" "integratedPrinting" "PCoIP" "scannerClient" "serialportClient"; do
   echo "Installing Horizon component: $component"
   tar xzf "$EXT_DIR/Omnissa-Horizon-$component-$HORIZON_VERSION.x64.tar.gz" -C "$TMP_DIR"
   cp -aR "$TMP_DIR/Omnissa-Horizon-$component-$HORIZON_VERSION.x64"/* /
@@ -140,7 +140,6 @@ echo "Installing Horizon component: USB"
 tar xzf "$EXT_DIR/Omnissa-Horizon-USB-$HORIZON_VERSION.x64.tar.gz" -C "$TMP_DIR"
 cp -aR "$TMP_DIR/Omnissa-Horizon-USB-$HORIZON_VERSION.x64"/etc/init.d/horizon-USBArbitrator /etc/init.d/horizon-USBArbitrator
 cp -aR "$TMP_DIR/Omnissa-Horizon-USB-$HORIZON_VERSION.x64"/usr /
-
 rm -fr "$TMP_DIR"
 
 # hide incompatible Bazzite just recipes
