@@ -136,6 +136,11 @@ for component in "Client" "fileAssociation" "html5mmr" "integratedPrinting" "PCo
   tar xzf "$EXT_DIR/Omnissa-Horizon-$component-$HORIZON_VERSION.x64.tar.gz" -C "$TMP_DIR"
   cp -aR "$TMP_DIR/Omnissa-Horizon-$component-$HORIZON_VERSION.x64"/* /
 done
+echo "Installing Horizon component: USB"
+tar xzf "$EXT_DIR/Omnissa-Horizon-USB-$HORIZON_VERSION.x64.tar.gz" -C "$TMP_DIR"
+cp -aR "$TMP_DIR/Omnissa-Horizon-USB-$HORIZON_VERSION.x64"/etc/init.d/horizon-USBArbitrator /etc/init.d/horizon-USBArbitrator
+cp -aR "$TMP_DIR/Omnissa-Horizon-USB-$HORIZON_VERSION.x64"/usr /
+
 rm -fr "$TMP_DIR"
 
 # hide incompatible Bazzite just recipes
