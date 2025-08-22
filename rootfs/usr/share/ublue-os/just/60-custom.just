@@ -148,15 +148,6 @@ install-codedx-appimages:
     done < <(curl --retry 3 -sL https://raw.githubusercontent.com/edifus/codedx/main/appimages)
     echo "AppImages installation complete."
 
-# Install custom Homebrew
-install-codedx-homebrew:
-    #!/usr/bin/env bash
-    set -eou pipefail
-
-    echo "Installing Homebrew 🍻🍻🍻 apps..."
-    brew bundle --file /usr/share/ublue-os/homebrew/codedx.Brewfile
-    echo "Homebrews installation complete"
-
 # Install custom Flatpaks
 install-codedx-flatpaks:
     #!/usr/bin/env bash
@@ -165,6 +156,15 @@ install-codedx-flatpaks:
     echo "Installing Flatpaks..."
     xargs -a <(curl --retry 3 -sL https://raw.githubusercontent.com/edifus/codedx/main/flatpaks) flatpak --system -y install
     echo "Flatpaks installation complete"
+
+# Install custom Homebrew
+install-codedx-homebrews:
+    #!/usr/bin/env bash
+    set -eou pipefail
+
+    echo "Installing Homebrew 🍻🍻🍻 apps..."
+    brew bundle --file /usr/share/ublue-os/homebrew/codedx.Brewfile
+    echo "Homebrews installation complete"
 
 # Install and configure Nix package manager
 setup-nix:

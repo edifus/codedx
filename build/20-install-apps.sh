@@ -127,8 +127,9 @@ rm -fr "$CLI_DIR"
 echo "Installing Omnissa Horizon Client..."
 HORIZON_VERSION="2506-8.16.0-16536624989"
 HORIZON_URL="https://download3.omnissa.com/software/CART26FQ2_LIN_2506_TARBALL/Omnissa-Horizon-Client-Linux-${HORIZON_VERSION}.tar.gz"
-CUR_DIR=$(pwd) ; TMP_DIR=$(mktemp)
+CUR_DIR=$(pwd) ; TMP_DIR="/tmp/horizon"
 
+mkdir -p "$TMP_DIR"
 aria2c --dir="$TMP_DIR" --out="Omnissa-Horizon-Client-Linux-${HORIZON_VERSION}.tar.gz" --max-tries=3 --connect-timeout=30 "$HORIZON_URL"
 tar xzvf "Omnissa-Horizon-Client-Linux-${HORIZON_VERSION}.tar.gz" -C "$TMP_DIR"
 cd "${TMP_DIR}/Omnissa-Horizon-Client-Linux-${HORIZON_VERSION}/x64"
