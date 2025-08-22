@@ -116,21 +116,29 @@ fi
 
 # install cursor cli
 echo "Installing Cursor CLI..."
-CLI_DIR="/tmp/cursor-cli"
-mkdir -p "$CLI_DIR"
-aria2c --dir="$CLI_DIR" --out="cursor-cli.tar.gz" --max-tries=3 --connect-timeout=30 "https://api2.cursor.sh/updates/download-latest?os=cli-alpine-x64"
-tar xzf "$CLI_DIR/cursor-cli.tar.gz" -C "$CLI_DIR"
-install -m 0755 "$CLI_DIR/cursor" /usr/bin/cursor-cli
-rm -fr "$CLI_DIR"
+CURSOR_DIR="/tmp/cursor-cli" ; mkdir -p "$CURSOR_DIR"
+aria2c \
+  --connect-timeout=30 \
+  --dir="$CURSOR_DIR" \
+  --max-tries=3 \
+  --out="cursor-cli.tar.gz" \
+    "https://api2.cursor.sh/updates/download-latest?os=cli-alpine-x64"
+tar xzf "$CURSOR_DIR/cursor-cli.tar.gz" -C "$CURSOR_DIR"
+install -m 0755 "$CURSOR_DIR/cursor" /usr/bin/cursor-cli
+rm -fr "$CURSOR_DIR"
 
 # install omnissa horizon client
 echo "Installing Omnissa Horizon Client..."
 HORIZON_VERSION="2506-8.16.0-16536624989"
-HORIZON_URL="https://download3.omnissa.com/software/CART26FQ2_LIN64_RPMPKG_2506/Omnissa-Horizon-Client-$HORIZON_VERSION.x64.rpm"
-TMP_DIR="/tmp/horizon" ; mkdir -p "$TMP_DIR"
-aria2c --dir="$TMP_DIR" --out="Omnissa-Horizon-Client-$HORIZON_VERSION.x64.rpm" --max-tries=3 --connect-timeout=30 "$HORIZON_URL"
-dnf5 install -y "$TMP_DIR/Omnissa-Horizon-Client-$HORIZON_VERSION.x64.rpm"
-rm -fr "$TMP_DIR"
+HORIZON_DIR="/tmp/horizon" ; mkdir -p "$HORIZON_DIR"
+aria2c --connect-timeout=30 \
+  --dir="$HORIZON_DIR" \
+  --max-tries=3 \
+  --out="Omnissa-Horizon-Client-$HORIZON_VERSION.x64.rpm" \
+    "https://download3.omnissa.com/software/CART26FQ2_LIN64_RPMPKG_2506/Omnissa-Horizon-Client-$HORIZON_VERSION.x64.rpm"
+dnf5 install -y "$HORIZON_DIR/Omnissa-Horizon-Client-$HORIZON_VERSION.x64.rpm"
+sed -i 's@Exec=@Exec=env GTK_THEME=Breeze @' /usr/share/applications/horizon-client.desktop
+rm -fr "$HORIZON_DIR"
 
 # hide incompatible Bazzite just recipes
 for recipe in "install-coolercontrol" "install-openrazer" "install-openrgb"; do
