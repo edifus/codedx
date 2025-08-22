@@ -121,6 +121,27 @@ mkdir -p "$CLI_DIR"
 aria2c --dir="$CLI_DIR" --out="cursor-cli.tar.gz" --max-tries=3 --connect-timeout=30 "https://api2.cursor.sh/updates/download-latest?os=cli-alpine-x64"
 tar -xzf "$CLI_DIR/cursor-cli.tar.gz" -C "$CLI_DIR"
 install -m 0755 "$CLI_DIR/cursor" /usr/bin/cursor-cli
+rm -fr "$CLI_DIR"
+
+# install omnissa horizon client
+echo "Installing Omnissa Horizon Client..."
+HORIZON_VERSION="2506-8.16.0-16536624989"
+HORIZON_URL="https://download3.omnissa.com/software/CART26FQ2_LIN_2506_TARBALL/Omnissa-Horizon-Client-Linux-${HORIZON_VERSION}.tar.gz"
+CUR_DIR=$(pwd) ; TMP_DIR=$(mktemp)
+
+aria2c --dir="$TMP_DIR" --out="Omnissa-Horizon-Client-Linux-${HORIZON_VERSION}.tar.gz" --max-tries=3 --connect-timeout=30 "$HORIZON_URL"
+tar xzvf "Omnissa-Horizon-Client-Linux-${HORIZON_VERSION}.tar.gz" -C "$TMP_DIR"
+cd "${TMP_DIR}/Omnissa-Horizon-Client-Linux-${HORIZON_VERSION}/x64"
+
+for component in "Client" "fileAssociation" "html5mmr" "integratedPrinting" "PCoIP" "scannerClient" "serialportClient" "USB"; do
+  echo "Setting up Horizon component: ${component} ..."
+  tar xzvf "Omnissa-Horizon-${component}-${HORIZON_VERSION}.x64.tar.gz"
+
+  cp -avR "Omnissa-Horizon-${component}-${HORIZON_VERSION}.x64/*" /
+  echo "Component '${component}' setup complete."
+done
+cd "$CUR_DIR"
+rm -fr "$TMP_DIR"
 
 # hide incompatible Bazzite just recipes
 for recipe in "install-coolercontrol" "install-openrazer" "install-openrgb"; do
@@ -130,6 +151,9 @@ for recipe in "install-coolercontrol" "install-openrazer" "install-openrgb"; do
   fi
   sed -i "s/^$recipe:/_$recipe:/" /usr/share/ublue-os/just/*.just
 done
+
+# remove zsh defaults
+rm -fv /etc/skel/{.zshrc,.zprofile}
 
 # workaround to allow ostree installation of Nix daemon
 mkdir -pv /nix
