@@ -90,23 +90,6 @@ install-codedx-flatpaks:
     xargs -a <(curl --retry 3 -sL https://raw.githubusercontent.com/edifus/codedx/main/flatpaks) flatpak --system -y install
     echo "Flatpaks installation complete"
 
-# Install OpenRGB Experimental (https://openrgb.org/)
-install-openrgb-experimental:
-    #!/usr/bin/env bash
-    set -eou pipefail
-    IMAGE_INFO="/usr/share/ublue-os/image-info.json"
-    BASE_IMAGE_NAME=$(jq -r '."base-image-name"' < $IMAGE_INFO)
-    DOWNLOAD_DIR="{{ cache_directory() }}/ujust/tmp"
-    mkdir -p "$DOWNLOAD_DIR"
-    trap "rm -rf $DOWNLOAD_DIR" EXIT
-
-    echo "Installing OpenRGB Experimental..."
-    wget --user-agent=Mozilla --content-disposition -E -c "https://gitlab.com/CalcProgrammer1/OpenRGB/-/jobs/artifacts/master/download?job=Linux%20amd64%20AppImage" -O $DOWNLOAD_DIR/openrgb.zip
-    unzip $DOWNLOAD_DIR/openrgb.zip -d $DOWNLOAD_DIR/openrgb
-
-    _install_appimage_file "$DOWNLOAD_DIR/openrgb/OpenRGB-x86_64.AppImage"
-    echo "OpenRGB installation complete"
-
 # Install and configure Nix package manager
 setup-nix:
     #!/usr/bin/env bash

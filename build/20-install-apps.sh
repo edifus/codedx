@@ -31,8 +31,13 @@ dnf5 install -y \
     android-tools \
     aria2 \
     aurora-backgrounds \
+    bcc \
+    bchunk \
     borgbackup \
+    bpftop \
+    bpftrace \
     brave-browser \
+    ccache \
     code \
     coolercontrol \
     containerd.io \
@@ -54,7 +59,10 @@ dnf5 install -y \
     ksystemlog \
     liquidctl \
     neovim \
+    nicstat \
+    numactl \
     openrazer-daemon \
+    openrgb \
     podman-machine \
     podman-tui \
     podmansh \
@@ -62,8 +70,13 @@ dnf5 install -y \
     rclone \
     restic \
     starship \
+    sysprof \
+    tiptop \
     ublue-setup-services \
+    usbmuxd \
     util-linux \
+    virt-manager \
+    virt-viewer \
     yt-dlp \
     yt-dlp-zsh-completion \
     zoxide \
