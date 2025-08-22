@@ -137,7 +137,7 @@ aria2c --connect-timeout=30 \
   --out="Omnissa-Horizon-Client-$HORIZON_VERSION.x64.rpm" \
     "https://download3.omnissa.com/software/CART26FQ2_LIN64_RPMPKG_2506/Omnissa-Horizon-Client-$HORIZON_VERSION.x64.rpm"
 dnf5 install -y "$HORIZON_DIR/Omnissa-Horizon-Client-$HORIZON_VERSION.x64.rpm"
-sed -i 's@Exec=@Exec=env GTK_THEME=Breeze @' /usr/share/applications/horizon-client.desktop
+sed -i 's@Exec=@Exec=env GTK_THEME=breeze @' /usr/share/applications/horizon-client.desktop
 rm -fr "$HORIZON_DIR"
 
 # hide incompatible Bazzite just recipes
