@@ -30,54 +30,42 @@ dnf5 config-manager addrepo --from-repofile="https://openrazer.github.io/hardwar
 dnf5 install -y \
     android-tools \
     aria2 \
-    atuin \
     aurora-backgrounds \
-    bat \
     borgbackup \
     brave-browser \
     code \
     coolercontrol \
     containerd.io \
-    direnv \
     discord \
     docker-buildx-plugin \
     docker-ce \
     docker-ce-cli \
     docker-compose-plugin \
-    eza \
-    fd \
     flatpak-builder \
     fuse-btfs \
     fuse-devel \
     fuse3-devel \
     fzf \
     genisoimage \
-    gh \
     ghostty \
-    glab \
     gparted \
     grc \
     hashcat \
+    ksystemlog \
     liquidctl \
     neovim \
     openrazer-daemon \
-    openrgb \
     podman-machine \
     podman-tui \
     podmansh \
     qemu-kvm \
     rclone \
     restic \
-    rg \
     starship \
-    tealdeer \
-    trash-cli \
     ublue-setup-services \
-    ugrep \
     util-linux \
     yt-dlp \
     yt-dlp-zsh-completion \
-    yq \
     zoxide \
     zsh \
     zsh-autosuggestions \
@@ -113,8 +101,16 @@ if test ! -f "/etc/libvirt/hooks/qemu"; then
     fi
 fi
 
-## Hide incompatible Bazzite just recipes
-for recipe in "install-coolercontrol" "install-openrazer" "install-openrgb"; do
+# install cursor cli
+echo "Installing Cursor CLI..."
+CLI_DIR="/tmp/cursor-cli"
+mkdir -p "$CLI_DIR"
+aria2c --dir="$CLI_DIR" --out="cursor-cli.tar.gz" --max-tries=3 --connect-timeout=30 "https://api2.cursor.sh/updates/download-latest?os=cli-alpine-x64"
+tar -xzf "$CLI_DIR/cursor-cli.tar.gz" -C "$CLI_DIR"
+install -m 0755 "$CLI_DIR/cursor" /usr/bin/cursor-cli
+
+# hide incompatible Bazzite just recipes
+for recipe in "install-coolercontrol" "install-openrazer"; do
   if ! grep -l "^$recipe:" /usr/share/ublue-os/just/*.just | grep -q .; then
     echo "Error: Recipe $recipe not found in any just file"
     exit 1
@@ -122,5 +118,5 @@ for recipe in "install-coolercontrol" "install-openrazer" "install-openrgb"; do
   sed -i "s/^$recipe:/_$recipe:/" /usr/share/ublue-os/just/*.just
 done
 
-## Workaround to allow ostree installation of Nix daemon
+# workaround to allow ostree installation of Nix daemon
 mkdir -pv /nix
