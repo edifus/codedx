@@ -128,7 +128,7 @@ echo "Installing Omnissa Horizon Client..."
 HORIZON_VERSION="2506-8.16.0-16536624989"
 HORIZON_URL="https://download3.omnissa.com/software/CART26FQ2_LIN64_RPMPKG_2506/Omnissa-Horizon-Client-$HORIZON_VERSION.x64.rpm"
 TMP_DIR="/tmp/horizon" ; mkdir -p "$TMP_DIR"
-aria2c --dir="$TMP_DIR" --out="Omnissa-Horizon-Client-Linux-$HORIZON_VERSION.tar.gz" --max-tries=3 --connect-timeout=30 "$HORIZON_URL"
+aria2c --dir="$TMP_DIR" --out="Omnissa-Horizon-Client-$HORIZON_VERSION.x64.rpm" --max-tries=3 --connect-timeout=30 "$HORIZON_URL"
 dnf5 install -y "$TMP_DIR/Omnissa-Horizon-Client-$HORIZON_VERSION.x64.rpm"
 rm -fr "$TMP_DIR"
 
