@@ -127,6 +127,18 @@ tar xzf "$CURSOR_DIR/cursor-cli.tar.gz" -C "$CURSOR_DIR"
 install -m 0755 "$CURSOR_DIR/cursor" /usr/bin/cursor-cli
 rm -fr "$CURSOR_DIR"
 
+# install devolutions remote desktop manager
+echo "Installing Devolutions Remote Desktop Manager..."
+RDM_VERSION=$(curl "https://devolutions.net/remote-desktop-manager/release-notes/linux/" 2>/dev/null | grep -m 1 -Po '(?<=Version )\d{4}.\d{1,2}.\d{1,2}.\d{1,2}')
+RDM_DIR="/tmp/rdm" ; mkdir -p "$RDM_DIR"
+aria2c --connect-timeout=30 \
+  --dir="$RDM_DIR" \
+  --max-tries=3 \
+  --out="RemoteDesktopManager_${RDM_VERSION}_x86_64.rpm" \
+    "https://cdn.devolutions.net/download/Linux/RDM/${RDM_VERSION}/RemoteDesktopManager_${RDM_VERSION}_x86_64.rpm"
+dnf5 install -y "$RDM_DIR/RemoteDesktopManager_${RDM_VERSION}_x86_64.rpm"
+rm -fr "$RDM_DIR"
+
 # install omnissa horizon client
 echo "Installing Omnissa Horizon Client..."
 HORIZON_VERSION="2506-8.16.0-16536624989"
