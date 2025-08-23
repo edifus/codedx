@@ -78,7 +78,6 @@ dnf5 install -y \
     virt-viewer \
     yt-dlp \
     yt-dlp-zsh-completion \
-    zoxide \
     zsh \
     zsh-autosuggestions \
     zsh-syntax-highlighting
@@ -128,8 +127,8 @@ rm -fr "$CURSOR_DIR"
 
 # install devolutions remote desktop manager
 echo "Installing Devolutions Remote Desktop Manager..."
-RDM_VERSION="$(curl 'https://devolutions.net/remote-desktop-manager/release-notes/linux/' 2>/dev/null | grep -m 1 -Po '(?<=Version )\d{4}.\d{1,2}.\d{1,2}.\d{1,2}' 2>/dev/null)"
 RDM_DIR="/tmp/rdm" ; mkdir -p "$RDM_DIR"
+RDM_VERSION="$(curl 'https://devolutions.net/remote-desktop-manager/release-notes/linux/' 2>/dev/null | grep -oPm1 '(?<=Version )\d{4}.\d{1,2}.\d{1,2}.\d{1,2}' 2>/dev/null | xargs echo $1)"
 aria2c --connect-timeout=30 \
   --dir="$RDM_DIR" \
   --max-tries=3 \
