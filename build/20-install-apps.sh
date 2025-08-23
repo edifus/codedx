@@ -50,7 +50,6 @@ dnf5 install -y \
     fuse-btfs \
     fuse-devel \
     fuse3-devel \
-    fzf \
     genisoimage \
     ghostty \
     gparted \
@@ -66,8 +65,6 @@ dnf5 install -y \
     podman-tui \
     podmansh \
     qemu-kvm \
-    rclone \
-    restic \
     starship \
     sysprof \
     tiptop \
@@ -128,7 +125,7 @@ rm -fr "$CURSOR_DIR"
 # install devolutions remote desktop manager
 echo "Installing Devolutions Remote Desktop Manager..."
 RDM_DIR="/tmp/rdm" ; mkdir -p "$RDM_DIR"
-RDM_VERSION="$(curl 'https://devolutions.net/remote-desktop-manager/release-notes/linux/' 2>/dev/null | grep -oPm1 '(?<=Version )\d{4}.\d{1,2}.\d{1,2}.\d{1,2}' 2>/dev/null | xargs echo $1)"
+RDM_VERSION="$(wget -qO- 'https://devolutions.net/remote-desktop-manager/release-notes/linux/' | grep -oPm1 '(?<=Version )\d{4}.\d{1,2}.\d{1,2}.\d{1,2}' | xargs echo """$1""")"
 aria2c --connect-timeout=30 \
   --dir="$RDM_DIR" \
   --max-tries=3 \
