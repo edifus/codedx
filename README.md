@@ -16,17 +16,26 @@ A custom Fedora Atomic image designed for gaming, development and daily use.
 
 - [Bazzite features](https://github.com/ublue-os/bazzite#about--features)
 - ADB, Fastboot and [Waydroid](https://docs.bazzite.gg/Installing_and_Managing_Software/Waydroid_Setup_Guide/)
-- Brave Browser
-- CoolerControl, Liquidctl, OpenRazer, OpenRGB
-- Curated list of [Flatpaks](https://github.com/edifus/codedx/blob/main/flatpaks) and [Homebrews](https://github.com/edifus/codedx/blob/main/homebrews)
-- Cursor and VSCode editors
-- Discord
+- Curated list of [Flatpaks](https://github.com/edifus/codedx/blob/main/flatpaks) and [Homebrews](https://github.com/edifus/codedx/blob/main/rootfs/usr/share/ublue-os/homebrew/codedx.Brewfile)
+- Cursor editor (AppImage)
 - Docker, Podman, Distrobox and Toolbx
 - Fixed Plasma integration with Google Drive
-- Ghostty terminal, Starship prompt, Zsh, and Atuin history search (Ctrl+R)
+- Native apps:
+  - Brave Browser
+  - CoolerControl
+  - cursor-cli
+  - Discord
+  - Firefox
+  - Ghostty
+  - Horizon Client
+  - LiquidCtl
+  - OpenRazer
+  - OpenRGB
+  - QEMU/KVM
+  - Virtual Machine Manager
+  - VScode
 - Nix package manager support
-- Omnissa Horizon Client
-- Virtual Machine Manager, libvirt, and QEMU/KVM
+- Starship prompt, Zsh, and Atuin history search (Ctrl+R)
 
 ## Custom commands
 

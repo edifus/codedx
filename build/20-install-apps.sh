@@ -122,19 +122,19 @@ tar xzf "$CURSOR_DIR/cursor-cli.tar.gz" -C "$CURSOR_DIR"
 install -m 0755 "$CURSOR_DIR/cursor" /usr/bin/cursor-cli
 rm -fr "$CURSOR_DIR"
 
-# install devolutions remote desktop manager
-echo "Installing Devolutions Remote Desktop Manager..."
-RDM_DIR="/tmp/rdm" ; mkdir -p "$RDM_DIR"
-set +e ## error code 23 workaround
-RDM_VERSION="$(wget -qO- 'https://devolutions.net/remote-desktop-manager/release-notes/linux/' | grep -oPm1 '(?<=Version )\d{4}.\d{1,2}.\d{1,2}.\d{1,2}')"
-set -e
-aria2c --connect-timeout=30 \
-  --dir="$RDM_DIR" \
+# install mozilla firefox
+echo "Installing Mozilla Firefox..."
+FIREFOX_DIR="/tmp/firefox" ; mkdir -p "$FIREFOX_DIR"
+aria2c \
+  --connect-timeout=30 \
+  --dir="$FIREFOX_DIR" \
   --max-tries=3 \
-  --out="RemoteDesktopManager_${RDM_VERSION}_x86_64.rpm" \
-    "https://cdn.devolutions.net/download/Linux/RDM/${RDM_VERSION}/RemoteDesktopManager_${RDM_VERSION}_x86_64.rpm"
-dnf5 install -y "$RDM_DIR/RemoteDesktopManager_${RDM_VERSION}_x86_64.rpm"
-rm -fr "$RDM_DIR"
+  --out="firefox-latest.tar.xz" \
+    "https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64&lang=en-US"
+tar xf "$FIREFOX_DIR/firefox-latest.tar.xz" -C "$FIREFOX_DIR"
+mv "$FIREFOX_DIR/firefox" /opt && ln -s /opt/firefox/firefox /usr/bin/firefox
+wget https://raw.githubusercontent.com/mozilla/sumo-kb/main/install-firefox-linux/firefox.desktop -P /usr/share/applications
+rm -fr "$FIREFOX_DIR"
 
 # install omnissa horizon client
 echo "Installing Omnissa Horizon Client..."
