@@ -129,7 +129,7 @@ rm -fr "$CURSOR_DIR"
 
 # install devolutions remote desktop manager
 echo "Installing Devolutions Remote Desktop Manager..."
-RDM_VERSION=$(curl "https://devolutions.net/remote-desktop-manager/release-notes/linux/" 2>/dev/null | grep -m 1 -Po '(?<=Version )\d{4}.\d{1,2}.\d{1,2}.\d{1,2}')
+RDM_VERSION="$(curl "https://devolutions.net/remote-desktop-manager/release-notes/linux/" 2>/dev/null | grep -m 1 -Po '(?<=Version )\d{4}.\d{1,2}.\d{1,2}.\d{1,2}')"
 RDM_DIR="/tmp/rdm" ; mkdir -p "$RDM_DIR"
 aria2c --connect-timeout=30 \
   --dir="$RDM_DIR" \
