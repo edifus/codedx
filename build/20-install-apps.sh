@@ -24,6 +24,7 @@ dnf5 -y config-manager setopt "*fedora-multimedia*".enabled=true
 dnf5 -y config-manager setopt terra.enabled=true
 dnf5 config-manager addrepo --from-repofile="https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo"
 dnf5 config-manager addrepo --from-repofile="https://download.docker.com/linux/fedora/docker-ce.repo"
+dnf5 config-manager addrepo --from-repofile="https://download.opensuse.org/repositories/home:paul4us/Fedora_42/home:paul4us.repo"
 dnf5 config-manager addrepo --from-repofile="https://openrazer.github.io/hardware:razer.repo"
 
 # install packages
@@ -54,6 +55,8 @@ dnf5 install -y \
     ghostty \
     gparted \
     hashcat \
+    inxi \
+    klassy \
     ksystemlog \
     kvantum \
     liquidctl \
@@ -89,6 +92,7 @@ dnf5 config-manager setopt "*fedora-multimedia*".enabled=0
 dnf5 config-manager setopt brave-browser.enabled=0
 dnf5 config-manager setopt docker-ce-stable.enabled=0
 dnf5 config-manager setopt hardware_razer.enabled=0
+dnf5 config-manager setopt home_paul4us.enabled=0
 dnf5 config-manager setopt terra.enabled=0
 dnf5 config-manager setopt vscode.enabled=0
 
