@@ -55,6 +55,7 @@ dnf5 install -y \
     gparted \
     hashcat \
     ksystemlog \
+    kvantum \
     liquidctl \
     neovim \
     nicstat \
