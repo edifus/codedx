@@ -65,6 +65,7 @@ dnf5 install -y \
     numactl \
     openrazer-daemon \
     openrgb \
+    plasma-workspace-x11 \
     podman-machine \
     podman-tui \
     podmansh \
