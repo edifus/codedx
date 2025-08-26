@@ -65,7 +65,6 @@ dnf5 install -y \
     numactl \
     openrazer-daemon \
     openrgb \
-    plasma-workspace-x11 \
     podman-machine \
     podman-tui \
     podmansh \
@@ -83,6 +82,10 @@ dnf5 install -y \
     zsh \
     zsh-autosuggestions \
     zsh-syntax-highlighting
+
+# plasma x11 support
+[[ ${BASE_IMAGE_NAME} == 'kinoite' ]] && \
+    dnf5 install -y plasma-workspace-x11
 
 # disable repositories
 for copr in ublue-os/packages ublue-os/staging
