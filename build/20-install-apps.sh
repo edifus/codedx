@@ -83,13 +83,6 @@ dnf5 install -y \
     zsh-autosuggestions \
     zsh-syntax-highlighting
 
-# x11 support
-if [[ "$IMAGE_NAME" == *gnome* ]]; then
-    dnf5 install -y gnome-session-xsession
-else
-    dnf5 install -y plasma-workspace-x11
-fi
-
 # disable repositories
 for copr in ublue-os/packages ublue-os/staging
 do dnf5 -y copr disable $copr
