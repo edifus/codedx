@@ -163,6 +163,21 @@ for recipe in "install-coolercontrol" "install-openrazer" "install-openrgb"; do
   sed -i "s/^$recipe:/_$recipe:/" /usr/share/ublue-os/just/*.just
 done
 
+# block flatpaks for native apps
+flatpakBlock='/usr/share/ublue-os/flatpak-blocklist'
+flatpakInstall='/usr/share/ublue-os/bazzite/flatpak/install'
+{
+  echo -e '\ndeny com.brave.Browser/*'
+  echo -e '\ndeny com.visualstudio.code/*'
+  echo -e '\ndeny com.discordapp.Discord/*'
+  echo -e '\ndeny io.neovim.nvim/*'
+  echo -e '\ndeny org.mozilla.firefox/*'
+  echo -e '\ndeny org.openrgb.OpenRGB/*'
+  echo -e '\ndeny org.virt_manager.virt-manager/*'
+} >> $flatpakBlock
+
+sed -i '/org.mozilla.firefox/d' $flatpakInstall
+
 # remove zsh defaults
 rm -fv /etc/skel/{.zshrc,.zprofile}
 
