@@ -165,7 +165,7 @@ done
 
 # block flatpaks for native apps
 flatpakBlock='/usr/share/ublue-os/flatpak-blocklist'
-bazaarBlock='/usr/share/ublue-os/bazarr/blocklist.txt'
+bazaarBlock='/usr/share/ublue-os/bazaar/blocklist.txt'
 flatpakInstall='/usr/share/ublue-os/bazzite/flatpak/install'
 {
   echo -e '\ndeny com.brave.Browser/*'
