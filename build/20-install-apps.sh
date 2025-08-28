@@ -165,6 +165,7 @@ done
 
 # block flatpaks for native apps
 flatpakBlock='/usr/share/ublue-os/flatpak-blocklist'
+bazaarBlock='/usr/share/ublue-os/bazarr/blocklist.txt'
 flatpakInstall='/usr/share/ublue-os/bazzite/flatpak/install'
 {
   echo -e '\ndeny com.brave.Browser/*'
@@ -175,6 +176,14 @@ flatpakInstall='/usr/share/ublue-os/bazzite/flatpak/install'
   echo -e '\ndeny org.openrgb.OpenRGB/*'
   echo -e '\ndeny org.virt_manager.virt-manager/*'
 } >> $flatpakBlock
+
+{
+  echo -e '\ncom.brave.Browser'
+  echo -e '\ncom.visualstudio.code'
+  echo -e '\ncom.discordapp.Discord'
+  echo -e '\norg.mozilla.firefox'
+  echo -e '\norg.virt_manager.virt-manager'
+} >> $bazaarBlock
 
 sed -i '/org.mozilla.firefox/d' $flatpakInstall
 
