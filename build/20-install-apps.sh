@@ -62,6 +62,7 @@ dnf5 install -y \
     liquidctl \
     neovim \
     nicstat \
+    nodejs-bash-language-server \
     numactl \
     openrazer-daemon \
     openrgb \
