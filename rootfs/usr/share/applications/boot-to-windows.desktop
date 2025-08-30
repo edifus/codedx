@@ -4,6 +4,6 @@ Name=Boot to Windows
 Comment=Boot to Windows installation
 Type=Application
 Terminal=false
-Icon=folder-windows-symbolic
+Icon=/usr/share/icons/microsoft.svg
 Exec=sh -c "pkexec /usr/bin/boot-to-windows"
 Categories=Utility;
