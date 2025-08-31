@@ -235,14 +235,6 @@ eval "$(dircolors -b """$XDG_CONFIG_HOME"""/dircolors/nord.theme)"
 # +--------+
 
 if [[ -o interactive ]]; then
-    # | atuin |
-    export ATUIN_NOBIND="true"
-    eval "$(atuin init zsh)"
-    bindkey '^r' atuin-search
-    bindkey '^[[A' _atuin_up_search_widget
-    bindkey '^[OA' _atuin_up_search_widget
-    # | grc colorizer |
-    source /home/linuxbrew/.linuxbrew/etc/grc.zsh 2> /dev/null
     # | linuxbrew |
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
     if type brew &>/dev/null; then
@@ -252,6 +244,14 @@ if [[ -o interactive ]]; then
             fi
         fi
     fi
+    # | atuin |
+    export ATUIN_NOBIND="true"
+    eval "$(atuin init zsh)"
+    bindkey '^r' atuin-search
+    bindkey '^[[A' _atuin_up_search_widget
+    bindkey '^[OA' _atuin_up_search_widget
+    # | grc colorizer |
+    source /home/linuxbrew/.linuxbrew/etc/grc.zsh 2> /dev/null
     # | fnm |
     eval "$(fnm env --use-on-cd --shell zsh)"
     # | starship prompt |
