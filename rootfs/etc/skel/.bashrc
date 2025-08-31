@@ -1,3 +1,4 @@
+# shellcheck disable=SC1090
 # shellcheck disable=SC1091
 # shellcheck disable=SC2076
 # shellcheck disable=SC2148
@@ -8,7 +9,7 @@
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
-    source /etc/bashrc
+    . /etc/bashrc
 fi
 
 # User specific environment
@@ -25,8 +26,7 @@ export PATH
 if [ -d "$XDG_CONFIG_HOME/bashrc.d" ]; then
     for rc in "$XDG_CONFIG_HOME/bashrc.d"/*; do
         if [ -f "$rc" ]; then
-            # shellcheck disable=SC1090
-            source "$rc"
+            . "$rc"
         fi
     done
 fi
