@@ -15,7 +15,7 @@ USER_SETUP_VER_FILE_V1="$HOME/.aurora-vscode-configured"
 # Exit if v1 file is present.
 if [[ -f $USER_SETUP_VER_FILE_V1 ]]; then
   echo "User setup v1 has already run. Exiting..."
-  rm $USER_SETUP_VER_FILE_V1
+  rm "$USER_SETUP_VER_FILE_V1"
   echo "$USER_SETUP_VER" > "$USER_SETUP_VER_FILE"
   exit 0
 fi

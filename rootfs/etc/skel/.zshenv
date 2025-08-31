@@ -26,8 +26,9 @@ export SYSTEM=$(uname -s)
 
 # Keep everything in $HOME/.config, only .zshenv needs to be in $HOME
 export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_CACHE_HOME="$XDG_CONFIG_HOME/cache"
-export XDG_DATA_HOME="$XDG_CONFIG_HOME/local/share"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_STATE_HOME="$HOME/.local/state"
 
 export XDG_DESKTOP_DIR="$HOME/Desktop"
 export XDG_DOCUMENTS_DIR="$HOME/Documents"
@@ -37,6 +38,21 @@ export XDG_PICTURES_DIR="$HOME/Pictures"
 export XDG_PUBLICSHARE_DIR="$HOME/Public"
 export XDG_TEMPLATES_DIR="$HOME/.Templates"
 export XDG_VIDEOS_DIR="$HOME/Videos"
+
+# Populate bash completions, .desktop files, etc
+typeset -UT XDG_DATA_DIRS xdg_data_dirs
+if [ -z "${XDG_DATA_DIRS-}" ]; then
+    # According to XDG spec the default is /usr/local/share:/usr/share, don't set something that prevents that default
+    export XDG_DATA_DIRS="/usr/local/share:/usr/share:$HOME/.nix-profile/share:/nix/var/nix/profiles/default/share"
+else
+    export XDG_DATA_DIRS="$XDG_DATA_DIRS:$HOME/.nix-profile/share:/nix/var/nix/profiles/default/share"
+fi
+# Remove duplicate paths
+typeset -gU xdg_data_dirs
+# Remove non-existent paths
+xdg_data_dirs=($^xdg_data_dirs(N-/))
+
+export XDG_DATA_DIRS
 
 # +-----+
 # | ZSH |
@@ -52,57 +68,6 @@ export SAVEHIST=10000                  # Maximum events in history file
 if [[ ("$SHLVL" -eq 1 && ! -o LOGIN) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
     source ${ZDOTDIR:-$HOME}/.zprofile
 fi
-
-# +--------+
-# | EDITOR |
-# +--------+
-
-if [[ -n ${commands[nvim]} ]]; then
-    export EDITOR=nvim
-else
-    export EDITOR=vim
-fi
-
-export ALTERNATE_EDITOR="$EDITOR"
-export VISUAL="$EDITOR"
-
-# +--------------+
-# | FZF, RIPGREP |
-# +--------------+
-
-FZF_COLORS="bg+:-1,\
-fg:gray,\
-fg+:white,\
-border:black,\
-spinner:0,\
-hl:yellow,\
-header:blue,\
-info:green,\
-pointer:red,\
-marker:blue,\
-prompt:gray,\
-hl+:red"
-
-if [[ -n "${commands[fzf-share]}" ]]; then
-    FZF_CTRL_R_OPTS=--reverse
-    if [[ -n "${commands[fd]}" ]]; then
-        export FZF_DEFAULT_COMMAND='fd --type f'
-    else
-        export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
-    fi
-fi
-
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_DEFAULT_OPTS="--height 60% \
-    --border sharp \
-    --layout reverse \
-    --color '$FZF_COLORS' \
-    --prompt '∷ ' \
-    --pointer ▶ \
-    --marker ⇒"
-export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -n 10'"
-export FZF_COMPLETION_DIR_COMMANDS="cd pushd rmdir tree ls"
-# export FZF_TMUX_OPTS="-p"
 
 # +------------+
 # | GCC COLORS |
@@ -162,57 +127,12 @@ export LESS_TERMCAP_ue=$'\E[0m'         # end underline
 export LESS_TERMCAP_us=$'\E[04;33m'     # begin underline
 export GROFF_NO_SGR=1
 
-# +-----+
-# | NIX |
-# +-----+
-
-if [[ -d ${HOME}/.nix-defexpr/channels ]]; then
-    export NIX_PATH="$NIX_PATH:$HOME/.nix-defexpr/channels"
-fi
-
-if [[ -S /nix/var/nix/daemon-socket/socket ]]; then
-    export NIX_REMOTE=daemon
-fi
-
-export NIX_USER_PROFILE_DIR="${NIX_USER_PROFILE_DIR:-/nix/var/nix/profiles/per-user/${USER}}"
-export NIX_PROFILES="${NIX_PROFILES:-$HOME/.nix-profile}"
-
-if [[ -z "$TERMINFO_DIRS" ]] || [[ -d $HOME/.nix-profile/share/terminfo ]]; then
-    export TERMINFO_DIRS=$HOME/.nix-profile/share/terminfo
-fi
-
-
-# +----------------+
-# | OTHER SOFTWARE |
-# +----------------+
-
-export DIRSTACKSIZE=30
-export SCREENSHOT="$XDG_PICTURES_DIR/screenshots"
-export TMUXP_CONFIGDIR="$XDG_CONFIG_HOME/tmuxp"
-export VIMCONFIG="$XDG_CONFIG_HOME/vim"
-
-# Like default, but without / -- ^W must be useful in paths, like it is in vim, bash, tcsh
-export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
-
-# Enable Pipewire for SDL
-export SDL_AUDIODRIVER=pipewire
-export ALSOFT_DRIVERS=pipewire
-
-# Allow git to access repositories across filesystems
-export GIT_DISCOVERY_ACROSS_FILESYSTEM=1
-
-# If the execution of a command takes longer than
-# specified (seconds), time statistics are printed
-export REPORTTIME=4
-
 # +------+
 # | PATH |
 # +------+
 
 path=(
-    $HOME/.bin
     $HOME/.local/bin
-    $HOME/bin
     $GOPATH/bin
     /usr/local/bin
     /usr/local/sbin

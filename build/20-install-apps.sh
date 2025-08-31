@@ -62,13 +62,13 @@ dnf5 install -y \
     liquidctl \
     neovim \
     nicstat \
-    nodejs-bash-language-server \
     numactl \
     openrazer-daemon \
     openrgb \
     podman-machine \
     podman-tui \
     podmansh \
+    python3-ramalama \
     qemu-kvm \
     starship \
     sysprof \

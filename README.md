@@ -18,23 +18,19 @@ A custom Fedora Atomic image designed for gaming, development and daily use.
 - ADB, Fastboot and [Waydroid](https://docs.bazzite.gg/Installing_and_Managing_Software/Waydroid_Setup_Guide/)
 - Curated list of [Flatpaks](https://github.com/edifus/codedx/blob/main/flatpaks) and [Homebrews](https://github.com/edifus/codedx/blob/main/rootfs/usr/share/ublue-os/homebrew/codedx.Brewfile)
 - Cursor editor (AppImage)
-- Docker, Podman, Distrobox and Toolbx
-- Fixed Plasma integration with Google Drive
+- Distrobox and Toolbx
 - Native apps:
   - Brave Browser
-  - CoolerControl
-  - cursor-cli
+  - ckb-next/openrazer
+  - CoolerControl/LiquidCtl
   - Discord
+  - Docker
   - Firefox
   - Ghostty
-  - Horizon Client
-  - LiquidCtl
-  - OpenRazer
   - OpenRGB
-  - QEMU/KVM
-  - Virtual Machine Manager
+  - QEMU/KVM/Virtual Machine Manager
   - VScode
-- Nix package manager support
+- Nix package manager support (Determinate Nix/Upstream Nix)
 - Starship prompt, Zsh, and Atuin history search (Ctrl+R)
 
 ## Custom commands
@@ -69,7 +65,10 @@ ujust install-codedx-flatpaks
 # Install Homebrews
 ujust install-codedx-homebrews
 
-# Install and configure Nix package manager
+# Install and configure Nix package manager (Upstream Nix)
+ujust setup-nix
+
+# Install and configure Nix package manager (Determiniate Nix)
 ujust setup-nix
 ```
 
