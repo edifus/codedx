@@ -55,6 +55,7 @@ dnf5 install -y \
     ghostty \
     gparted \
     hashcat \
+    htop \
     inxi \
     kgpg \
     klassy \
@@ -74,6 +75,7 @@ dnf5 install -y \
     starship \
     sysprof \
     tiptop \
+    thefuck \
     ublue-setup-services \
     usbmuxd \
     util-linux \
@@ -128,6 +130,18 @@ aria2c \
 tar xf "$FIREFOX_DIR/firefox-latest.tar.xz" -C "$FIREFOX_DIR"
 mv "$FIREFOX_DIR/firefox" /opt && ln -s /opt/firefox/firefox /usr/bin/firefox
 rm -fr "$FIREFOX_DIR"
+
+# install openrgb effects plugin
+echo "Installing OpenRGB Effects Plugin..."
+OPENRGB_DIR="/tmp/openrgb"
+aria2c \
+  --connect-timeout=30 \
+  --dir="$OPENRGB_DIR" \
+  --max-tries=3 \
+  --out="openrgb-effects-plugin.zip" \
+    "https://gitlab.com/OpenRGBDevelopers/OpenRGBEffectsPlugin/-/jobs/artifacts/master/download?job=Linux+amd64"
+unzip "$OPENRGB_DIR/openrgb-effects-plugin.zip" -d /etc/skel/.config/OpenRGB/plugins
+rm -fr "$OPENRGB_DIR"
 
 # hide incompatible Bazzite just recipes
 for recipe in "install-coolercontrol" "install-openrazer" "install-openrgb"; do

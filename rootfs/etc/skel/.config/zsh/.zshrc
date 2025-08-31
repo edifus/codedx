@@ -1,4 +1,3 @@
-#!/usr/bin/env zsh
 # vim:syntax=zsh
 # vim:filetype=zsh
 
@@ -108,6 +107,70 @@ alias -g W='| wc -l'
 # | aliases |
 # +---------+
 
+# | xalias |
+xalias() {
+    local key val com
+    if (( ${#argv} == 0 )) ; then
+        printf 'xalias(): Missing argument.\n'
+        return 1
+    fi
+    if (( ${#argv} > 1 )) ; then
+        printf 'xalias(): Too many arguments %s\n' "${#argv}"
+        return 1
+    fi
+
+    key="${1%%\=*}"
+    val="${1#*\=}"
+
+    words=(${(z)val})
+    cmd=${words[1]}
+
+    [[ -n ${commands[$cmd]} ]] && alias -- "${key}=${val}"
+    return 0
+}
+
+xalias cal='cal -m'
+xalias cp='cp --reflink=auto -iv'
+xalias ctl='sudo systemctl'
+xalias dd='dd status=progress'
+xalias df='df -Thx tmpfs -x devtmpfs'
+xalias diff='diff -Naur --strip-trailing-cr'
+xalias dig='q'
+xalias free='free -g'
+xalias fuser='fuser -v'
+xalias grep='grep --binary-files=without-match --directories=skip --color=auto'
+xalias mkbz2='tar -cvjf'
+xalias mkgz='tar -cvzf'
+xalias mktar='tar -cvf'
+xalias mv='mv -iv'
+xalias pgrep='pgrep -a'
+xalias reboot='systemctl reboot'
+xalias restart='systemctl reboot'
+xalias rm='trash -v'
+xalias sha1='openssl sha1'
+xalias sha256='openssl sha256'
+xalias sha384='openssl sha384'
+xalias sha512='openssl sha512'
+xalias shutdown='sudo shutdown now'
+xalias sl='ls'
+xalias su='su - '
+xalias top='htop'
+xalias unbz2='tar -xvjf'
+xalias ungz='tar -xvzf'
+xalias untar='tar -xvf'
+
+# | eza, ls |
+if [[ -n ${commands[eza]} ]]; then
+    export _ezaparams='--git --icons=auto --classify --group --group-directories-first --time-style=long-iso'
+    alias ls='eza ${=_ezaparams}'
+    alias ll='eza --all --header --long ${=_ezaparams}'
+    alias llm='eza --all --header --long --sort=modified ${=_ezaparams}'
+    alias lt='eza --tree ${=_ezaparams}'
+    alias l='eza --git-ignore ${=_ezaparams}'
+    alias tree='eza --all --git-ignore --tree ${=_ezaparams}'
+else
+    xalias ls='ls --color=auto --classify --human-readable'
+fi
 
 #  ____ ___ _   _ ____ ___ _   _  ____ ____
 # | __ )_ _| \ | |  _ \_ _| \ | |/ ___/ ___|
@@ -194,6 +257,40 @@ if [[ -o interactive ]]; then
     # | starship prompt |
     export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
     eval "$(starship init zsh)"
+    # | thefuck alias |
+    eval "$(thefuck --alias)"
     # | zoxide |
     eval "$(zoxide init zsh)"
 fi
+
+# +--------------+
+# | PATH CLEANUP |
+# +--------------+
+
+# get rid of duplicate in paths
+typeset -gU cdpath fpath path
+
+# remove non-existing entries from paths
+cdpath=($^cdpath(N-/))
+fpath=($^fpath(N-/))
+path=($^path(N-/))
+
+export CDPATH
+export FPATH
+export PATH
+
+# +----------+
+# | TERMINAL |
+# +----------+
+
+# | disable core dumps |
+ulimit -S -c 0
+
+# | turn off control character echoing |
+stty -ctlecho
+
+# | set tab width of 2 on TTY |
+if [[ $TERM = linux ]]; then setterm -regtabs 2; fi
+
+# | prevent broken terminals | reset to sane defaults after a command
+ttyctl -f

@@ -1,0 +1,11 @@
+[DetailsMode]
+ExpandableFolders=false
+
+[General]
+EditableUrl=true
+RememberOpenedTabs=false
+ShowFullPath=true
+ShowFullPathInTitlebar=true
+
+[MainWindow]
+MenuBar=Disabled

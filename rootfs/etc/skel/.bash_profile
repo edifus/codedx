@@ -1,4 +1,5 @@
-#!/usr/bin/env bash
+# shellcheck disable=SC1091
+# shellcheck disable=SC2148
 # vim:syntax=bash
 # vim:filetype=bash
 
@@ -6,7 +7,6 @@
 
 # Get the aliases and functions
 if [ -f "$HOME/.bashrc" ]; then
-    # shellcheck disable=SC1091
     source "$HOME/.bashrc"
 fi
 
@@ -42,6 +42,8 @@ export XDG_VIDEOS_DIR="$HOME/Videos"
 # Populate bash completions, .desktop files, etc
 if [ -z "${XDG_DATA_DIRS-}" ]; then
     # According to XDG spec the default is /usr/local/share:/usr/share, don't set something that prevents that default
-    export XDG_DATA_DIRS="/usr/local/share:/usr/share"
+    export XDG_DATA_DIRS="/usr/local/share:/usr/share:$HOME/.local/share:$HOME/.nix-profile/share:/nix/var/nix/profiles/default/share"
+else
+    export XDG_DATA_DIRS="$XDG_DATA_DIRS:$HOME/.local/share:$HOME/.nix-profile/share:/nix/var/nix/profiles/default/share"
 fi
 export XDG_DATA_DIRS

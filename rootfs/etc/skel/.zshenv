@@ -1,4 +1,3 @@
-#!/usr/bin/env zsh
 # vim:syntax=zsh
 # vim:filetype=zsh
 
@@ -41,7 +40,9 @@ export XDG_VIDEOS_DIR="$HOME/Videos"
 typeset -UT XDG_DATA_DIRS xdg_data_dirs
 if [ -z "${XDG_DATA_DIRS-}" ]; then
     # According to XDG spec the default is /usr/local/share:/usr/share, don't set something that prevents that default
-    export XDG_DATA_DIRS="/usr/local/share:/usr/share"
+    export XDG_DATA_DIRS="/usr/local/share:/usr/share:$HOME/.local/share:$HOME/.nix-profile/share:/nix/var/nix/profiles/default/share"
+else
+    export XDG_DATA_DIRS="$XDG_DATA_DIRS:$HOME/.local/share:$HOME/.nix-profile/share:/nix/var/nix/profiles/default/share"
 fi
 # Remove duplicate paths
 typeset -gU xdg_data_dirs
@@ -137,23 +138,34 @@ export LESS_TERMCAP_ue=$'\E[0m'         # end underline
 export LESS_TERMCAP_us=$'\E[04;33m'     # begin underline
 export GROFF_NO_SGR=1
 
-# +------+
-# | PATH |
-# +------+
+# +-------+
+# | PATHS |
+# +-------+
+
+fpath=(
+    $HOME/.nix-profile/share/zsh/site-functions
+    /run/current-system/sw/share/zsh/site-functions
+    /usr/share/zsh/site-functions
+    "${fpath[@]}"
+)
 
 path=(
+    $HOME/.cargo/bin
     $HOME/.local/bin
-    $HOME/bin
     $GOPATH/bin
     /usr/local/bin
     /usr/local/sbin
-    $path
+    "${path[@]}"
 )
 
-# get rid of duplicate in *paths
+# get rid of duplicate in paths
 typeset -gU cdpath fpath path
 
-# remove non-existing entries from path
+# remove non-existing entries from paths
+cdpath=($^cdpath(N-/))
+fpath=($^fpath(N-/))
 path=($^path(N-/))
 
+export CDPATH
+export FPATH
 export PATH

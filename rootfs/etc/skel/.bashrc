@@ -1,4 +1,6 @@
-#!/usr/bin/env bash
+# shellcheck disable=SC1091
+# shellcheck disable=SC2076
+# shellcheck disable=SC2148
 # vim:syntax=bash
 # vim:filetype=bash
 
@@ -6,7 +8,6 @@
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
-    # shellcheck disable=SC1091
     source /etc/bashrc
 fi
 
@@ -21,8 +22,8 @@ export PATH
 # export SYSTEMD_PAGER=
 
 # User specific aliases and functions
-if [ -d "$HOME/.bashrc.d" ]; then
-    for rc in "$HOME"/.bashrc.d/*; do
+if [ -d "$XDG_CONFIG_HOME/bashrc.d" ]; then
+    for rc in "$XDG_CONFIG_HOME/bashrc.d"/*; do
         if [ -f "$rc" ]; then
             # shellcheck disable=SC1090
             source "$rc"
@@ -35,9 +36,10 @@ unset rc
 # Shell color (Nord theme)
 eval "$(dircolors -b """$XDG_CONFIG_HOME"""/dircolors/nord.theme)"
 
-# Starship
+# Starship and The Fuck
 export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
 eval "$(starship init bash)"
+eval "$(thefuck --alias)"
 
 # Atuin
 export ATUIN_NOBIND="true"
