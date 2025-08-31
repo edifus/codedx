@@ -56,6 +56,7 @@ dnf5 install -y \
     gparted \
     hashcat \
     inxi \
+    kgpg \
     klassy \
     ksystemlog \
     kvantum \
