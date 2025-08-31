@@ -65,6 +65,9 @@ ujust install-codedx-flatpaks
 # Install Homebrews
 ujust install-codedx-homebrews
 
+# Install Orchis KDE THeme
+ujust install-orchis-theme
+
 # Install and configure Nix package manager (Upstream Nix)
 ujust setup-nix
 

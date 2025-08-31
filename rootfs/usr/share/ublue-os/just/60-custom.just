@@ -166,6 +166,17 @@ install-codedx-homebrews:
     brew bundle --file /usr/share/ublue-os/homebrew/codedx.Brewfile
     echo "Homebrew 🍻🍻🍻 installation complete"
 
+# Install Orchis KDE Theme
+install-orchis-theme:
+    #!/usr/bin/env bash
+    set -eou pipefail
+
+    echo "Installing Orchis KDE theme..."
+    git clone https://github.com/vinceliuice/Orchis-kde "$HOME/Downloads"
+    bash "$HOME/Downloads/Orchis-kde/install.sh"
+    rm -fr "$HOME/Downloads/Orchis-kde"
+    echo "Orchis KDE theme installation complete"
+
 # Install and configure Nix package manager
 setup-nix:
     #!/usr/bin/env bash
