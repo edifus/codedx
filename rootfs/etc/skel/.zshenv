@@ -18,8 +18,6 @@ skip_global_compinit=1
 # http://disq.us/p/f55b78
 setopt noglobalrcs
 
-export SYSTEM=$(uname -s)
-
 # +-----+
 # | XDG |
 # +-----+
@@ -43,16 +41,15 @@ export XDG_VIDEOS_DIR="$HOME/Videos"
 typeset -UT XDG_DATA_DIRS xdg_data_dirs
 if [ -z "${XDG_DATA_DIRS-}" ]; then
     # According to XDG spec the default is /usr/local/share:/usr/share, don't set something that prevents that default
-    export XDG_DATA_DIRS="/usr/local/share:/usr/share:$HOME/.nix-profile/share:/nix/var/nix/profiles/default/share"
-else
-    export XDG_DATA_DIRS="$XDG_DATA_DIRS:$HOME/.nix-profile/share:/nix/var/nix/profiles/default/share"
+    export XDG_DATA_DIRS="/usr/local/share:/usr/share"
 fi
 # Remove duplicate paths
 typeset -gU xdg_data_dirs
 # Remove non-existent paths
 xdg_data_dirs=($^xdg_data_dirs(N-/))
-
 export XDG_DATA_DIRS
+
+export SYSTEM=$(uname -s)
 
 # +-----+
 # | ZSH |
@@ -68,6 +65,19 @@ export SAVEHIST=10000                  # Maximum events in history file
 if [[ ("$SHLVL" -eq 1 && ! -o LOGIN) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
     source ${ZDOTDIR:-$HOME}/.zprofile
 fi
+
+# +--------+
+# | EDITOR |
+# +--------+
+
+if [[ -n ${commands[nvim]} ]]; then
+    export EDITOR=nvim
+else
+    export EDITOR=vim
+fi
+
+export ALTERNATE_EDITOR="$EDITOR"
+export VISUAL="$EDITOR"
 
 # +------------+
 # | GCC COLORS |
@@ -133,6 +143,7 @@ export GROFF_NO_SGR=1
 
 path=(
     $HOME/.local/bin
+    $HOME/bin
     $GOPATH/bin
     /usr/local/bin
     /usr/local/sbin
@@ -143,6 +154,6 @@ path=(
 typeset -gU cdpath fpath path
 
 # remove non-existing entries from path
-path=($^path(N))
+path=($^path(N-/))
 
 export PATH

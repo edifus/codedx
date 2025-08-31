@@ -14,14 +14,10 @@
     if [[ -s "$zcompdump" && (! -s "${zcompdump}.zwc" || "$zcompdump" -nt "${zcompdump}.zwc") ]]; then
         zrecompile -pq "$zcompdump"
     fi
-    # zcompile .zshrc
+    # zcompile zsh files
     zrecompile -pq $HOME/.zshenv
+    zrecompile -pq $ZSHCONFIG/.zlogin
+    zrecompile -pq $ZSHCONFIG/.zlogout
     zrecompile -pq $ZSHCONFIG/.zprofile
     zrecompile -pq $ZSHCONFIG/.zshrc
-
-    # recompile all zsh or sh
-    _ZSHFILES=( $ZSHCONFIG/conf/*.*sh )
-    for f in $_ZSHFILES; do
-        zrecompile -pq $f
-    done
 ) &!
