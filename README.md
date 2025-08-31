@@ -19,18 +19,18 @@ A custom Fedora Atomic image designed for gaming, development and daily use.
 - Curated list of [Flatpaks](https://github.com/edifus/codedx/blob/main/flatpaks) and [Homebrews](https://github.com/edifus/codedx/blob/main/rootfs/usr/share/ublue-os/homebrew/codedx.Brewfile)
 - Cursor editor (AppImage)
 - Distrobox and Toolbx
+- Kvantum and Klassy theme engine
 - Native apps:
   - Brave Browser
-  - ckb-next/openrazer
-  - CoolerControl/LiquidCtl
+  - ckb-next and openrazer
+  - CoolerControl, liquidctl, and OpenRGB
   - Discord
   - Docker
   - Firefox
   - Ghostty
-  - OpenRGB
   - QEMU/KVM/Virtual Machine Manager
   - VScode
-- Nix package manager support (Determinate Nix/Upstream Nix)
+- Nix package manager support (Determinate Nix or upstream Nix)
 - Starship prompt, Zsh, and Atuin history search (Ctrl+R)
 
 ## Custom commands
@@ -68,8 +68,8 @@ ujust install-codedx-homebrews
 # Install and configure Nix package manager (Upstream Nix)
 ujust setup-nix
 
-# Install and configure Nix package manager (Determiniate Nix)
-ujust setup-nix
+# Install and configure Nix package manager (Determinate Nix)
+ujust setup-nix-determinate
 ```
 
 ## CodeDX Image Chart
