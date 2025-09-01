@@ -18,10 +18,15 @@ append_group() {
 }
 
 # Setup Groups
-append_group docker plugdev
+append_group docker
+append_group plugdev
+append_group render
+append_group video
 
 mapfile -t wheelarray < <(getent group wheel | cut -d ":" -f 4 | tr ',' '\n')
 for user in "${wheelarray[@]}"; do
     usermod -aG docker "$user"
     usermod -aG plugdev "$user"
+    usermod -aG render "$user"
+    usermod -aG video "$user"
 done
