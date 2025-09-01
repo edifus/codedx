@@ -48,8 +48,5 @@ test -f /usr/share/bazzite-cli/bling.sh && source /usr/share/bazzite-cli/bling.s
 ### bling.sh source end
 bind -x '"\C-r": __atuin_history'
 
-# fnm
-eval "$(fnm env --use-on-cd --shell bash)"
-
 # Rust
 export PATH="/home/linuxbrew/.linuxbrew/opt/rustup/bin:$PATH"

@@ -33,6 +33,7 @@ dnf5 install -y \
   aria2 \
   atuin \
   aurora-backgrounds \
+  bat \
   bcc \
   bchunk \
   borgbackup \
@@ -43,19 +44,26 @@ dnf5 install -y \
   code \
   coolercontrol \
   containerd.io \
+  croc \
+  direnv \
   discord \
   docker-buildx-plugin \
   docker-ce \
   docker-ce-cli \
   docker-compose-plugin \
-  fnm \
+  eza \
+  fd-find \
   flatpak-builder \
   fuse-btfs \
   fuse-devel \
   fuse3-devel \
+  fzf \
   genisoimage \
+  gh \
   ghostty \
+  glab \
   gparted \
+  grc \
   hashcat \
   htop \
   inxi \
@@ -74,15 +82,24 @@ dnf5 install -y \
   podmansh \
   python3-ramalama \
   qemu-kvm \
+  rclone \
+  rclone-browser \
+  restic \
+  rustup \
+  ShellCheck \
   starship \
   sysprof \
+  tealdeer \
   tiptop \
+  trash-cli \
   thefuck \
   ublue-setup-services \
+  ugrep \
   usbmuxd \
   util-linux \
   virt-manager \
   virt-viewer \
+  yq \
   yt-dlp \
   yt-dlp-zsh-completion \
   zoxide \

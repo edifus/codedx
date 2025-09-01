@@ -16,7 +16,7 @@ A custom Fedora Atomic image designed for gaming, development and daily use.
 
 - [Bazzite features](https://github.com/ublue-os/bazzite#about--features)
 - ADB, Fastboot and [Waydroid](https://docs.bazzite.gg/Installing_and_Managing_Software/Waydroid_Setup_Guide/)
-- Curated list of [Flatpaks](https://github.com/edifus/codedx/blob/main/flatpaks) and [Homebrews](https://github.com/edifus/codedx/blob/main/rootfs/usr/share/ublue-os/homebrew/codedx.Brewfile)
+- Curated list of [Flatpaks](https://github.com/edifus/codedx/blob/main/flatpaks)
 - Cursor editor (AppImage)
 - Distrobox and Toolbx
 - Kvantum and Klassy theme engine
@@ -61,9 +61,6 @@ ujust install-codedx-appimages
 
 # Install Flatpaks
 ujust install-codedx-flatpaks
-
-# Install Homebrews
-ujust install-codedx-homebrews
 
 # Install Orchis KDE THeme
 ujust install-orchis-theme

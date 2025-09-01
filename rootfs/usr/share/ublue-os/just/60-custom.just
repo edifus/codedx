@@ -157,15 +157,6 @@ install-codedx-flatpaks:
     xargs -a <(curl --retry 3 -sL https://raw.githubusercontent.com/edifus/codedx/main/flatpaks) flatpak --system -y install
     echo "Flatpak 📦📦📦 installation complete"
 
-# Install custom Homebrew
-install-codedx-homebrews:
-    #!/usr/bin/env bash
-    set -eou pipefail
-
-    echo "Installing Homebrew 🍻🍻🍻 apps..."
-    brew bundle --file /usr/share/ublue-os/homebrew/codedx.Brewfile
-    echo "Homebrew 🍻🍻🍻 installation complete"
-
 # Install Orchis KDE Theme
 install-orchis-theme:
     #!/usr/bin/env bash

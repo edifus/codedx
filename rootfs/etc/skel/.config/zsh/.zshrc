@@ -252,8 +252,6 @@ if [[ -o interactive ]]; then
     bindkey '^[OA' _atuin_up_search_widget
     # | grc colorizer |
     source /home/linuxbrew/.linuxbrew/etc/grc.zsh 2> /dev/null
-    # | fnm |
-    eval "$(fnm env --use-on-cd --shell zsh)"
     # | starship prompt |
     export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
     eval "$(starship init zsh)"
