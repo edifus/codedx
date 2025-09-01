@@ -29,63 +29,66 @@ dnf5 config-manager addrepo --from-repofile="https://openrazer.github.io/hardwar
 
 # install packages
 dnf5 install -y \
-    android-tools \
-    aria2 \
-    aurora-backgrounds \
-    bcc \
-    bchunk \
-    borgbackup \
-    bpftop \
-    bpftrace \
-    brave-browser \
-    ccache \
-    code \
-    coolercontrol \
-    containerd.io \
-    discord \
-    docker-buildx-plugin \
-    docker-ce \
-    docker-ce-cli \
-    docker-compose-plugin \
-    flatpak-builder \
-    fuse-btfs \
-    fuse-devel \
-    fuse3-devel \
-    genisoimage \
-    ghostty \
-    gparted \
-    hashcat \
-    htop \
-    inxi \
-    kgpg \
-    klassy \
-    ksystemlog \
-    kvantum \
-    liquidctl \
-    neovim \
-    nicstat \
-    numactl \
-    openrazer-daemon \
-    openrgb \
-    podman-machine \
-    podman-tui \
-    podmansh \
-    python3-ramalama \
-    qemu-kvm \
-    starship \
-    sysprof \
-    tiptop \
-    thefuck \
-    ublue-setup-services \
-    usbmuxd \
-    util-linux \
-    virt-manager \
-    virt-viewer \
-    yt-dlp \
-    yt-dlp-zsh-completion \
-    zsh \
-    zsh-autosuggestions \
-    zsh-syntax-highlighting
+  android-tools \
+  aria2 \
+  atuin \
+  aurora-backgrounds \
+  bcc \
+  bchunk \
+  borgbackup \
+  bpftop \
+  bpftrace \
+  brave-browser \
+  ccache \
+  code \
+  coolercontrol \
+  containerd.io \
+  discord \
+  docker-buildx-plugin \
+  docker-ce \
+  docker-ce-cli \
+  docker-compose-plugin \
+  fnm \
+  flatpak-builder \
+  fuse-btfs \
+  fuse-devel \
+  fuse3-devel \
+  genisoimage \
+  ghostty \
+  gparted \
+  hashcat \
+  htop \
+  inxi \
+  kgpg \
+  klassy \
+  ksystemlog \
+  kvantum \
+  liquidctl \
+  neovim \
+  nicstat \
+  numactl \
+  openrazer-daemon \
+  openrgb \
+  podman-machine \
+  podman-tui \
+  podmansh \
+  python3-ramalama \
+  qemu-kvm \
+  starship \
+  sysprof \
+  tiptop \
+  thefuck \
+  ublue-setup-services \
+  usbmuxd \
+  util-linux \
+  virt-manager \
+  virt-viewer \
+  yt-dlp \
+  yt-dlp-zsh-completion \
+  zoxide \
+  zsh \
+  zsh-autosuggestions \
+  zsh-syntax-highlighting
 
 # disable repositories
 for copr in ublue-os/packages ublue-os/staging
@@ -145,11 +148,11 @@ rm -fr "$OPENRGB_DIR"
 
 # hide incompatible Bazzite just recipes
 for recipe in "install-coolercontrol" "install-openrazer" "install-openrgb"; do
-  if ! grep -l "^$recipe:" /usr/share/ublue-os/just/*.just | grep -q .; then
-    echo "Error: Recipe $recipe not found in any just file"
-    exit 1
-  fi
-  sed -i "s/^$recipe:/_$recipe:/" /usr/share/ublue-os/just/*.just
+    if ! grep -l "^$recipe:" /usr/share/ublue-os/just/*.just | grep -q .; then
+      echo "Error: Recipe $recipe not found in any just file"
+      exit 1
+    fi
+    sed -i "s/^$recipe:/_$recipe:/" /usr/share/ublue-os/just/*.just
 done
 
 # block flatpaks for native apps
@@ -157,24 +160,25 @@ flatpakBlock='/usr/share/ublue-os/flatpak-blocklist'
 bazaarBlock='/usr/share/ublue-os/bazaar/blocklist.txt'
 flatpakInstall='/usr/share/ublue-os/bazzite/flatpak/install'
 {
-  echo -e '\ndeny com.brave.Browser/*'
-  echo -e '\ndeny com.visualstudio.code/*'
-  echo -e '\ndeny com.discordapp.Discord/*'
-  echo -e '\ndeny io.neovim.nvim/*'
-  echo -e '\ndeny org.mozilla.firefox/*'
-  echo -e '\ndeny org.openrgb.OpenRGB/*'
-  echo -e '\ndeny org.virt_manager.virt-manager/*'
+    echo -e '\ndeny com.brave.Browser/*'
+    echo -e '\ndeny com.visualstudio.code/*'
+    echo -e '\ndeny com.discordapp.Discord/*'
+    echo -e '\ndeny io.neovim.nvim/*'
+    echo -e '\ndeny org.mozilla.firefox/*'
+    echo -e '\ndeny org.openrgb.OpenRGB/*'
+    echo -e '\ndeny org.virt_manager.virt-manager/*'
 } >> $flatpakBlock
 
 {
-  echo -e '\ncom.brave.Browser'
-  echo -e '\ncom.visualstudio.code'
-  echo -e '\ncom.discordapp.Discord'
-  echo -e '\norg.mozilla.firefox'
-  echo -e '\norg.virt_manager.virt-manager'
+    echo -e '\ncom.brave.Browser'
+    echo -e '\ncom.visualstudio.code'
+    echo -e '\ncom.discordapp.Discord'
+    echo -e '\norg.mozilla.firefox'
+    echo -e '\norg.virt_manager.virt-manager'
 } >> $bazaarBlock
 
-sed -i '/org.mozilla.firefox/d' $flatpakInstall
+[[ ${BASE_IMAGE_NAME} == 'kinoite' ]] && \
+    sed -i '/org.mozilla.firefox/d' $flatpakInstall
 
 # remove zsh defaults
 rm -fv /etc/skel/{.zshrc,.zprofile}
