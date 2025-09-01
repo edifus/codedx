@@ -172,7 +172,7 @@ install-orchis-theme:
     set -eou pipefail
 
     echo "Installing Orchis KDE theme..."
-    git clone https://github.com/vinceliuice/Orchis-kde "$HOME/Downloads"
+    git clone https://github.com/vinceliuice/Orchis-kde "$HOME/Downloads/Orchis-kde"
     bash "$HOME/Downloads/Orchis-kde/install.sh"
     rm -fr "$HOME/Downloads/Orchis-kde"
     echo "Orchis KDE theme installation complete"
