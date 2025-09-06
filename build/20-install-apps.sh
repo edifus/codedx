@@ -173,9 +173,9 @@ aria2c \
   --out="VeraCrypt_PGP_public_key.asc" \
     "https://amcrypto.jp/VeraCrypt/VeraCrypt_PGP_public_key.asc"
 VC_FINGERPRINT="5069 A233 D55A 0EEB 174A 5FC3 821A CD02 680D 16DE"
-DL_FINGERPRINT="$(gpg --import --import-options show-only """$VERACRYPT_DIR\VeraCrypt_PGP_public_key.asc""" 2>/dev/null | grep -oP '(?<=Key fingerprint = ).*')"
+DL_FINGERPRINT="$(gpg --import --import-options show-only """$VERACRYPT_DIR/VeraCrypt_PGP_public_key.asc""" 2>/dev/null | grep -oP '(?<=Key fingerprint = ).*')"
 if [[ "$DL_FINGERPRINT" == "$VC_FINGERPRINT" ]]; then
-    gpg --import "$VERACRYPT_DIR\VeraCrypt_PGP_public_key.asc"
+    gpg --import "$VERACRYPT_DIR/VeraCrypt_PGP_public_key.asc"
 else
     echo "Invalid VeraCrypt PGP public key fingerprint..."
     exit 1
@@ -193,11 +193,11 @@ aria2c \
   --max-tries=3 \
   --out="veracrypt-1.26.24-Fedora-40-x86_64.rpm.sig" \
     "https://launchpad.net/veracrypt/trunk/1.26.24/+download/veracrypt-1.26.24-Fedora-40-x86_64.rpm.sig"
-gpg --verify "$VERACRYPT_DIR\veracrypt-1.26.24-Fedora-40-x86_64.rpm" "$VERACRYPT_DIR\veracrypt-1.26.24-Fedora-40-x86_64.rpm.sig"
+gpg --verify "$VERACRYPT_DIR/veracrypt-1.26.24-Fedora-40-x86_64.rpm" "$VERACRYPT_DIR/veracrypt-1.26.24-Fedora-40-x86_64.rpm.sig"
 VALID="$(gpg --status-fd 1 --verify """$VERACRYPT_DIR/veracrypt-1.26.24-Fedora-40-x86_64.rpm.sig""" """$VERACRYPT_DIR/veracrypt-1.26.24-Fedora-40-x86_64.rpm""" 2>/dev/null | grep VALIDSIG)"
 
 if [[ "$VALID" ]]; then
-    rpm --import "$VERACRYPT_DIR\VeraCrypt_PGP_public_key.asc"
+    rpm --import "$VERACRYPT_DIR/VeraCrypt_PGP_public_key.asc"
     dnf5 install -y "$VERACRYPT_DIR/veracrypt-1.26.24-Fedora-40-x86_64.rpm"
 else
     echo "Invalid VeraCrypt RPM signature..."
