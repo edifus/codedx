@@ -1,3 +1,2 @@
 cursor,https://www.cursor.com/api/download?platform=linux-x64&releaseTrack=stable
-veracrypt,https://launchpad.net/veracrypt/trunk/1.26.24/+download/VeraCrypt-1.26.24-x86_64.AppImage
-cypherock,https://cypherock-updater-v2.s3-accelerate.amazonaws.com/cysync-desktop/cypherock-cysync-2.2.0-linux-x86_64.AppImage
+cysync,https://cypherock-updater-v2.s3-accelerate.amazonaws.com/cysync-desktop/cypherock-cysync-2.2.0-linux-x86_64.AppImage

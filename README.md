@@ -18,7 +18,6 @@ A custom Fedora Atomic image designed for gaming, development and daily use.
 - ADB, Fastboot, UDEV rules, and [Waydroid](https://docs.bazzite.gg/Installing_and_Managing_Software/Waydroid_Setup_Guide/)
 - Curated list of [Flatpaks](https://github.com/edifus/codedx/blob/main/flatpaks)
 - Curated list of [AppImages](https://github.com/edifus/codedx/blob/main/appimages)
-- Cypherock Vault USB support
 - Distrobox and Toolbx
 - Kvantum and Klassy theme engine
 - Native apps:
@@ -30,6 +29,7 @@ A custom Fedora Atomic image designed for gaming, development and daily use.
   - Firefox
   - Ghostty
   - QEMU/KVM/Virtual Machine Manager
+  - VeraCrypt
   - VScode
 - Nix package manager support (Determinate Nix or upstream Nix)
 - Starship prompt, Zsh, and Atuin history search (Ctrl+R)
