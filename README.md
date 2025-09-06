@@ -15,9 +15,10 @@ A custom Fedora Atomic image designed for gaming, development and daily use.
 ## Features
 
 - [Bazzite features](https://github.com/ublue-os/bazzite#about--features)
-- ADB, Fastboot and [Waydroid](https://docs.bazzite.gg/Installing_and_Managing_Software/Waydroid_Setup_Guide/)
+- ADB, Fastboot, UDEV rules, and [Waydroid](https://docs.bazzite.gg/Installing_and_Managing_Software/Waydroid_Setup_Guide/)
 - Curated list of [Flatpaks](https://github.com/edifus/codedx/blob/main/flatpaks)
-- Cursor editor (AppImage)
+- Curated list of [AppImages](https://github.com/edifus/codedx/blob/main/appimages)
+- Cypherock Vault USB support
 - Distrobox and Toolbx
 - Kvantum and Klassy theme engine
 - Native apps:
