@@ -1,4 +1,6 @@
 #!/usr/bin/bash
+# shellcheck disable=SC1091,SC2154
+
 if [[ -z ${project_root} ]]; then
     project_root=$(git rev-parse --show-toplevel)
 fi
@@ -13,7 +15,6 @@ image=$2
 orig_image=$2
 
 # Get image/target/version based on inputs
-# shellcheck disable=SC2154,SC1091
 . "${project_root}/just_scripts/get-defaults.sh"
 
 # Get variables

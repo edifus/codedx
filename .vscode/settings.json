@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "appimages": "plaintext",
+        "flatpaks": "plaintext",
+        "*rc": "ini"
+    }
+}

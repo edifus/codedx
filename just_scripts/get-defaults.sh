@@ -1,4 +1,6 @@
 #!/usr/bin/bash
+# shellcheck disable=SC2154
+
 if [[ -z "${image}" ]]; then
     image=${default_image}
 fi

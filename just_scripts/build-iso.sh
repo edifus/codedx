@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-#shellcheck disable=SC2154
+#shellcheck disable=SC1091,SC2154
 
 if [[ -z ${project_root} ]]; then
     project_root=$(git rev-parse --show-toplevel)
@@ -8,14 +8,11 @@ if [[ -z ${git_branch} ]]; then
     git_branch=$(git branch --show-current)
 fi
 
-# shellcheck disable=SC1091
 . "${project_root}/just_scripts/sudoif.sh"
 
 # Check if inside rootless container
 if [[ -f /run/.containerenv ]]; then
-    #shellcheck disable=SC1091
     source /run/.containerenv
-    #shellcheck disable=SC2154
     if [[ "${rootless}" -eq "1" ]]; then
         echo "Cannot build ISO inside rootless podman container... Exiting..."
         exit 1
@@ -34,7 +31,6 @@ image=$2
 orig_image=$2
 
 # Set image/target/version based on inputs
-# shellcheck disable=SC2154,SC1091
 . "${project_root}/just_scripts/get-defaults.sh"
 
 # Set Container tag name

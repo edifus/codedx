@@ -1,4 +1,5 @@
 #!/usr/bin/bash
+# shellcheck disable=SC2154,SC1091
 set -eo pipefail
 if [[ -z ${project_root} ]]; then
     project_root=$(git rev-parse --show-toplevel)
@@ -12,7 +13,6 @@ target=$1
 image=$2
 
 # Set image/target/version based on inputs
-# shellcheck disable=SC2154,SC1091
 . "${project_root}/just_scripts/get-defaults.sh"
 
 # Get info

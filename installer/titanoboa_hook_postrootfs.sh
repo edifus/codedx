@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
-
-#shellcheck disable=SC1091
-#shellcheck disable=SC2086
+#shellcheck disable=SC1091,SC2086
 
 set -exo pipefail
 
@@ -491,8 +489,7 @@ _tmp=$(mktemp -d)
     git clone https://github.com/hhd-dev/jkbd "$_tmp"
     cd "$_tmp"
     python -m venv .venv
-    #shellcheck disable=1091
-    source .venv/bin/activate
+        source .venv/bin/activate
     pip install build installer setuptools wheel
     python -m build --wheel --no-isolation
     python -m installer --prefix=/usr --destdir=/ dist/*.whl
