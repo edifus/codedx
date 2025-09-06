@@ -173,7 +173,7 @@ aria2c \
   --out="VeraCrypt_PGP_public_key.asc" \
     "https://amcrypto.jp/VeraCrypt/VeraCrypt_PGP_public_key.asc"
 VC_FINGERPRINT="5069 A233 D55A 0EEB 174A 5FC3 821A CD02 680D 16DE"
-DL_FINGERPRINT="$(gpg --import --import-options show-only """$VERACRYPT_DIR/VeraCrypt_PGP_public_key.asc""" 2>/dev/null | grep -oP '(?<=Key fingerprint = ).*')"
+DL_FINGERPRINT="$(gpg --status-fd 1 --import --import-options show-only """$VERACRYPT_DIR/VeraCrypt_PGP_public_key.asc""" 2>/dev/null | grep -oP '(?<=Key fingerprint = ).*')"
 if [[ "$DL_FINGERPRINT" == "$VC_FINGERPRINT" ]]; then
     gpg --import "$VERACRYPT_DIR/VeraCrypt_PGP_public_key.asc"
 else
