@@ -107,9 +107,6 @@ dnf5 install -y \
   zsh-autosuggestions \
   zsh-syntax-highlighting
 
-[[ ${BASE_IMAGE_NAME} == 'kinoite' ]] && \
-  dnf5 install -y smb4k
-
 # disable repositories
 for copr in ublue-os/packages ublue-os/staging
 do dnf5 -y copr disable $copr
