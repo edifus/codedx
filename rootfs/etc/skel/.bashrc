@@ -44,6 +44,3 @@ eval "$(thefuck --alias)"
 # Atuin
 export ATUIN_NOBIND="true"
 bind -x '"\C-r": __atuin_history'
-
-# Rust
-export PATH="/home/linuxbrew/.linuxbrew/opt/rustup/bin:$PATH"
