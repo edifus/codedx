@@ -149,6 +149,13 @@ if test ! -f "/etc/libvirt/hooks/qemu"; then
     fi
 fi
 
+# install aimp media player
+echo "Installing AIMP media player..."
+AIMP_DIR="/tmp/aimp"
+aria2c --dir="$AIMP_DIR" --out="aimp.x86_64.rpm" --max-tries=3 --connect-timeout=30 "https://www.aimp.ru/?do=download.file&id=32"
+dnf5 install -y "$AIMP_DIR/aimp.x86_64.rpm"
+rm -fr "$AIMP_DIR"
+
 # install cursor cli
 echo "Installing Cursor CLI..."
 CLI_DIR="/tmp/cursor"
@@ -156,6 +163,7 @@ mkdir -p "$CLI_DIR"
 aria2c --dir="$CLI_DIR" --out="cursor-cli.tar.gz" --max-tries=3 --connect-timeout=30 "https://api2.cursor.sh/updates/download-latest?os=cli-alpine-x64"
 tar -xzf "$CLI_DIR/cursor-cli.tar.gz" -C "$CLI_DIR"
 install -m 0755 "$CLI_DIR/cursor" /usr/bin/cursor-cli
+rm -fr "$CLI_DIR"
 
 # install mozilla firefox
 echo "Installing Mozilla Firefox..."
