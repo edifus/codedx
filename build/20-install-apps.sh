@@ -138,6 +138,14 @@ if test ! -f "/etc/libvirt/hooks/qemu"; then
     fi
 fi
 
+# install cursor cli
+echo "Installing Cursor CLI..."
+CLI_DIR="/tmp/cursor"
+mkdir -p "$CLI_DIR"
+aria2c --dir="$CLI_DIR" --out="cursor-cli.tar.gz" --max-tries=3 --connect-timeout=30 "https://api2.cursor.sh/updates/download-latest?os=cli-alpine-x64"
+tar -xzf "$CLI_DIR/cursor-cli.tar.gz" -C "$CLI_DIR"
+install -m 0755 "$CLI_DIR/cursor" /usr/bin/cursor-cli
+
 # install mozilla firefox
 echo "Installing Mozilla Firefox..."
 FIREFOX_DIR="/tmp/firefox" ; mkdir -p "$FIREFOX_DIR"
