@@ -33,6 +33,9 @@ dnf5 install -y \
   android-tools \
   aria2 \
   atuin \
+  audacious \
+  audacious-plugins-freeworld \
+  audacity-freeworld \
   aurora-backgrounds \
   bat \
   bcc \
@@ -113,13 +116,13 @@ for copr in ublue-os/packages ublue-os/staging
 do dnf5 -y copr disable $copr
 done && unset -v copr
 
-dnf5 config-manager setopt "*fedora-multimedia*".enabled=0
-dnf5 config-manager setopt brave-browser.enabled=0
-dnf5 config-manager setopt docker-ce-stable.enabled=0
-dnf5 config-manager setopt hardware_razer.enabled=0
-dnf5 config-manager setopt home_paul4us.enabled=0
-dnf5 config-manager setopt terra.enabled=0
-dnf5 config-manager setopt vscode.enabled=0
+dnf5 -y config-manager setopt "*fedora-multimedia*".enabled=0
+dnf5 -y config-manager setopt brave-browser.enabled=0
+dnf5 -y config-manager setopt docker-ce-stable.enabled=0
+dnf5 -y config-manager setopt hardware_razer.enabled=0
+dnf5 -y config-manager setopt home_paul4us.enabled=0
+dnf5 -y config-manager setopt terra.enabled=0
+dnf5 -y config-manager setopt vscode.enabled=0
 
 # enable bazzite virtualization
 echo "Making sure swtpm will work"
