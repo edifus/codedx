@@ -7,7 +7,6 @@ app/io.github.dvlv.boxbuddyrs/x86_64/stable
 app/io.github.fastrizwaan.WineZGUI/x86_64/stable
 app/io.github.getnf.embellish/x86_64/stable
 app/io.github.ilya_zlobintsev.LACT/x86_64/stable
-app/io.mpv.Mpv/x86_64/stable
 app/io.podman_desktop.PodmanDesktop/x86_64/stable
 app/it.mijorus.gearlever/x86_64/stable
 app/me.iepure.devtoolbox/x86_64/stable
@@ -19,7 +18,6 @@ app/org.filezillaproject.Filezilla/x86_64/stable
 app/org.fkoehler.KTailctl/x86_64/stable
 app/org.gimp.GIMP/x86_64/stable
 app/org.pipewire.Helvum/x86_64/stable
-app/org.videolan.VLC/x86_64/stable
 app/sh.loft.devpod/x86_64/stable
 runtime/com.obsproject.Studio.Plugin.Gstreamer/x86_64/stable
 runtime/com.obsproject.Studio.Plugin.GStreamerVaapi/x86_64/stable
