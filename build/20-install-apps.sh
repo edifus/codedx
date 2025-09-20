@@ -68,6 +68,7 @@ dnf5 install -y \
   glab \
   gparted \
   grc \
+  haruna \
   hashcat \
   htop \
   inxi \
@@ -76,6 +77,7 @@ dnf5 install -y \
   ksystemlog \
   kvantum \
   liquidctl \
+  mpv \
   neovim \
   nicstat \
   numactl \
@@ -103,6 +105,11 @@ dnf5 install -y \
   util-linux \
   virt-manager \
   virt-viewer \
+  vlc \
+  vlc-plugin-bittorrent \
+  vlc-plugin-ffmpeg \
+  vlc-plugin-kde \
+  vlc-plugin-pause-click \
   yq \
   yt-dlp \
   yt-dlp-zsh-completion \
