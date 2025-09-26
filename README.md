@@ -21,6 +21,8 @@ A custom Fedora Atomic image designed for gaming, development and daily use.
 - Distrobox and Toolbx
 - Kvantum and Klassy theme engine
 - Native apps:
+  - AIMP, Audacious, mpv and VLC
+  - Audacity Editor
   - Brave Browser
   - ckb-next and openrazer
   - CoolerControl, liquidctl, and OpenRGB

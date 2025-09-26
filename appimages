@@ -1,2 +1,2 @@
 cursor,https://www.cursor.com/api/download?platform=linux-x64&releaseTrack=stable
-cysync,https://cypherock-updater-v2.s3-accelerate.amazonaws.com/cysync-desktop/cypherock-cysync-2.2.0-linux-x86_64.AppImage
+trezor,https://github.com/trezor/trezor-suite/releases/download/*/Trezor-Suite-*-linux-x86_64.AppImage

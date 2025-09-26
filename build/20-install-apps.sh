@@ -150,7 +150,7 @@ if test ! -f "/etc/libvirt/hooks/qemu"; then
 fi
 
 # install aimp media player
-echo "Installing AIMP media player..."
+echo "Installing AIMP Media Player..."
 AIMP_DIR="/tmp/aimp"
 aria2c --dir="$AIMP_DIR" --out="aimp.x86_64.rpm" --max-tries=3 --connect-timeout=30 "https://www.aimp.ru/?do=download.file&id=32"
 dnf5 install -y "$AIMP_DIR/aimp.x86_64.rpm"
