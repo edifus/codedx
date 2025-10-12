@@ -120,6 +120,7 @@ dnf5 install -y \
   vlc-plugin-pause-click \
   yq \
   yt-dlp \
+  yt-dlp-fish-completion \
   yt-dlp-zsh-completion \
   zsh
 
