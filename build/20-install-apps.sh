@@ -93,7 +93,7 @@ dnf5 install -y \
   openrazer-daemon \
   openrgb \
   pgrep \
-  plasma-x11-session \
+  plasma-workspace-x11 \
   podman-machine \
   podman-tui \
   podmansh \
