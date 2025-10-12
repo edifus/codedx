@@ -85,4 +85,5 @@ eval "$(starship init bash)"
 
 # Atuin
 export ATUIN_NOBIND="true"
+eval "$(atuin init bash)"
 bind -x '"\C-r": __atuin_history'
