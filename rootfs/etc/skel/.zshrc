@@ -173,12 +173,6 @@ alias gcam='git commit -a -m'
 alias gcad='git commit -a --amend'
 
 # +--------+
-# | COLORS |
-# +--------+
-
-eval "$(dircolors -b """$XDG_CONFIG_HOME"""/dircolors/nord.theme)"
-
-# +--------+
 # | PROMPT |
 # +--------+
 

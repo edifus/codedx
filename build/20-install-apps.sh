@@ -178,6 +178,19 @@ tar -xzf "$CLI_DIR/cursor-cli.tar.gz" -C "$CLI_DIR"
 install -m 0755 "$CLI_DIR/cursor" /usr/bin/cursor-cli
 rm -fr "$CLI_DIR"
 
+# install omnissa horizon client
+echo "Installing Omnissa Horizon Client..."
+HORIZON_VERSION="2506-8.16.0-16536624989"
+HORIZON_DIR="/tmp/horizon" ; mkdir -p "$HORIZON_DIR"
+aria2c --connect-timeout=30 \
+  --dir="$HORIZON_DIR" \
+  --max-tries=3 \
+  --out="Omnissa-Horizon-Client-$HORIZON_VERSION.x64.rpm" \
+    "https://download3.omnissa.com/software/CART26FQ2_LIN64_RPMPKG_2506/Omnissa-Horizon-Client-$HORIZON_VERSION.x64.rpm"
+dnf5 install -y "$HORIZON_DIR/Omnissa-Horizon-Client-$HORIZON_VERSION.x64.rpm"
+sed -i 's@Exec=@Exec=env GTK_THEME=breeze @' /usr/share/applications/horizon-client.desktop
+rm -fr "$HORIZON_DIR"
+
 # install mozilla firefox
 echo "Installing Mozilla Firefox..."
 FIREFOX_DIR="/tmp/firefox" ; mkdir -p "$FIREFOX_DIR"

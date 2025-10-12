@@ -62,7 +62,8 @@ configure-zsh-shell:
 
     # Setup Starship prompt
     echo "Setting up Starship 🚀🚀🚀 prompt..."
-    cp -f /etc/skel/.config/starship.toml "$HOME/.config/starship.toml"
+    mkdir -p "$HOME/.config/starship"
+    cp -f /etc/skel/.config/starship/starship.toml "$HOME/.config/starship/starship.toml"
 
     # Setup Zsh shell configuration
     echo "Setting up Zsh configuration..."
