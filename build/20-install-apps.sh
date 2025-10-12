@@ -68,6 +68,11 @@ dnf5 install -y \
   genisoimage \
   gh \
   ghostty \
+  ghostty-bash-completion \
+  ghostty-fish-completion \
+  ghostty-shell-integration \
+  ghostty-terminfo \
+  ghostty-zsh-completion \
   glab \
   gparted \
   grc \
