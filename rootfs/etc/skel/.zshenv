@@ -18,41 +18,6 @@ skip_global_compinit=1
 setopt noglobalrcs
 
 # +-----+
-# | XDG |
-# +-----+
-
-# Keep everything in $HOME/.config, only .zshenv needs to be in $HOME
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_CACHE_HOME="$HOME/.cache"
-export XDG_DATA_HOME="$HOME/.local/share"
-export XDG_STATE_HOME="$HOME/.local/state"
-
-export XDG_DESKTOP_DIR="$HOME/Desktop"
-export XDG_DOCUMENTS_DIR="$HOME/Documents"
-export XDG_DOWNLOAD_DIR="$HOME/Downloads"
-export XDG_MUSIC_DIR="$HOME/Music"
-export XDG_PICTURES_DIR="$HOME/Pictures"
-export XDG_PUBLICSHARE_DIR="$HOME/Public"
-export XDG_TEMPLATES_DIR="$HOME/.Templates"
-export XDG_VIDEOS_DIR="$HOME/Videos"
-
-# Populate bash completions, .desktop files, etc
-typeset -UT XDG_DATA_DIRS xdg_data_dirs
-if [ -z "${XDG_DATA_DIRS-}" ]; then
-    # According to XDG spec the default is /usr/local/share:/usr/share, don't set something that prevents that default
-    export XDG_DATA_DIRS="/usr/local/share:/usr/share:$HOME/.local/share:$HOME/.nix-profile/share:/nix/var/nix/profiles/default/share"
-else
-    export XDG_DATA_DIRS="$XDG_DATA_DIRS:$HOME/.local/share:$HOME/.nix-profile/share:/nix/var/nix/profiles/default/share"
-fi
-# Remove duplicate paths
-typeset -gU xdg_data_dirs
-# Remove non-existent paths
-xdg_data_dirs=($^xdg_data_dirs(N-/))
-export XDG_DATA_DIRS
-
-export SYSTEM=$(uname -s)
-
-# +-----+
 # | ZSH |
 # +-----+
 

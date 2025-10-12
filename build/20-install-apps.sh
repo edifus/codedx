@@ -270,6 +270,11 @@ flatpakInstall='/usr/share/ublue-os/bazzite/flatpak/install'
 [[ ${BASE_IMAGE_NAME} == 'kinoite' ]] && \
     sed -i '/org.mozilla.firefox/d' $flatpakInstall
 
+# apply gtk themes
+gsettings set org.gnome.desktop.interface cursor-theme "Qogir-dark"
+gsettings set org.gnome.desktop.interface gtk-theme "Breeze-Dark"
+gsettings set org.gnome.desktop.interface icon-theme "Qogir-dark"
+
 # remove zsh defaults
 rm -fv /etc/skel/{.zshrc,.zprofile}
 
