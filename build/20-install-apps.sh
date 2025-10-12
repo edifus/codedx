@@ -84,6 +84,7 @@ dnf5 install -y \
   klassy \
   ksystemlog \
   kvantum \
+  kwin-x11 \
   liquidctl \
   mpv \
   neovim \
@@ -92,6 +93,7 @@ dnf5 install -y \
   openrazer-daemon \
   openrgb \
   pgrep \
+  plasma-x11-session \
   podman-machine \
   podman-tui \
   podmansh \
