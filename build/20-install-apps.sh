@@ -106,8 +106,8 @@ dnf5 install -y \
   ShellCheck \
   starship \
   sysprof \
-  tealdeer \
   tiptop \
+  tldr \
   trash-cli \
   ublue-setup-services \
   ugrep \
