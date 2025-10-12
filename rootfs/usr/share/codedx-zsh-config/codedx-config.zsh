@@ -60,9 +60,10 @@ export PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 # Powerlevel 10k prompt theme
 source /usr/share/zsh/plugins/theme-powerlevel10k/powerlevel10k.zsh-theme
 
-# Fish-like syntax highlighting and autosuggestions
+# Fish-like syntax highlighting, autosuggestions, and completions
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh/plugins/zsh-completions/zsh-completions.plugin.zsh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

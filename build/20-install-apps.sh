@@ -169,6 +169,7 @@ echo "Installing ZSH plugins..."
 mkdir -p /usr/share/zsh/plugins
 git clone https://github.com/zsh-users/zsh-syntax-highlighting /usr/share/zsh/plugins/zsh-syntax-highlighting
 git clone https://github.com/zsh-users/zsh-autosuggestions /usr/share/zsh/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-completions /usr/share/zsh/plugins/zsh-completions
 git clone https://github.com/romkatv/powerlevel10k /usr/share/zsh/plugins/theme-powerlevel10k
 git clone https://github.com/ohmyzsh/ohmyzsh /usr/share/zsh/plugins/oh-my-zsh
 
