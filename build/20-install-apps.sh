@@ -55,8 +55,11 @@ dnf5 install -y \
   docker-ce \
   docker-ce-cli \
   docker-compose-plugin \
+  egrep\
   eza \
   fd-find \
+  fgrep \
+  fish \
   flatpak-builder \
   fuse-btfs \
   fuse-devel \
@@ -83,6 +86,7 @@ dnf5 install -y \
   numactl \
   openrazer-daemon \
   openrgb \
+  pgrep \
   podman-machine \
   podman-tui \
   podmansh \
@@ -98,7 +102,6 @@ dnf5 install -y \
   tealdeer \
   tiptop \
   trash-cli \
-  thefuck \
   ublue-setup-services \
   ugrep \
   usbmuxd \
@@ -113,10 +116,7 @@ dnf5 install -y \
   yq \
   yt-dlp \
   yt-dlp-zsh-completion \
-  zoxide \
-  zsh \
-  zsh-autosuggestions \
-  zsh-syntax-highlighting
+  zsh
 
 # disable repositories
 for copr in ublue-os/packages ublue-os/staging
@@ -149,12 +149,20 @@ if test ! -f "/etc/libvirt/hooks/qemu"; then
     fi
 fi
 
-# install aimp media player
-echo "Installing AIMP Media Player..."
-AIMP_DIR="/tmp/aimp"
-aria2c --dir="$AIMP_DIR" --out="aimp.x86_64.rpm" --max-tries=3 --connect-timeout=30 "https://www.aimp.ru/?do=download.file&id=32"
-dnf5 install -y "$AIMP_DIR/aimp.x86_64.rpm"
-rm -fr "$AIMP_DIR"
+# install qogir icon theme
+echo "Installing Qogir icon theme..."
+mkdir -p /usr/share/icons
+git clone https://github.com/vinceliuice/Qogir-icon-theme
+./Qogir-icon-theme/install.sh --dest /usr/share/icons
+rm -fr ./Qogir-icon-theme
+
+# install zsh plugins
+echo "Installing ZSH plugins..."
+mkdir -p /usr/share/zsh/plugins
+git clone https://github.com/zsh-users/zsh-syntax-highlighting /usr/share/zsh/plugins/zsh-syntax-highlighting
+git clone https://github.com/zsh-users/zsh-autosuggestions /usr/share/zsh/plugins/zsh-autosuggestions
+git clone https://github.com/romkatv/powerlevel10k /usr/share/zsh/plugins/theme-powerlevel10k
+git clone https://github.com/ohmyzsh/ohmyzsh /usr/share/zsh/plugins/oh-my-zsh
 
 # install cursor cli
 echo "Installing Cursor CLI..."

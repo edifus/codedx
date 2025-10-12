@@ -114,29 +114,8 @@ export MANWIDTH=80
 export MANPAGER="$PAGER"
 export READNULLCMD="$PAGER"
 
-#-------------------------------------
-# cap |  info   |  effect            |
-#-----|---------|--------------------|
-# md  |  bold   |  bold start        |
-# us  |  smul   |  underline start   |
-# ue  |  rmul   |  underline end     |
-# mb  |  blink  |  blink start       |
-# so  |  smso   |  standout start    |
-# se  |  rmso   |  standout end      |
-# me  |  sgr0   |  reset all         |
-#     |  invis  |  invisible start   |
-#     |  rev    |  reverse           |
-#     |  setaf  |  foreground color  |
-#     |  setab  |  background color  |
-
-export LESS_TERMCAP_mb=$'\E[01;31m'     # begin blinking
-export LESS_TERMCAP_md=$'\E[01;32m'     # begin bold
-export LESS_TERMCAP_me=$'\E[0m'         # end mode
-export LESS_TERMCAP_se=$'\E[0m'         # end standout-mode
-export LESS_TERMCAP_so=$'\E[01;30;44m'  # begin standout-mode - info box
-export LESS_TERMCAP_ue=$'\E[0m'         # end underline
-export LESS_TERMCAP_us=$'\E[04;33m'     # begin underline
-export GROFF_NO_SGR=1
+export LESS_TERMCAP_md="$(tput bold 2> /dev/null; tput setaf 2 2> /dev/null)"
+export LESS_TERMCAP_me="$(tput sgr0 2> /dev/null)"
 
 # +-------+
 # | PATHS |
