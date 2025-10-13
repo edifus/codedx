@@ -185,6 +185,8 @@ rm -fr ./Qogir-icon-theme
 
 # install zsh plugins
 echo "Installing ZSH plugins..."
+[[ -f /etc/skel/.zshrc ]] && rm -f /etc/skel/.zshrc
+[[ -f /etc/skel/.zshrc.rpmnew ]] && rm -f /etc/skel/.zshrc.rpmnew
 mkdir -p /usr/share/zsh/plugins
 git clone https://github.com/zsh-users/zsh-syntax-highlighting /usr/share/zsh/plugins/zsh-syntax-highlighting
 git clone https://github.com/zsh-users/zsh-autosuggestions /usr/share/zsh/plugins/zsh-autosuggestions

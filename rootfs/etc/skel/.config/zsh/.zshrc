@@ -1,35 +1,58 @@
 # vim:syntax=zsh
 # vim:filetype=zsh
 
+#                                %@@@@@@@@@@@%
+#                          @@@@@@#-----------*@@@@@
+#                     @@@@%%-----===========-=---=#%@@
+#                   @@@======---------------------====%@@
+#                 @@#====-----------------------------=-=#@@
+#              @@@%==-------------------------------**---==#@@
+#             @@#==------------------------------------**--=-@@
+#            @%==---------------------------------------***---#@@
+#          @@*==-----------------------------------------*-*-==-@@
+#         @@#==------------------------------------------**-*--==#@
+#        @@#==---------------------------------------------***--==#@
+#        @#-=----------------------------------------------*-**--=%@
+#       @#-==--#%*=----------=-%%*--------------------------*-**--=%@
+#       @--=----@@%-----------%@@---------------------------**-*--==@
+#      @*==------%%*#%%%%%%%#*%%----------------------------**-*--==@
+#     @@===------%%=+@@@@@@@+=%%--------------------------**-****-==@
+#  @@--%===------%%=+%-----%+=%%-----------------==#@%%%#@%#+-***-=-%@
+# @%=-*#==-------%%=+%-----%+=%%----------------#%%--====-*=#*-**--==@@
+# @%=-%-=--------*#@%------#@%*----------------#===------**-#*-*-*--==#@
+#  @@=%-==-------------------------------------=--------**=%#**-***-=-#@
+#   @@@-==--------------------------------------------**-=@#-**-**--==*%@
+#     @-=-------=-------=----------------------------**--@*--*-**-**-=--@
+#     @-==------%%#=-@@@@#=-%%----------------------**-#%----**-*-*--=--@@
+#     @#==----=-@%#==-###*==*%@------------------------#%----*-***-**--==@
+#      @===----@%###=#####*-##%@#------------------=*@#------*--*-**---==@
+#      @===----@%#############%@#-----------------%%#=-------***-**-*--==#@
+#      @===----@%#############%@#---------------------------**-**-*-**--=-@
+#      @@-==---@%#############%@#---------------------------*--**-**--*--=-@@
+#       @-==---@%#############%@#--------------------------***-**-***-**--==@@@
+#       @@#-=--@%--###%##%##*-%@#--------------------------***-**-****----=== @@@
+#        @%-==- @#-*%%%%%%%#-#@ *------------------------**--*--------====-*@@@
+#         @@-=-------------------------------------------**-*--===----#@@@@@
+#          @@-=-----------------------------------------*-***--==%@@@@%@
+#           @@#==--------------------------------------**-**-*---=-@@
+#             @@-==-----------------------------------**-**--***--==@@
+#              @@%*-=--------------------------------**-*****---=-=#-@@@
+#                @@@===---------------------------**-*-------===-@@@@
+#                  @@%%--====------------------*------=====-=%%@@
+#                    @@@@%--======-=--=----------=====----@@@@
+#                         @@@@@@@*---------------@@@@@@@@
+#                                @@@@@@@@@@@@@@@@@
+
 #
 # .zshrc is sourced in interactive shells.
 # It should contain commands to set up aliases,
 # functions, options, key bindings, etc.
 #
 
-# +----------+
-# | COMPINIT |
-# +----------+
+autoload -U compinit
+compinit
 
-# Should call complist before compinit
-zmodload zsh/complist
-
-# Load and initialize the completion system ignoring insecure directories with a
-# cache time of 20 hours, so it should almost always regenerate the first time a
-# shell is opened each day.
-autoload -Uz compinit
-_comp_path="$XDG_CACHE_HOME/prezto/zcompdump"
-
-#q expands globs in conditional expressions
-if [[ $_comp_path(#qNmh-20) ]]; then
-    compinit -C -d "$_comp_path"
-else
-    mkdir -p "$_comp_path:h"
-    compinit -i -d "$_comp_path"
-    touch "$_comp_path"
-fi
-unset _comp_path
-_comp_options+=(globdots) # With hidden files
+source /usr/share/codedx-zsh-config/codedx-config.zsh
 
 # +-------------+
 # | ZSH OPTIONS |
@@ -76,159 +99,81 @@ setopt HIST_VERIFY             # Do not execute immediately upon history expansi
 setopt INC_APPEND_HISTORY      # APPEND_HISTORY lines are added incrementally instead of at exit
 setopt SHARE_HISTORY           # Share history between all sessions
 
-# +-------------+
-# | ZSH PLUGINS |
-# +-------------+
-
-export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=60
-source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-#     _    _     ___    _    ____  _____ ____
-#    / \  | |   |_ _|  / \  / ___|| ____/ ___|
-#   / _ \ | |    | |  / _ \ \___ \|  _| \___ \
-#  / ___ \| |___ | | / ___ \ ___) | |___ ___) |
-# /_/   \_\_____|___/_/   \_\____/|_____|____/
-
-# +----------------+
-# | global aliases |
-# +----------------+
-
-alias -g G='| grep -'
-alias -g L='| less'
-alias -g H='| head'
-alias -g N='&>/dev/null'
-alias -g SL='| sort | less'
-alias -g S='| sort -u'
-alias -g T='| tail'
-alias -g W='| wc -l'
-
 # +---------+
 # | aliases |
 # +---------+
 
-# | xalias |
-xalias() {
-    local key val com
-    if (( ${#argv} == 0 )) ; then
-        printf 'xalias(): Missing argument.\n'
-        return 1
-    fi
-    if (( ${#argv} > 1 )) ; then
-        printf 'xalias(): Too many arguments %s\n' "${#argv}"
-        return 1
-    fi
+# eza - ls replacement
+alias ls='eza --long --header --group-directories-first --icons=auto'
+alias lsa='ls --all'
+alias lsm='lsa --sort=modified'
+alias lt='eza --tree --level=2 --long --icons --git'
+alias lta='lt --all'
+alias tree='eza --tree --git-ignore --icons --all'
+alias sl='ls'
 
-    key="${1%%\=*}"
-    val="${1#*\=}"
+alias curl='curl --compressed --proto-default https'
+alias ff='fzf --preview "bat --style=numbers --color=always {}"'
+alias grep='grep --binary-files=without-match --directories=skip --color=auto'
+alias egrep='egrep --color=auto'
+alias egrep='fgrep --color=auto'
+alias pgrep='pgrep -a'
+alias su='su - '
+alias top='btop'
+alias wget="wget --continue --show-progress --progress=bar:force:noscroll --hsts-file=$XDG_DATA_HOME/.wget-hsts"
 
-    words=(${(z)val})
-    cmd=${words[1]}
+# Build
+alias make="make -j$(nproc)"
+alias ninja="ninja -j$(nproc)"
 
-    [[ -n ${commands[$cmd]} ]] && alias -- "${key}=${val}"
-    return 0
-}
+# Compress / Extract
+alias mkbz2='tar -cvjf'
+alias mkgz='tar -cvzf'
+alias mktar='tar -cvf'
+alias unbz2='tar -xvjf'
+alias ungz='tar -xvzf'
+alias untar='tar -xvf'
 
-xalias cal='cal -m'
-xalias cp='cp --reflink=auto -iv'
-xalias ctl='sudo systemctl'
-xalias dd='dd status=progress'
-xalias df='df -Thx tmpfs -x devtmpfs'
-xalias diff='diff -Naur --strip-trailing-cr'
-xalias dig='q'
-xalias free='free -g'
-xalias fuser='fuser -v'
-xalias grep='grep --binary-files=without-match --directories=skip --color=auto'
-xalias mkbz2='tar -cvjf'
-xalias mkgz='tar -cvzf'
-xalias mktar='tar -cvf'
-xalias mv='mv -iv'
-xalias pgrep='pgrep -a'
-xalias reboot='systemctl reboot'
-xalias restart='systemctl reboot'
-xalias rm='trash -v'
-xalias sha1='openssl sha1'
-xalias sha256='openssl sha256'
-xalias sha384='openssl sha384'
-xalias sha512='openssl sha512'
-xalias shutdown='sudo shutdown now'
-xalias sl='ls'
-xalias su='su - '
-xalias top='htop'
-xalias unbz2='tar -xvjf'
-xalias ungz='tar -xvzf'
-xalias untar='tar -xvf'
+# Files / Folders
+alias df='df -Thx tmpfs -x devtmpfs'
+alias rm='trash -v'
+alias rmd='rm -rfv'
+alias sha1='openssl sha1'
+alias sha256='openssl sha256'
+alias sha384='openssl sha384'
+alias sha512='openssl sha512'
 
-# | eza, ls |
-if [[ -n ${commands[eza]} ]]; then
-    export _ezaparams='--git --icons=auto --classify --group --group-directories-first --time-style=long-iso'
-    alias ls='eza ${=_ezaparams}'
-    alias ll='eza --all --header --long ${=_ezaparams}'
-    alias llm='eza --all --header --long --sort=modified ${=_ezaparams}'
-    alias lt='eza --tree ${=_ezaparams}'
-    alias l='eza --git-ignore ${=_ezaparams}'
-    alias tree='eza --all --git-ignore --tree ${=_ezaparams}'
-else
-    xalias ls='ls --color=auto --classify --human-readable'
-fi
+alias cp='cp --reflink=auto -iv'
+alias dd='dd status=progress'
+alias fuser='fuser -v'
+alias mkdir='mkdir -p'
+alias mv='mv -iv'
 
-#  ____ ___ _   _ ____ ___ _   _  ____ ____
-# | __ )_ _| \ | |  _ \_ _| \ | |/ ___/ ___|
-# |  _ \| ||  \| | | | | ||  \| | |  _\___ \
-# | |_) | || |\  | |_| | || |\  | |_| |___) |
-# |____/___|_| \_|____/___|_| \_|\____|____/
+# Systemd
+alias ctl='sudo systemctl'
+alias jctl='journalctl -p 3 -xb'
+alias reboot='ctl reboot'
+alias restart='ctl reboot'
+alias shutdown='ctl poweroff'
 
-# +------------------------------------+
-# | Using terminfo in Application Mode |
-# +------------------------------------+
+# Directories
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias ......='cd ../../../../..'
 
-typeset -g -A key
+# Tools
+alias d='docker'
+alias hw='hwinfo --short'
+alias r='rails'
+alias vim='nvim'
 
-key[Backspace]="${terminfo[kbs]}"
-key[Control-Left]="${terminfo[kLFT5]}"
-key[Control-Right]="${terminfo[kRIT5]}"
-key[Delete]="${terminfo[kdch1]}"
-key[Down]="${terminfo[kcud1]}"
-key[End]="${terminfo[kend]}"
-key[Home]="${terminfo[khome]}"
-key[Insert]="${terminfo[kich1]}"
-key[Left]="${terminfo[kcub1]}"
-key[PageDown]="${terminfo[knp]}"
-key[PageUp]="${terminfo[kpp]}"
-key[Right]="${terminfo[kcuf1]}"
-key[Shift-Tab]="${terminfo[kcbt]}"
-key[Up]="${terminfo[kcuu1]}"
-
-[[ -n "${key[Backspace]}"     ]] && bindkey -- "${key[Backspace]}"     backward-delete-char
-[[ -n "${key[Control-Left]}"  ]] && bindkey -- "${key[Control-Left]}"  backward-word
-[[ -n "${key[Control-Right]}" ]] && bindkey -- "${key[Control-Right]}" forward-word
-[[ -n "${key[Delete]}"        ]] && bindkey -- "${key[Delete]}"        delete-char
-[[ -n "${key[Down]}"          ]] && bindkey -- "${key[Down]}"          down-line-or-history
-[[ -n "${key[End]}"           ]] && bindkey -- "${key[End]}"           end-of-line
-[[ -n "${key[Home]}"          ]] && bindkey -- "${key[Home]}"          beginning-of-line
-[[ -n "${key[Insert]}"        ]] && bindkey -- "${key[Insert]}"        overwrite-mode
-[[ -n "${key[Left]}"          ]] && bindkey -- "${key[Left]}"          backward-char
-[[ -n "${key[PageDown]}"      ]] && bindkey -- "${key[PageDown]}"      end-of-buffer-or-history
-[[ -n "${key[PageUp]}"        ]] && bindkey -- "${key[PageUp]}"        beginning-of-buffer-or-history
-[[ -n "${key[Right]}"         ]] && bindkey -- "${key[Right]}"         forward-char
-[[ -n "${key[Shift-Tab]}"     ]] && bindkey -- "${key[Shift-Tab]}"     reverse-menu-complete
-[[ -n "${key[Up]}"            ]] && bindkey -- "${key[Up]}"            up-line-or-history
-
-# Finally, make sure the terminal is in application mode, when zle is active. Only then are the values from $terminfo valid.
-# Downside: when a CLI / TUI doesn't use application mode, some keys won't work.
-if (( ${+terminfo[smkx]} && ${+terminfo[rmkx]} )); then
-    autoload -Uz add-zle-hook-widget
-    function zle_application_mode_start { echoti smkx }
-    function zle_application_mode_stop { echoti rmkx }
-    add-zle-hook-widget -Uz zle-line-init zle_application_mode_start
-    add-zle-hook-widget -Uz zle-line-finish zle_application_mode_stop
-fi
-
-# +--------+
-# | COLORS |
-# +--------+
-
-eval "$(dircolors -b """$XDG_CONFIG_HOME"""/dircolors/nord.theme)"
+# Git
+alias g='git'
+alias gcm='git commit -m'
+alias gcam='git commit -a -m'
+alias gcad='git commit -a --amend'
 
 # +--------+
 # | PROMPT |
@@ -251,14 +196,10 @@ if [[ -o interactive ]]; then
     bindkey '^[[A' _atuin_up_search_widget
     bindkey '^[OA' _atuin_up_search_widget
     # | grc colorizer |
-    source /home/linuxbrew/.linuxbrew/etc/grc.zsh 2> /dev/null
+    source /etc/grc.zsh 2> /dev/null
     # | starship prompt |
-    export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
-    eval "$(starship init zsh)"
-    # | thefuck alias |
-    eval "$(thefuck --alias)"
-    # | zoxide |
-    eval "$(zoxide init zsh)"
+    # export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
+    # eval "$(starship init zsh)"
 fi
 
 # +--------------+
@@ -283,9 +224,6 @@ export PATH
 
 # | disable core dumps |
 ulimit -S -c 0
-
-# | turn off control character echoing |
-stty -ctlecho
 
 # | set tab width of 2 on TTY |
 if [[ $TERM = linux ]]; then setterm -regtabs 2; fi
