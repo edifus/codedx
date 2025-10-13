@@ -129,6 +129,9 @@ if [[ ${BASE_IMAGE_NAME} == 'kinoite' ]]; then
       kwin-x11 \
       plasma-workspace-x11 \
       polkit-qt6-1 \
+      qt6-designer \
+      qt6-linguist \
+      qt6-qdbusviewer \
       qt6-qtbase \
       qt6-qttools
 
