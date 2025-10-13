@@ -126,8 +126,6 @@ dnf5 install -y \
 
 if [[ ${BASE_IMAGE_NAME} == 'kinoite' ]]; then
     dnf5 install -y --setopt=install_weak_deps=True \
-      kwin-x11 \
-      plasma-workspace-x11 \
       polkit-qt6-1 \
       qt6-qtbase \
       qt6-qttools \
