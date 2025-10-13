@@ -24,7 +24,7 @@ bold-color = bright
 cursor-style = "bar"
 cursor-style-blink = false
 link-url = true
-theme = "light:One Half Light,dark:One Half Dark"
+theme = "Nord Wave"
 
 # shell
 initial-command = /usr/bin/fish

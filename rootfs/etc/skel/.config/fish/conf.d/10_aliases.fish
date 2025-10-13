@@ -10,14 +10,24 @@ alias lta='lt --all'
 alias tree='eza --tree --git-ignore --icons --all'
 alias sl='ls'
 
-alias curl='command curl --compressed --proto-default https'
 alias ff='fzf --preview "bat --style=numbers --color=always {}"'
-alias grep='grep --binary-files=without-match --directories=skip --color=auto'
-alias egrep='egrep --color=auto'
-alias egrep='fgrep --color=auto'
-alias pgrep='pgrep -a'
-alias su='command su - '
 alias top='btop'
+function grep
+    # alias grep='grep --binary-files=without-match --directories=skip --color=auto'
+    command grep --binary-files=without-match --directories=skip --color=auto $argv
+end
+function egrep
+    # alias egrep='egrep --color=auto'
+    command egrep --color=auto $argv
+end
+function fgrep
+    # alias fgrep='fgrep --color=auto'
+    command fgrep --color=auto $argv
+end
+function pgrep
+    # alias pgrep='pgrep -a'
+    command pgrep -a $argv
+end
 function wget
     # alias wget="command wget --continue --show-progress --progress=bar:force:noscroll --hsts-file=$XDG_DATA_HOME/.wget-hsts"
     command wget --continue --show-progress --progress=bar:force:noscroll --hsts-file=$XDG_DATA_HOME/.wget-hsts $argv
@@ -70,14 +80,6 @@ function mv
     # alias mv='command mv -iv'
     command mv -iv $argv
 end
-
-# Pacman / AUR
-alias cleanch='sudo pacman -Scc'
-alias cleanup="sudo pacman -Rsn $(pacman -Qtdq)"
-alias fixpacman='sudo rm /var/lib/pacman/db.lck'
-alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
-alias rmpkg='sudo pacman -Rsn'
-alias update='sudo pacman -Syu'
 
 # Systemd
 alias ctl='sudo systemctl'

@@ -75,10 +75,6 @@ if [ -d "$XDG_CONFIG_HOME/bashrc.d" ]; then
 fi
 unset rc
 
-
-# Shell color (Nord theme)
-eval "$(dircolors -b """$XDG_CONFIG_HOME"""/dircolors/nord.theme)"
-
 # Starship and The Fuck
 export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
 eval "$(starship init bash)"
