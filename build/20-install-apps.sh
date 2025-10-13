@@ -139,6 +139,9 @@ if [[ ${BASE_IMAGE_NAME} == 'kinoite' ]]; then
     pushd ./scx-manager
     ./configure.sh --prefix=/usr
     ./build.sh
+    mv ./build/RelWithDebInfo/libscxctl-ui.so ./build/RelWithDebInfo/libscxctl-ui.so.1 ./build/RelWithDebInfo/libscxctl-ui.so.1.15.5 /usr/lib/
+    mv ./build/RelWithDebInfo/scx-manager /usr/bin/
+    sed -i 's/Hidden=true/Hidden=false/' /usr/share/applications/org.cachyos.scx-manager.desktop
     popd && rm -fr ./scx-manager
 fi
 
