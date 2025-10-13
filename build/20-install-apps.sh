@@ -124,10 +124,22 @@ dnf5 install -y \
   yt-dlp-zsh-completion \
   zsh
 
-[[ ${BASE_IMAGE_NAME} == 'kinoite' ]] && \
+if [[ ${BASE_IMAGE_NAME} == 'kinoite' ]]; then
     dnf5 install -y \
       kwin-x11 \
-      plasma-workspace-x11
+      plasma-workspace-x11 \
+      polkit-qt6-1 \
+      qt6-qt-base \
+      qt6-qttools
+
+    # build and install cachyos scx-manager
+    echo "Installing CachyOS scx-manager..."
+    git clone https://github.com/CachyOS/scx-manager
+    pushd ./scx-manager
+    ./configure --prefix=/usr
+    ./build.sh
+    popd && rm -fr ./scx-manager
+fi
 
 # disable repositories
 for copr in ublue-os/packages ublue-os/staging
