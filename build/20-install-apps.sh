@@ -126,10 +126,12 @@ dnf5 install -y \
 
 if [[ ${BASE_IMAGE_NAME} == 'kinoite' ]]; then
     dnf5 install -y --setopt=install_weak_deps=True \
+      cargo \
       polkit-qt6-1 \
       qt6-qtbase \
       qt6-qttools \
-      qt6-qttools-devel
+      qt6-qttools-devel \
+      rust
 
     # build and install cachyos scx-manager
     echo "Installing CachyOS scx-manager..."
