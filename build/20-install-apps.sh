@@ -84,7 +84,6 @@ dnf5 install -y \
   klassy \
   ksystemlog \
   kvantum \
-  kwin-x11 \
   liquidctl \
   mpv \
   neovim \
@@ -93,7 +92,6 @@ dnf5 install -y \
   openrazer-daemon \
   openrgb \
   pgrep \
-  plasma-workspace-x11 \
   podman-machine \
   podman-tui \
   podmansh \
@@ -125,6 +123,11 @@ dnf5 install -y \
   yt-dlp-fish-completion \
   yt-dlp-zsh-completion \
   zsh
+
+[[ ${BASE_IMAGE_NAME} == 'kinoite' ]] && \
+    dnf5 install -y \
+      kwin-x11 \
+      plasma-workspace-x11
 
 # disable repositories
 for copr in ublue-os/packages ublue-os/staging
