@@ -136,7 +136,7 @@ if [[ ${BASE_IMAGE_NAME} == 'kinoite' ]]; then
     echo "Installing CachyOS scx-manager..."
     git clone https://github.com/CachyOS/scx-manager
     pushd ./scx-manager
-    ./configure --prefix=/usr
+    ./configure.sh --prefix=/usr
     ./build.sh
     popd && rm -fr ./scx-manager
 fi
