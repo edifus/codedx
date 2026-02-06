@@ -25,8 +25,6 @@ dnf5 -y config-manager setopt terra.enabled=true
 
 dnf5 config-manager addrepo --from-repofile="https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo"
 dnf5 config-manager addrepo --from-repofile="https://download.docker.com/linux/fedora/docker-ce.repo"
-# klassy repo
-dnf5 config-manager addrepo --from-repofile="https://download.opensuse.org/repositories/home:paul4us/Fedora_43/home:paul4us.repo"
 
 # install packages
 dnf5 install -y \
@@ -80,7 +78,6 @@ dnf5 install -y \
   htop \
   inxi \
   kgpg \
-  klassy \
   ksystemlog \
   kvantum \
   liquidctl \
@@ -88,7 +85,6 @@ dnf5 install -y \
   neovim \
   nicstat \
   numactl \
-  openrazer-daemon \
   openrgb \
   pgrep \
   podman-machine \
