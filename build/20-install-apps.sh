@@ -148,8 +148,6 @@ done && unset -v copr
 dnf5 -y config-manager setopt "*fedora-multimedia*".enabled=0
 dnf5 -y config-manager setopt brave-browser.enabled=0
 dnf5 -y config-manager setopt docker-ce-stable.enabled=0
-dnf5 -y config-manager setopt hardware_razer.enabled=0
-dnf5 -y config-manager setopt home_paul4us.enabled=0
 dnf5 -y config-manager setopt terra.enabled=0
 dnf5 -y config-manager setopt vscode.enabled=0
 
