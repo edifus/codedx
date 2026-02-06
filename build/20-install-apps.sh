@@ -22,11 +22,11 @@ done && unset -v copr
 
 dnf5 -y config-manager setopt "*fedora-multimedia*".enabled=true
 dnf5 -y config-manager setopt terra.enabled=true
+
 dnf5 config-manager addrepo --from-repofile="https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo"
 dnf5 config-manager addrepo --from-repofile="https://download.docker.com/linux/fedora/docker-ce.repo"
 # klassy repo
-dnf5 config-manager addrepo --from-repofile="https://download.opensuse.org/repositories/home:paul4us/Fedora_42/home:paul4us.repo"
-dnf5 config-manager addrepo --from-repofile="https://openrazer.github.io/hardware:razer.repo"
+dnf5 config-manager addrepo --from-repofile="https://download.opensuse.org/repositories/home:paul4us/Fedora_43/home:paul4us.repo"
 
 # install packages
 dnf5 install -y \
@@ -34,8 +34,7 @@ dnf5 install -y \
   aria2 \
   atuin \
   audacious \
-  audacious-plugins-freeworld \
-  audacity-freeworld \
+  audacious-plugins \
   aurora-backgrounds \
   bat \
   bcc \
