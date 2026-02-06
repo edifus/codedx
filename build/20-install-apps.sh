@@ -208,9 +208,7 @@ aria2c --connect-timeout=30 \
   --max-tries=3 \
   --out="horizon-client.tar.gz" \
     "https://download3.omnissa.com/software/${_CART}/Omnissa-Horizon-Client-Linux-${PKGVER}-${_BUILD1}-${_BUILD2}.tar.gz"
-tar -xzf "$HORIZON_DIR/horizon-client.tar.gz" -C "$HORIZON_DIR" --strip-components=1
-# Extract the main client component directly to the filesystem
-tar -xzf "$HORIZON_DIR"/Omnissa-Horizon-Client-x86_64-*.tar.gz -C /
+tar -xzf "$HORIZON_DIR/horizon-client.tar.gz" -C / --strip-components=1
 sed -i 's@Exec=@Exec=env GTK_THEME=breeze @' /usr/share/applications/horizon-client.desktop
 rm -fr "$HORIZON_DIR"
 
