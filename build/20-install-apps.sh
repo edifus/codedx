@@ -198,14 +198,19 @@ rm -fr "$CLI_DIR"
 
 # install omnissa horizon client
 echo "Installing Omnissa Horizon Client..."
-HORIZON_VERSION="2506-8.16.0-16536624989"
+PKGVER=2512
+_BUILD1=8.17.0
+_BUILD2=20187591429
+_CART="CART26FQ4_LIN_${PKGVER}_TARBALL"
 HORIZON_DIR="/tmp/horizon" ; mkdir -p "$HORIZON_DIR"
 aria2c --connect-timeout=30 \
   --dir="$HORIZON_DIR" \
   --max-tries=3 \
-  --out="Omnissa-Horizon-Client-$HORIZON_VERSION.x64.rpm" \
-    "https://download3.omnissa.com/software/CART26FQ2_LIN64_RPMPKG_2506/Omnissa-Horizon-Client-$HORIZON_VERSION.x64.rpm"
-dnf5 install -y "$HORIZON_DIR/Omnissa-Horizon-Client-$HORIZON_VERSION.x64.rpm"
+  --out="horizon-client.tar.gz" \
+    "https://download3.omnissa.com/software/${_CART}/Omnissa-Horizon-Client-Linux-${PKGVER}-${_BUILD1}-${_BUILD2}.tar.gz"
+tar -xzf "$HORIZON_DIR/horizon-client.tar.gz" -C "$HORIZON_DIR" --strip-components=1
+# Extract the main client component directly to the filesystem
+tar -xzf "$HORIZON_DIR"/Omnissa-Horizon-Client-x86_64-*.tar.gz -C /
 sed -i 's@Exec=@Exec=env GTK_THEME=breeze @' /usr/share/applications/horizon-client.desktop
 rm -fr "$HORIZON_DIR"
 
