@@ -198,9 +198,10 @@ rm -fr "$CLI_DIR"
 # install omnissa horizon client
 echo "Installing Omnissa Horizon Client..."
 PKGVER=2512
-_BUILD1=8.17.0
-_BUILD2=20187591429
-_CART="CART26FQ4_LIN_${PKGVER}_TARBALL"
+CARTVER="${PKGVER}.1"
+_BUILD1=8.17.1
+_BUILD2=22261155021
+_CART="CART26FQ4_LIN_${CARTVER}_TARBALL"
 HORIZON_DIR="/tmp/horizon" ; mkdir -p "$HORIZON_DIR"
 aria2c --connect-timeout=30 \
   --dir="$HORIZON_DIR" \
