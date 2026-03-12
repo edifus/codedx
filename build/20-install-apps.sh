@@ -33,7 +33,6 @@ dnf5 install -y \
   atuin \
   audacious \
   audacious-plugins \
-  aurora-backgrounds \
   bat \
   bcc \
   bchunk \
