@@ -242,37 +242,37 @@ unzip "$OPENRGB_DIR/openrgb-effects-plugin.zip" -d /etc/skel/.config/OpenRGB/plu
 rm -fr "$OPENRGB_DIR"
 
 # install veracrypt
-echo "Installing VeraCrypt..."
-VERACRYPT_DIR="/tmp/veracrypt"
-aria2c \
-  --connect-timeout=30 \
-  --dir="$VERACRYPT_DIR" \
-  --max-tries=3 \
-  --out="VeraCrypt_PGP_public_key.asc" \
-    "https://amcrypto.jp/VeraCrypt/VeraCrypt_PGP_public_key.asc"
-aria2c \
-  --connect-timeout=30 \
-  --dir="$VERACRYPT_DIR" \
-  --max-tries=3 \
-  --out="veracrypt-1.26.24-Fedora-40-x86_64.rpm" \
-    "https://launchpad.net/veracrypt/trunk/1.26.24/+download/veracrypt-1.26.24-Fedora-40-x86_64.rpm"
-aria2c \
-  --connect-timeout=30 \
-  --dir="$VERACRYPT_DIR" \
-  --max-tries=3 \
-  --out="veracrypt-1.26.24-Fedora-40-x86_64.rpm.sig" \
-    "https://launchpad.net/veracrypt/trunk/1.26.24/+download/veracrypt-1.26.24-Fedora-40-x86_64.rpm.sig"
-gpg --import "$VERACRYPT_DIR/VeraCrypt_PGP_public_key.asc"
-VC_FINGERPRINT="5069A233D55A0EEB174A5FC3821ACD02680D16DE"
-VALIDSIG="$(gpg --status-fd 1 --verify """$VERACRYPT_DIR/veracrypt-1.26.24-Fedora-40-x86_64.rpm.sig""" """$VERACRYPT_DIR/veracrypt-1.26.24-Fedora-40-x86_64.rpm""" 2>/dev/null | grep VALIDSIG)"
-if [[ "$VALIDSIG" =~ $VC_FINGERPRINT ]]; then
-    rpm --import "$VERACRYPT_DIR/VeraCrypt_PGP_public_key.asc"
-    dnf5 install -y "$VERACRYPT_DIR/veracrypt-1.26.24-Fedora-40-x86_64.rpm"
-else
-    echo "Invalid VeraCrypt RPM signature..."
-    exit 1
-fi
-rm -fr "$VERACRYPT_DIR"
+#echo "Installing VeraCrypt..."
+#VERACRYPT_DIR="/tmp/veracrypt"
+#aria2c \
+#  --connect-timeout=30 \
+#  --dir="$VERACRYPT_DIR" \
+#  --max-tries=3 \
+#  --out="VeraCrypt_PGP_public_key.asc" \
+#    "https://amcrypto.jp/VeraCrypt/VeraCrypt_PGP_public_key.asc"
+#aria2c \
+#  --connect-timeout=30 \
+#  --dir="$VERACRYPT_DIR" \
+#  --max-tries=3 \
+#  --out="veracrypt-1.26.24-Fedora-40-x86_64.rpm" \
+#    "https://launchpad.net/veracrypt/trunk/1.26.24/+download/veracrypt-1.26.24-Fedora-40-x86_64.rpm"
+#aria2c \
+#  --connect-timeout=30 \
+#  --dir="$VERACRYPT_DIR" \
+#  --max-tries=3 \
+#  --out="veracrypt-1.26.24-Fedora-40-x86_64.rpm.sig" \
+#    "https://launchpad.net/veracrypt/trunk/1.26.24/+download/veracrypt-1.26.24-Fedora-40-x86_64.rpm.sig"
+#gpg --import "$VERACRYPT_DIR/VeraCrypt_PGP_public_key.asc"
+#VC_FINGERPRINT="5069A233D55A0EEB174A5FC3821ACD02680D16DE"
+#VALIDSIG="$(gpg --status-fd 1 --verify """$VERACRYPT_DIR/veracrypt-1.26.24-Fedora-40-x86_64.rpm.sig""" """$VERACRYPT_DIR/veracrypt-1.26.24-Fedora-40-x86_64.rpm""" 2>/dev/null | grep VALIDSIG)"
+#if [[ "$VALIDSIG" =~ $VC_FINGERPRINT ]]; then
+#    rpm --import "$VERACRYPT_DIR/VeraCrypt_PGP_public_key.asc"
+#    dnf5 install -y "$VERACRYPT_DIR/veracrypt-1.26.24-Fedora-40-x86_64.rpm"
+#else
+#    echo "Invalid VeraCrypt RPM signature..."
+#    exit 1
+#fi
+#rm -fr "$VERACRYPT_DIR"
 
 # hide incompatible Bazzite just recipes
 for recipe in "install-coolercontrol" "install-openrazer" "install-openrgb"; do
